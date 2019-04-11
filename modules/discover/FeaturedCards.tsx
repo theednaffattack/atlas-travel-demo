@@ -74,7 +74,7 @@ export const FeaturedCards = ({ localContext }: any) => {
             </Text>
           </Box>
           <Box ml="auto">
-            <MoreIcon height="16px" />
+            <MoreIcon height="14px" />
           </Box>
         </ContentFlex>
         <ContentFlex alignItems="center">
