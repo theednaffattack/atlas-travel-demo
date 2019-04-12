@@ -115,6 +115,7 @@ export default () => {
                           href="terrms_and_conditions"
                           name="Terms & stuff"
                           shade="dark"
+                          underline={true}
                         />
                       </Text>
                     </ContentFlex>

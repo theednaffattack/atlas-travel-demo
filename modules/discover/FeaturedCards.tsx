@@ -11,6 +11,7 @@ import {
 } from "styled-system";
 
 import WeatherSunnyIconBase from "../../static/images/discover/weather_sunny.svg";
+import CloudyIconBase from "../../static/images/discover/cloudy.svg";
 import LoveIconBase from "../../static/images/discover/love.svg";
 import CommentIconBase from "../../static/images/discover/comment.svg";
 import MoreIconBase from "../../static/images/discover/more.svg";
@@ -22,6 +23,13 @@ ${height}
 ${width}
 ${space}
 `;
+
+const CloudyIcon = styled(CloudyIconBase)`
+${height}
+${width}
+${space}
+`;
+
 const LoveIcon = styled(LoveIconBase)`
 ${height}
 ${width}
@@ -51,13 +59,14 @@ const Card = styled(CardBase)`
 
 export const FeaturedCards = ({ localContext }: any) => {
   return cardInfo.map(info => (
-    <Box width={256}>
+    <Box key={Math.random()} width={256}>
       <Card
         borderRadius="card"
         boxShadow="special"
         bg="#eeeeee"
         color="text"
         p={3}
+        mx={4}
         width={1 / 5}
         minWidth="200px"
       >

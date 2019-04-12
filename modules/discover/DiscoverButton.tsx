@@ -24,7 +24,7 @@ export const DiscoverButton = (props: any) => {
       ml="auto"
       // height="25px"
     >
-      <Text color="#e9486d" fontFamily="sans">
+      <Text color="#e9486d" fontWeight="200" fontFamily="sans">
         See all >
       </Text>
     </Button>

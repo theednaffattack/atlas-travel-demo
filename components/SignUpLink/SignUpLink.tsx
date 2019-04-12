@@ -28,7 +28,7 @@ export const SignUpLink = ({ maxWidth }) => {
       </Text>
       &nbsp; &nbsp;
       <Text fontFamily="montserrat" color="rgba(255,255,255,.8)">
-        <MyLink href="register" name="Sign Up" />
+        <MyLink underline={true} href="register" name="Sign Up" />
       </Text>
     </Flex>
   );

@@ -61,7 +61,9 @@ export const Button = (props: Props) => {
       onClick={onClick}
       boxShadow="0px 10px 27px 0px rgba(0, 0, 0, 0.1)"
     >
-      <Text fontFamily="montserrat">{label ? label : children}</Text>
+      <Text fontWeight="200" fontFamily="sans">
+        {label ? label : children}
+      </Text>
     </StyledButton>
   );
 };

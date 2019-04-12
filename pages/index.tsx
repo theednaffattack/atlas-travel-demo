@@ -1,7 +1,8 @@
 // import Link from "next/link";
 import * as React from "react";
-import { Box, Flex as FlexBase, Text } from "rebass";
+import { Box, Button as ButtonBase, Flex as FlexBase, Text } from "rebass";
 import styled from "styled-components";
+import Link from "next/link";
 import {
   height,
   minHeight,
@@ -11,12 +12,15 @@ import {
   borderRadius
 } from "styled-system";
 
-import { Button } from "../components/Button/Button";
+// import { Button } from "../components/Button/Button";
 import Layout from "../components/Layout";
-import { LoginComponent } from "../generated/apolloComponents";
 
 import CatBase from "../static/images/blissful2.svg";
 import LogoBase from "../static/images/logoX.svg";
+
+const Button = styled(ButtonBase)`
+  ${boxShadow}
+`;
 
 const Cat = styled(CatBase)`
   ${space}
@@ -75,7 +79,9 @@ const ContentFlex = styled(FlexBase)`
 //   }
 // `;
 
-const IndexPage: React.FunctionComponent = () => {
+const IndexPage: React.FunctionComponent = props => {
+  console.log("index page props");
+  console.log(props);
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       {/* <Card
@@ -129,37 +135,29 @@ const IndexPage: React.FunctionComponent = () => {
               />
             </Box>
 
-            <LoginComponent>
-              {mutate => (
-                <Button
-                  shadow="0px 13px 27px 0px rgba(0, 0, 0, 0.1)"
-                  bg="rgb(238, 238, 238)"
-                  onClick={async () => {
-                    const response = await mutate({
-                      variables: {
-                        email: "test@test.com",
-                        password: "password"
-                      }
-                    });
-
-                    console.log(response);
-                  }}
+            <Link href="/login">
+              <Button
+                boxShadow="0px 13px 27px 0px rgba(0, 0, 0, 0.15)"
+                width="18em"
+                borderRadius="27px"
+                bg="#eee"
+              >
+                <Text
+                  letterSpacing="0.2em"
+                  fontSize="1em"
+                  fontFamily="sans"
+                  fontWeight="600"
+                  color="#e9486d"
                 >
-                  <Text
-                    letterSpacing="0.2em"
-                    fontSize="0.9em"
-                    fontFamily="Montserrat, sans-serif"
-                    color="#e9486d"
-                  >
-                    Login
-                  </Text>
-                </Button>
-              )}
-            </LoginComponent>
+                  Login
+                </Text>
+              </Button>
+            </Link>
 
             <FlexBase
               justifyContent="center"
-              width="250px"
+              alignItems="center"
+              width="20em"
               // style={{ border: "1px solid white" }}
               py={3}
             >
@@ -167,15 +165,16 @@ const IndexPage: React.FunctionComponent = () => {
                 <hr
                   style={{
                     border: "1px solid white",
-                    opacity: "0.3"
+                    opacity: "0.2"
                   }}
                 />
               </Box>
               <Box px={3}>
                 <Text
-                  fontFamily="Montserrat, sans-serif"
+                  fontFamily="sans"
+                  fontWeight="200"
                   letterSpacing="0.2em"
-                  fontSize="0.9em"
+                  fontSize="0.7em"
                   color="#fff"
                 >
                   OR
@@ -185,22 +184,24 @@ const IndexPage: React.FunctionComponent = () => {
                 <hr
                   style={{
                     border: "1px solid white",
-                    opacity: "0.3"
+                    opacity: "0.2"
                   }}
                 />
               </Box>
             </FlexBase>
 
-            <Button bg="transparent">
-              <Text
-                fontSize="0.75em"
-                letterSpacing="0.1em"
-                fontFamily="Montserrat, sans-serif"
-              >
-                Create an account
-              </Text>
-            </Button>
-
+            <Link href="/register">
+              <Button width="18em" borderRadius="27px" variant="outline">
+                <Text
+                  fontSize="0.75em"
+                  fontWeight="200"
+                  letterSpacing="0.1em"
+                  fontFamily="sans"
+                >
+                  Create an account
+                </Text>
+              </Button>
+            </Link>
             {/* <img src="/static/bg.png" /> */}
           </ContentFlex>
         </InnerFlex>

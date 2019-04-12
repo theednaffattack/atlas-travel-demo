@@ -145,6 +145,9 @@ const ContentNav = styled(FlexBase)`
 `;
 
 export class NavBarTop extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <NavBar
@@ -164,8 +167,18 @@ export class NavBarTop extends Component {
         >
           <ContentFlex width="200px">
             <ContentFlex alignItems="center" width={1 / 2}>
-              <Menu mr="16px" height="1.5em" width="1.5em" />
-              <Text mt={-2} color={fadedText} fontFamily="montserrat">
+              <Menu
+                onClick={this.props.menuToggle}
+                mr="16px"
+                height="1.5em"
+                width="1.5em"
+              />
+              <Text
+                onClick={this.props.menuToggle}
+                mt={-2}
+                color={fadedText}
+                fontFamily="montserrat"
+              >
                 Menu
               </Text>
             </ContentFlex>
@@ -185,7 +198,7 @@ export class NavBarTop extends Component {
             >
               <TravelIcon mb={2} height="40px" />
               <Text fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="" name="Traveling" />
+                <NavLink href="/traveling" name="Traveling" />
               </Text>
             </ContentNav>
             <ContentNav
@@ -196,7 +209,7 @@ export class NavBarTop extends Component {
             >
               <ExploreIcon mb={2} height="40px" />
               <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="" name="Explore" fill={fadedText} />
+                <NavLink href="/explore" name="Explore" fill={fadedText} />
               </Text>
             </ContentNav>
             <ContentNav
@@ -207,7 +220,7 @@ export class NavBarTop extends Component {
             >
               <SavedIcon mb={2} height="40px" />
               <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="" name="Saved" fill={fadedText} />
+                <NavLink href="/saved" name="Saved" fill={fadedText} />
               </Text>
             </ContentNav>
             <ContentNav
@@ -218,7 +231,7 @@ export class NavBarTop extends Component {
             >
               <ChatIcon mb={2} height="40px" />
               <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="" name="Chat" fill={fadedText} />
+                <NavLink href="/chat" name="Chat" fill={fadedText} />
               </Text>
             </ContentNav>
             <ContentNav
@@ -229,7 +242,7 @@ export class NavBarTop extends Component {
             >
               <ProfileIcon mb={2} height="40px" />
               <Text fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="" name="Profile" fill={fadedText} />
+                <NavLink href="/profile" name="Profile" fill={fadedText} />
               </Text>
             </ContentNav>
           </ContentFlex>

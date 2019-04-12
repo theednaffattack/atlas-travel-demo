@@ -84,7 +84,12 @@ export default () => {
               boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
             >
               <ContentFlex mt={3} mb={4} justifyContent="center">
-                <Heading color="text" fontSize={[5]} fontFamily="montserrat">
+                <Heading
+                  color="text"
+                  fontSize={[5]}
+                  fontWeight="200"
+                  fontFamily="sans"
+                >
                   Sign in
                 </Heading>
               </ContentFlex>
@@ -194,7 +199,9 @@ export default () => {
                             boxShadow="0px 10px 27px 0px rgba(0, 0, 0, 0.1)"
                             type="submit"
                           >
-                            <Text fontFamily="montserrat">Login</Text>
+                            <Text fontWeight="200" fontFamily="sans">
+                              Login
+                            </Text>
                           </Button>
                         </ContentFlex>
                       </form>

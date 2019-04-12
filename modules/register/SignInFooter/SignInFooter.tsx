@@ -28,7 +28,7 @@ export const SignInFooter = ({ maxWidth }: any) => {
       </Text>
       &nbsp; &nbsp;
       <Text fontFamily="montserrat" color="rgba(255,255,255,.8)">
-        <MyLink href="login" name="Sign In" />
+        <MyLink underline={true} href="login" name="Sign In" />
       </Text>
     </Flex>
   );

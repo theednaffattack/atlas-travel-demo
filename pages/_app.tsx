@@ -36,8 +36,9 @@ const theme = {
     outline: {
       color: "#fff",
       backgroundColor: "transparent",
-      boxShadow: "inset 0 0 0 2px"
+      border: "2px rgba(255,255,255,0.4) solid"
     },
+    letterSpacings: [".05em", ".125", "2em"],
     gradient: {
       backgroundImage:
         "linear-gradient( 87deg, rgb(210,48,120) 6%, rgb(254,97,97) 74%, rgb(255,121,85) 100%)",

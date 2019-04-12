@@ -47,49 +47,6 @@ const Layout: React.FunctionComponent<Props> = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    {/* <FlexHeader color="white" as="header">
-      <nav>
-        <MyLink prefetch href="/" name="home">
-          <a>Home</a>
-        </MyLink>{" "}
-        |{" "}
-        <MyLink prefetch href="/cars" name="cars">
-          <a>Cars</a>
-        </MyLink>{" "}
-        |{" "}
-        <MyLink prefetch href="/login" name="login">
-          <a>Login</a>
-        </MyLink>{" "}
-        |{" "}
-        <MyLink prefetch href="/register" name="register">
-          <a>Register</a>
-        </MyLink>{" "}
-        |{" "}
-        <MyLink prefetch href="/hello" name="hello">
-          <a>Hello</a>
-        </MyLink>{" "}
-        |{" "}
-        <MyLink prefetch href="/forgot-password" name="forgot-password">
-          <a>Forgot Password</a>
-        </MyLink>
-        <MeComponent>
-          {({ data, loading }) => {
-            if (!data || loading || !data.me) {
-              return null;
-            }
-            return (
-              <>
-                {" "}
-                |{" "}
-                <MyLink prefetch href="/logout" name="logout">
-                  <a>Logout</a>
-                </MyLink>
-              </>
-            );
-          }}
-        </MeComponent>
-      </nav>
-    </FlexHeader> */}
 
     <Flex flexDirection="column" minHeight="50vh">
       {children}

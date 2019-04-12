@@ -107,7 +107,13 @@ export const Wrap = ({ children, heading }: any) => (
             alignItems="center"
             justifyContent="center"
           >
-            <Heading mb={3} color="text" fontSize={[5]} fontFamily="montserrat">
+            <Heading
+              mb={3}
+              color="text"
+              fontSize={[5]}
+              fontWeight="200"
+              fontFamily="sans"
+            >
               {heading}
             </Heading>
             {children}
