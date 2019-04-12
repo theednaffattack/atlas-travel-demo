@@ -23,29 +23,25 @@ type Props = {
 export const DiscoverPage: React.FunctionComponent<Props> = props => {
   let { data } = props;
   return (
-    <>
-      {/* <Sidebar toggleMenu={} status={"isOpen"} /> */}
-      {Object.keys(props)}
-      <ContentFlex
-        alignItems="center"
-        justifyContent="center"
-        flexDirection="column"
-        width={1}
-      >
-        <ContentFlex mt={[0, 5, 0]} flexDirection="column" width={[1 / 2]}>
-          <Heading
-            color="rgba(255,255,255,0.5)"
-            fontSize={[5]}
-            fontFamily="sans"
-            py={3}
-          />
-          <ContentFlex py={3} alignItems="center" width={1}>
-            <DiscoverSelect />
-          </ContentFlex>
+    <ContentFlex
+      alignItems="center"
+      justifyContent="center"
+      flexDirection="column"
+      width={1}
+    >
+      <ContentFlex mt={[0, 5, 0]} flexDirection="column" width={[1 / 2]}>
+        <Heading
+          color="rgba(255,255,255,0.5)"
+          fontSize={[5]}
+          fontFamily="sans"
+          py={3}
+        />
+        <ContentFlex py={3} alignItems="center" width={1}>
+          <DiscoverSelect />
         </ContentFlex>
-
-        {data && data.data && data.data.helloWorld ? <ViewBox /> : "loading..."}
       </ContentFlex>
-    </>
+
+      {data && data.data && data.data.helloWorld ? <ViewBox /> : "loading..."}
+    </ContentFlex>
   );
 };

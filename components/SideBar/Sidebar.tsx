@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import posed from "react-pose";
 import { Text } from "rebass";
 // import { Link as BaseLink, Router } from "@reach/router";
@@ -15,6 +15,7 @@ import {
 } from "styled-system";
 
 import { navList } from "./navList";
+import { render } from "react-dom";
 
 const SidebarBase = posed.nav({
   open: {
@@ -86,25 +87,32 @@ const NavItem = styled(NavItemPosed)`
 //   </Sidebar>
 // );
 
-export default ({ status, toggleMenu, navItems }) => (
-  <Sidebar
-    maxWidth="200px"
-    minWidth="170px"
-    px={3}
-    bg="blue"
-    position="absolute"
-    minHeight="100vh"
-    pose={status === "isOpen" ? "open" : "closed"}
-  >
-    <StyledList m={0}>
-      <a onClick={toggleMenu}>X</a>
-      {navList.map(({ url, name }) => (
-        <NavItem key={url} my={3}>
-          <Link to={url}>
-            <Text color="white">{name}</Text>
-          </Link>
-        </NavItem>
-      ))}
-    </StyledList>
-  </Sidebar>
-);
+class SideBarClass extends Component {
+  render() {
+    const { status, toggleMenu, navItems } = this.props;
+    return (
+      <Sidebar
+        maxWidth="200px"
+        minWidth="170px"
+        px={3}
+        bg="blue"
+        position="absolute"
+        minHeight="100vh"
+        pose={status === "isOpen" ? "open" : "closed"}
+      >
+        <StyledList m={0}>
+          <a onClick={toggleMenu}>X</a>
+          {navList.map(({ url, name }) => (
+            <NavItem key={url} my={3}>
+              <Link to={url}>
+                <Text color="white">{name}</Text>
+              </Link>
+            </NavItem>
+          ))}
+        </StyledList>
+      </Sidebar>
+    );
+  }
+}
+
+export default SideBarClass;

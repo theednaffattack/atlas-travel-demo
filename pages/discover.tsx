@@ -5,10 +5,9 @@ import { HelloWorldComponent } from "../generated/apolloComponents";
 import { DiscoverPage } from "../modules/discover/DiscoverPage";
 import SideBar from "../components/SideBar";
 
-export default function(props) {
+export default function() {
   return (
     <Layout>
-      {Object.keys(props)}
       <HelloWorldComponent>
         {data => <DiscoverPage data={data} />}
       </HelloWorldComponent>
