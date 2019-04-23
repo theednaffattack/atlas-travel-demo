@@ -80,8 +80,6 @@ const ContentFlex = styled(FlexBase)`
 // `;
 
 const IndexPage: React.FunctionComponent = props => {
-  console.log("index page props");
-  console.log(props);
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       {/* <Card

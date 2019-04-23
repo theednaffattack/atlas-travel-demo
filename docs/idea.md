@@ -32,3 +32,11 @@ https://github.com/toddmotto/public-apis#music
 
 https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
 https://codesandbox.io/s/30q3mzjv91?module=%2Fsrc%2FOutsideAlerter.js
+
+## React Pose Carousel
+
+https://codesandbox.io/embed/0094879v40?codemirror=1
+
+## React Pose Modal
+
+https://codesandbox.io/s/o9j849rx0y

@@ -11,7 +11,10 @@ app.prepare().then(() => {
   createServer((req, res) => {
     handle(req, res);
   }).listen(port, (err: any) => {
-    if (err) throw err;
+    if (err) {
+      console.error(err);
+      throw err;
+    }
     console.log(`> Ready on http://localhost:${port}`);
   });
 });

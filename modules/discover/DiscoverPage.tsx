@@ -4,9 +4,10 @@ import { Flex as FlexBase, Heading } from "rebass";
 import styled from "styled-components";
 import { borders, minHeight } from "styled-system";
 
+import { GetAllHotelDataComponent } from "../../generated/apolloComponents";
+
 import DiscoverSelect from "./DiscoverSelect";
 import ViewBox from "./ViewBox";
-import Sidebar from "../../components/SideBar/Sidebar";
 
 const ContentFlex = styled(FlexBase)`
   ${minHeight}
@@ -16,9 +17,6 @@ const ContentFlex = styled(FlexBase)`
 type Props = {
   data: any;
 };
-
-// const devBorder1 = "2px white solid";
-// const devBorder2 = "4px limegreen solid";
 
 export const DiscoverPage: React.FunctionComponent<Props> = props => {
   let { data } = props;
@@ -40,8 +38,23 @@ export const DiscoverPage: React.FunctionComponent<Props> = props => {
           <DiscoverSelect />
         </ContentFlex>
       </ContentFlex>
-
-      {data && data.data && data.data.helloWorld ? <ViewBox /> : "loading..."}
+      <GetAllHotelDataComponent
+        variables={{
+          data: {
+            skip: 0,
+            take: 15
+          }
+        }}
+      >
+        {getAllHotel =>
+          getAllHotel && getAllHotel.data ? (
+            <ViewBox data={getAllHotel.data} />
+          ) : (
+            "loading..."
+          )
+        }
+      </GetAllHotelDataComponent>
+      {/* {data && data.data && data.data.helloWorld ? <ViewBox /> : "loading..."} */}
     </ContentFlex>
   );
 };

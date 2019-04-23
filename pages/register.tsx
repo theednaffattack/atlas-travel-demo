@@ -21,41 +21,59 @@ export default () => {
               validateOnBlur={false}
               validateOnChange={false}
               onSubmit={async (data, { setErrors }) => {
-                try {
-                  const response = await register({
-                    variables: {
-                      data
-                    }
-                  });
-                  Router.push("/check-email");
-                } catch (error) {
-                  const displayErrors: { [key: string]: string } = {};
-
-                  let myErrors =
-                    error.graphQLErrors[0].extensions.exception
-                      .validationErrors;
-
-                  myErrors.forEach((validationError: any) => {
-                    Object.values(validationError.constraints).forEach(
-                      (message: any) => {
-                        displayErrors[validationError.property] = message;
+                console.log(JSON.stringify(data, null, 2));
+                if (data.termsAndConditions) {
+                  let scrubbedData = { ...data };
+                  delete scrubbedData.termsAndConditions;
+                  try {
+                    const response = await register({
+                      variables: {
+                        data: scrubbedData
                       }
-                    );
-                  });
-                  return setErrors(displayErrors);
+                    });
+                    Router.push("/check-email");
+                    console.log(response);
+                    return;
+                  } catch (error) {
+                    // const displayErrors: { [key: string]: string } = {};
 
-                  // const errors: { [key: string]: string } = {};
-                  // err.graphQLErrors[0].validationErrors.forEach(
-                  //   (validationErr: any) => {
-                  //     Object.values(validationErr.constraints).forEach(
-                  //       (message: any) => {
-                  //         errors[validationErr.property] = message;
-                  //       }
-                  //     );
-                  //   }
-                  // );
-                  // setErrors(errors);
+                    // let myErrors =
+                    //   error.graphQLErrors[0].extensions.exception
+                    //     .validationErrors;
+
+                    // myErrors.forEach((validationError: any) => {
+                    //   Object.values(validationError.constraints).forEach(
+                    //     (message: any) => {
+                    //       displayErrors[validationError.property] = message;
+                    //     }
+                    //   );
+                    // });
+
+                    const displayErrors: { [key: string]: string } = {};
+
+                    let myErrors = error.graphQLErrors; //.extensions.exception.validationErrors;
+
+                    myErrors.forEach((errorThing: any) => {
+                      displayErrors[errorThing.path[0]] = errorThing.message;
+                    });
+                    return setErrors(displayErrors);
+
+                    // const errors: { [key: string]: string } = {};
+                    // err.graphQLErrors[0].validationErrors.forEach(
+                    //   (validationErr: any) => {
+                    //     Object.values(validationErr.constraints).forEach(
+                    //       (message: any) => {
+                    //         errors[validationErr.property] = message;
+                    //       }
+                    //     );
+                    //   }
+                    // );
+                    // setErrors(errors);
+                  }
                 }
+                console.log("this isn't working");
+                console.log(data);
+                return "nope";
               }}
               initialValues={{
                 email: "",

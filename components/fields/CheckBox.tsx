@@ -65,12 +65,12 @@ type InputProps = DetailedHTMLProps<
 const CheckBox = ({ field, form, ...props }: FieldProps & InputProps) => (
   <CheckboxContainer>
     <HiddenCheckbox
-      checked={form.values.keepMeSignedIn}
+      checked={form.values.termsAndConditions}
       name={field.name}
       onChange={() => {
-        const nextValue = !form.values.keepMeSignedIn;
+        const nextValue = !form.values.termsAndConditions;
 
-        form.setFieldValue("keepMeSignedIn", nextValue);
+        form.setFieldValue("termsAndConditions", nextValue);
         console.log("view props stringified");
         console.log(JSON.stringify(props));
         console.log("view form");
@@ -81,7 +81,7 @@ const CheckBox = ({ field, form, ...props }: FieldProps & InputProps) => (
       }}
       {...props}
     />
-    <StyledCheckbox checked={form.values.keepMeSignedIn}>
+    <StyledCheckbox checked={form.values.termsAndConditions}>
       <Icon viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12" />
       </Icon>

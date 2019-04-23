@@ -8,7 +8,14 @@ import SideBar from "./SideBar";
 const Flex = styled(FlexBase)`
   ${minHeight}
 `;
-export default class LayoutContainer extends Component {
+
+interface CustomLayoutContainerProps {
+  wrapperRef: any;
+}
+
+export default class LayoutContainer extends Component<
+  CustomLayoutContainerProps
+> {
   constructor(props) {
     super(props);
     this.toggleMenu = this.toggleMenu.bind(this);
@@ -48,6 +55,9 @@ export default class LayoutContainer extends Component {
     }
   }
 
+  /**
+   * Toggle sidebar menu
+   */
   toggleMenu() {
     this.setState(prevState => {
       return {
@@ -55,6 +65,7 @@ export default class LayoutContainer extends Component {
       };
     });
   }
+
   render() {
     const childWithProp = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
@@ -72,6 +83,7 @@ export default class LayoutContainer extends Component {
             status={this.state.sideBar}
           />
         </div>
+
         {childWithProp}
       </Flex>
     );

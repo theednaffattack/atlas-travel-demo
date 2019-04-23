@@ -39,41 +39,45 @@ const FlexFooter = styled(FlexBase)`
   ${borders}
 `;
 
-import MyLink from "./MyLink";
-
 type Props = {
   title?: string;
+  menu: string;
+  menuToggle: any;
+  modal: any;
+  modalToggle: any;
 };
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title = "This is the default title"
-}) => (
-  <Flex
-    // border="3px crimson solid"
-    m={[0]}
-    minHeight="100vh"
-    flexDirection="column"
-    width={[1]}
-  >
-    <GradientFlex color="white" flexDirection="column" minHeight="100vh">
-      <LayoutContainer>
-        <NavBarTop />
-        <Head>
-          <title>{title}</title>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-        </Head>
+}) => {
+  return (
+    <Flex
+      // border="3px crimson solid"
+      m={[0]}
+      minHeight="100vh"
+      flexDirection="column"
+      width={[1]}
+    >
+      <GradientFlex color="white" flexDirection="column" minHeight="100vh">
+        <LayoutContainer>
+          <NavBarTop />
+          <Head>
+            <title>{title}</title>
+            <meta charSet="utf-8" />
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, width=device-width"
+            />
+          </Head>
 
-        <Flex flexDirection="column" minHeight="50vh">
-          {children}
-        </Flex>
-      </LayoutContainer>
-    </GradientFlex>
-  </Flex>
-);
+          <Flex flexDirection="column" minHeight="50vh">
+            {children}
+          </Flex>
+        </LayoutContainer>
+      </GradientFlex>
+    </Flex>
+  );
+};
 
 export default Layout;

@@ -1,5 +1,69 @@
 export type Maybe<T> = T | null;
 
+export interface BaseReviewInput {
+  value: number;
+
+  title: string;
+
+  text: string;
+
+  hotelId: string;
+
+  userId: string;
+
+  date?: Maybe<DateTime>;
+}
+
+export interface BaseListInput {
+  skip?: Maybe<number>;
+
+  take?: number;
+}
+
+export interface HotelGetInput {
+  hotelId: string;
+}
+
+export interface ReservationInput {
+  from?: Maybe<DateTime>;
+
+  to?: Maybe<DateTime>;
+
+  userId: string;
+
+  hotelId: string;
+}
+
+export interface HotelInput {
+  name: string;
+
+  photos?: Maybe<PhotoInput[]>;
+
+  price: string;
+
+  loveCount?: Maybe<number>;
+
+  commentCount?: Maybe<number>;
+
+  weatherIconName?: Maybe<string>;
+
+  distanceKm?: Maybe<string>;
+
+  temperature?: Maybe<string>;
+
+  weatherDescription?: Maybe<string>;
+}
+
+export interface PhotoInput {
+  uri: string;
+
+  name: string;
+
+  description?: Maybe<string>;
+
+  isPublished?: Maybe<boolean>;
+}
+
 export interface ProductInput {
   name: string;
 }
@@ -23,6 +87,9 @@ export interface ChangePasswordInput {
 export interface PasswordInput {
   password: string;
 }
+
+/** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+export type DateTime = any;
 
 /** The `Upload` scalar type represents a file upload. */
 export type Upload = any;
@@ -152,6 +219,164 @@ export type RegisterRegister = {
   email: string;
 
   name: string;
+};
+
+export type CreateReviewVariables = {
+  data: BaseReviewInput;
+};
+
+export type CreateReviewMutation = {
+  __typename?: "Mutation";
+
+  createReview: CreateReviewCreateReview;
+};
+
+export type CreateReviewCreateReview = {
+  __typename?: "Review";
+
+  id: string;
+
+  value: number;
+};
+
+export type GetHotelByIdVariables = {
+  data: HotelGetInput;
+};
+
+export type GetHotelByIdQuery = {
+  __typename?: "Query";
+
+  getHotelByID: GetHotelByIdGetHotelById;
+};
+
+export type GetHotelByIdGetHotelById = {
+  __typename?: "Hotel";
+
+  id: string;
+
+  name: string;
+
+  rooms: Maybe<GetHotelByIdRooms[]>;
+};
+
+export type GetHotelByIdRooms = {
+  __typename?: "Room";
+
+  id: string;
+
+  roomNumber: string;
+
+  type: string;
+
+  beds: number;
+
+  costPerNight: number;
+
+  reserved: Maybe<GetHotelByIdReserved[]>;
+};
+
+export type GetHotelByIdReserved = {
+  __typename?: "Reservation";
+
+  id: string;
+
+  from: DateTime;
+
+  to: DateTime;
+};
+
+export type GetAllHotelDataVariables = {
+  data: BaseListInput;
+};
+
+export type GetAllHotelDataQuery = {
+  __typename?: "Query";
+
+  getAllHotel: Maybe<GetAllHotelDataGetAllHotel[]>;
+};
+
+export type GetAllHotelDataGetAllHotel = {
+  __typename?: "Hotel";
+
+  reviewCount: number;
+
+  averageRating: number;
+
+  name: string;
+
+  id: string;
+
+  price: string;
+
+  rooms: Maybe<GetAllHotelDataRooms[]>;
+
+  amenities: Maybe<string[]>;
+
+  loveCount: Maybe<number>;
+
+  commentCount: Maybe<number>;
+
+  address: Maybe<string>;
+
+  suite: Maybe<string>;
+
+  city: Maybe<string>;
+
+  state: Maybe<string>;
+
+  zipCode: Maybe<string>;
+
+  zipCodeSuffix: Maybe<number>;
+
+  photos: Maybe<GetAllHotelDataPhotos[]>;
+
+  reviews: Maybe<GetAllHotelDataReviews[]>;
+};
+
+export type GetAllHotelDataRooms = {
+  __typename?: "Room";
+
+  id: string;
+
+  roomNumber: string;
+
+  beds: number;
+
+  type: string;
+
+  beds: number;
+
+  maxOccupancy: number;
+
+  costPerNight: number;
+
+  reserved: Maybe<GetAllHotelDataReserved[]>;
+};
+
+export type GetAllHotelDataReserved = {
+  __typename?: "Reservation";
+
+  id: string;
+
+  from: DateTime;
+
+  to: DateTime;
+};
+
+export type GetAllHotelDataPhotos = {
+  __typename?: "Photo";
+
+  id: string;
+
+  uri: string;
+};
+
+export type GetAllHotelDataReviews = {
+  __typename?: "Review";
+
+  value: number;
+
+  id: string;
 };
 
 export type HelloWorldVariables = {};
@@ -488,6 +713,183 @@ export function RegisterHOC<TProps, TChildProps = any>(
     RegisterVariables,
     RegisterProps<TChildProps>
   >(RegisterDocument, operationOptions);
+}
+export const CreateReviewDocument = gql`
+  mutation CreateReview($data: BaseReviewInput!) {
+    createReview(data: $data) {
+      id
+      value
+    }
+  }
+`;
+export class CreateReviewComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<CreateReviewMutation, CreateReviewVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<CreateReviewMutation, CreateReviewVariables>
+        mutation={CreateReviewDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreateReviewProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreateReviewMutation, CreateReviewVariables>
+> &
+  TChildProps;
+export type CreateReviewMutationFn = ReactApollo.MutationFn<
+  CreateReviewMutation,
+  CreateReviewVariables
+>;
+export function CreateReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreateReviewMutation,
+        CreateReviewVariables,
+        CreateReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreateReviewMutation,
+    CreateReviewVariables,
+    CreateReviewProps<TChildProps>
+  >(CreateReviewDocument, operationOptions);
+}
+export const GetHotelByIdDocument = gql`
+  query GetHotelByID($data: HotelGetInput!) {
+    getHotelByID(data: $data) {
+      id
+      name
+      rooms {
+        id
+        roomNumber
+        type
+        beds
+        costPerNight
+        reserved {
+          id
+          from
+          to
+        }
+      }
+    }
+  }
+`;
+export class GetHotelByIdComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetHotelByIdQuery, GetHotelByIdVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetHotelByIdQuery, GetHotelByIdVariables>
+        query={GetHotelByIdDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetHotelByIdProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetHotelByIdQuery, GetHotelByIdVariables>
+> &
+  TChildProps;
+export function GetHotelByIdHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetHotelByIdQuery,
+        GetHotelByIdVariables,
+        GetHotelByIdProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetHotelByIdQuery,
+    GetHotelByIdVariables,
+    GetHotelByIdProps<TChildProps>
+  >(GetHotelByIdDocument, operationOptions);
+}
+export const GetAllHotelDataDocument = gql`
+  query GetAllHotelData($data: BaseListInput!) {
+    getAllHotel(data: $data) {
+      reviewCount
+      averageRating
+      name
+      id
+      price
+      rooms {
+        id
+        roomNumber
+        beds
+        type
+        beds
+        maxOccupancy
+        costPerNight
+        reserved {
+          id
+          from
+          to
+        }
+      }
+      amenities
+      loveCount
+      commentCount
+      address
+      suite
+      city
+      state
+      zipCode
+      zipCodeSuffix
+      photos {
+        id
+        uri
+      }
+      reviews {
+        value
+        id
+      }
+    }
+  }
+`;
+export class GetAllHotelDataComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetAllHotelDataQuery, GetAllHotelDataVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetAllHotelDataQuery, GetAllHotelDataVariables>
+        query={GetAllHotelDataDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetAllHotelDataProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetAllHotelDataQuery, GetAllHotelDataVariables>
+> &
+  TChildProps;
+export function GetAllHotelDataHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetAllHotelDataQuery,
+        GetAllHotelDataVariables,
+        GetAllHotelDataProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetAllHotelDataQuery,
+    GetAllHotelDataVariables,
+    GetAllHotelDataProps<TChildProps>
+  >(GetAllHotelDataDocument, operationOptions);
 }
 export const HelloWorldDocument = gql`
   query HelloWorld {

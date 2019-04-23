@@ -7,6 +7,9 @@ import { borders, maxWidth, minHeight } from "styled-system";
 import { DiscoverButton } from "./DiscoverButton";
 
 import { FeaturedCards } from "./FeaturedCards";
+// import { cardInfo } from "./cardInfo";
+
+// import Modal from "./Modal/Modal";
 
 const ContentFlex = styled(FlexBase)`
   ${minHeight}
@@ -45,22 +48,44 @@ const CardFlex: React.FunctionComponent<FlexProps> = styled(FlexBase)`
 }
 `;
 
-export default class ViewBox extends Component {
+interface CustomViewBoxProps {
+  data: any;
+}
+
+export default class ViewBox extends Component<CustomViewBoxProps> {
   constructor(props: any) {
     super(props);
     this.truncate = this.truncate.bind(this);
+    // this.toggleModal = this.toggleModal.bind(this);
   }
+
+  state = {
+    showModal: false,
+    isZoomed: false
+  };
+
   truncate(words: string) {
-    console.log("words", words);
-    console.log("words length", words.length);
     if (words.length > 16) {
       return words.slice(0, 16) + "...";
     } else {
       return words;
     }
   }
+
+  /**
+   * Toggle hotel modal (example)
+   */
+
+  // toggleModal = event => {
+  //   console.log();
+  //   event.preventDefault();
+  //   console.log(event.target);
+  //   this.setState(prevState => ({
+  //     showModal: !prevState.showModal
+  //   }));
+  // };
+
   render() {
-    let self = this;
     return (
       <ContentFlex py={4} width={1} flexDirection="column">
         <ContentFlex
@@ -95,7 +120,14 @@ export default class ViewBox extends Component {
           mx="auto"
           px={6}
         >
-          <FeaturedCards localContext={this.truncate} />
+          {/* {JSON.stringify(this.props, null, 2)} */}
+          <FeaturedCards
+            // toggle={this.toggleModal}
+            zoomState={this.state.isZoomed}
+            localContext={this.truncate}
+            data={this.props.data ? this.props.data.getAllHotel : []}
+          />
+          {/* <Modal show={this.state.showModal} toggle={this.toggleModal} /> */}
         </CardFlex>
       </ContentFlex>
     );

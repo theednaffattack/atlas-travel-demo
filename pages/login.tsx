@@ -117,14 +117,24 @@ export default () => {
                           }
                         });
                       } catch (error) {
+                        console.error(error);
+                        // return error;
+                        // alert(Object.keys(error));
+                        alert(error);
                         const displayErrors: { [key: string]: string } = {};
 
-                        let myErrors = error.graphQLErrors; //.extensions.exception.validationErrors;
+                        // let networkErrors = error.networkError;
 
-                        myErrors.forEach((errorThing: any) => {
+                        let gqlErrors = error.graphQLErrors; //.extensions.exception.validationErrors;
+
+                        gqlErrors.forEach((errorThing: any) => {
                           displayErrors[errorThing.path[0]] =
                             errorThing.message;
                         });
+
+                        // I need to investigate: I'm not returning validationErrors but
+                        // validation errors as general errors, for some reason
+
                         // myErrors.forEach((validationError: any) => {
                         //   Object.values(validationError.constraints).forEach(
                         //     (message: any) => {
@@ -132,15 +142,23 @@ export default () => {
                         //     }
                         //   );
                         // });
-
+                        // console.log(displayErrors);
                         // return setErrors(displayErrors);
 
+                        // pluck off confirmation errors only, everything else
+                        // is "invalid login" for obfuscation purposes
                         return setErrors({
-                          email: "invalid login"
+                          email:
+                            displayErrors &&
+                            displayErrors.login ===
+                              "Please confirm your account"
+                              ? displayErrors.login
+                              : "invalid login"
                         });
                       }
 
                       if (response && response.data && !response.data.login) {
+                        // alert(response.data);
                         setErrors({
                           email: "invalid login"
                         });
