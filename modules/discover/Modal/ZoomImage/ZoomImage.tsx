@@ -59,7 +59,13 @@ class ZoomImg extends React.Component<CustomZoomProps> {
     return (
       <FlexBase width={1} onClick={this.toggleZoom}>
         {/* <Frame pose={pose} className="frame" /> */}
-        <Image height="100%" width="100%" src={src} {...props} />
+        <Image
+          height="100%"
+          width="100%"
+          src={src}
+          {...props}
+          style={{ borderRadius: "8px" }}
+        />
       </FlexBase>
     );
   }

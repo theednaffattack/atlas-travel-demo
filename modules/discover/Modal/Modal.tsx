@@ -1,111 +1,59 @@
 import React from "react";
-import {
-  Box as BoxBase,
-  Button as ButtonBase,
-  Flex as FlexBase,
-  Image as ImageBase,
-  Text
-} from "rebass";
-import styled from "styled-components";
-import {
-  borders,
-  borderRadius,
-  height,
-  minHeight,
-  minWidth,
-  space,
-  width,
-  position,
-  top,
-  left,
-  right,
-  bottom,
-  zIndex
-} from "styled-system";
+import { Image as ImageBase, Text } from "rebass";
 
 import casual from "casual-browserify";
-
 import posed, { PoseGroup } from "react-pose";
 
 import {
   bitemMotionProps,
-  contentMotionProps,
+  fitemMotionProps,
   itemMotionProps,
   laneMotionProps,
   posedFlexMotionProps
 } from "./motionConfig";
 
+import { ButtonR, Box, Flex, OuterFlex } from "./LocalStyledComponents/Comps";
+
 import { StyledFrame } from "./StyledFrame";
 
-import DayPlansIconBase from "../../../static/images/discover/day_plans.svg";
-import ShareIconBase from "../../../static/images/discover/share.svg";
-import MoreDarkIconBase from "../../../static/images/discover/more_dark.svg";
-import { string } from "yup";
+import Carousel from "./Carousel/CarouselContainer";
 
-const DayPlansIcon = styled(DayPlansIconBase)`
-${space}
-${height}
-${width}
-`;
+import { Button } from "../../../components/Button/Button";
 
-const ShareIcon = styled(ShareIconBase)`
-${space}
-${height}
-${width}
-`;
+import {
+  DayPlansIcon,
+  HotelRestaurantIcon,
+  InnBarIcon,
+  ThumbsIcon,
+  MapPinIcon,
+  MoreDarkIcon,
+  NightClubIcon,
+  ParkingIcon,
+  PoolIcon,
+  StarIcon,
+  ShareIcon,
+  WifiIcon
+} from "./Icons/Icons";
 
-const MoreDarkIcon = styled(MoreDarkIconBase)`
-${space}
-${height}
-${width}
-`;
+const checkoutRules = [
+  "Payment at checkout",
+  "Wi-Fi network is off by 12:00 p.m.",
+  "No swimming after 10:00 p.m.",
+  "No more than 2 bags of luggage",
+  "No singing while showering",
+  "No refunds"
+];
 
-const Button = styled(ButtonBase)`
-${position}
-${top}
-${left}
-${right}
-${bottom}
-${zIndex}
-`;
-
-const OuterFlex = styled(FlexBase)`
-  ${minHeight}
-  ${borderRadius}
-  ${minWidth}
-  ${borders}
-  overflow-y: auto;
-`;
-
-const Flex = styled(FlexBase)`
-  ${minHeight}
-  ${borderRadius}
-  ${minWidth}
-  ${borders}
-`;
-
-const Box = styled(BoxBase)`
-  ${borders}
-`;
-
-const devBorder1 = "2px red solid";
 const devBorder3 = "2px #dddddd solid";
 
-// const devBorder1 = "";
-
-const devBorder2 = "2px green solid";
-
 // posed configs
-
-const Content = posed.div(contentMotionProps);
-const PosedFlex = posed(Flex)(posedFlexMotionProps);
 const OuterPosedFlex = posed(OuterFlex)(posedFlexMotionProps);
 const Lane = posed(Flex)(laneMotionProps);
-
-const Item = posed.div(itemMotionProps);
-
+const LeftLane = posed(Flex)(laneMotionProps);
 const BItem = posed(Box)(bitemMotionProps);
-const FItem = posed(Flex)(bitemMotionProps);
+const FItem = posed(Flex)(fitemMotionProps);
+
+export const Item = posed.div(itemMotionProps);
 
 const Login = ({ text }) => (
   <FItem>
@@ -121,6 +69,40 @@ const genBitem = (component: any, styles: any, name: string) => {
       {component}
     </BItem>
   );
+};
+
+interface AmenityIcons {
+  wifi: any;
+  hotelRestaurant: any;
+  pool: any;
+  innBar: any;
+  parking: any;
+  nightClub: any;
+}
+
+//
+const amenityIcons: AmenityIcons = {
+  wifi: { component: <WifiIcon width="54px" />, label: "WiFi" },
+  hotelRestaurant: {
+    component: <HotelRestaurantIcon width="54px" />,
+    label: "Hotel Restaurant"
+  },
+  pool: {
+    component: <PoolIcon width="54px" />,
+    label: "Pool"
+  },
+  innBar: {
+    component: <InnBarIcon width="54px" />,
+    label: "Inn Bar"
+  },
+  parking: {
+    label: "Parking",
+    component: <ParkingIcon width="54px" />
+  },
+  nightClub: {
+    component: <NightClubIcon width="54px" />,
+    label: "Night Club"
+  }
 };
 
 // ICON BAR COMPONENTS
@@ -173,10 +155,11 @@ function MakeNThings(num: number, thing: any) {
   return collectionOfThings;
 }
 
-const UserRatings = ({ border, data, votes, width }) => (
+export const UserRatings = ({ border, data, votes, width }) => (
   <FItem
     flexDirection="column"
     width={1 / 4}
+    mr={[2]}
     border={border ? border : "2px transparent solid"}
   >
     <FItem alignItems="center">
@@ -185,26 +168,41 @@ const UserRatings = ({ border, data, votes, width }) => (
       </Text>
       <Text px={1}>{votes} votes</Text>
     </FItem>
-    <FItem>
+    <FItem justifyContent="center" alignItems="center">
       {MakeNThings(parseFloat(data), "start").map((x, index, array) => (
-        <Text style={{ opacity: index === array.length - 1 ? data % 1 : 1 }}>
-          START
-        </Text>
+        <StarIcon
+          key={`userRatings-${index}`}
+          mx="auto"
+          opacity={index === array.length - 1 ? data % 1 : 1}
+          width="30px"
+        />
       ))}
     </FItem>
   </FItem>
 );
 
 const UserPhotos = ({ border, width }) => (
-  <BItem width={2 / 4} border={border ? border : "2px transparent solid"}>
-    PHOTOS
+  <BItem width={1 / 4} border={border ? border : "2px transparent solid"}>
+    <ThumbsIcon width="88px" />
   </BItem>
 );
 
-const Image = (props: any) => (
-  <Item>
-    <ImageBase width={[1, 1, 1]} src={props.src.uri} />
-    <Text as="caption"> {props.src.uri}</Text>
+export const Image = (props: any) => (
+  <Item
+    onClick={props.clickFunc}
+    // width={props.width}
+    // height={props.height}
+    style={{
+      marginLeft: "4px",
+      marginRight: "4px",
+      width: props.width,
+      height: props.height
+    }}
+  >
+    <ImageBase width="100%" height="100%" src={props.src.uri} />
+    <Text color="text" as="figcaption">
+      {props.src.uri}
+    </Text>
   </Item>
 );
 
@@ -220,6 +218,7 @@ const Signup = () => (
 
 interface CustomModalProps {
   show: boolean;
+  fakeAmenities: string[];
   toggle: any;
   data: any;
 }
@@ -234,7 +233,7 @@ class Modal extends React.Component<CustomModalProps> {
   showSignup = () => this.setState({ index: 1 });
 
   render() {
-    const { show, toggle } = this.props;
+    const { show, toggle, fakeAmenities } = this.props;
     const { index } = this.state;
     const items = [Login, Signup];
 
@@ -243,28 +242,36 @@ class Modal extends React.Component<CustomModalProps> {
         {show && this.props.data && (
           <StyledFrame key="frame">
             <OuterPosedFlex bg="#eee" color="text" key="content">
-              <Button
+              <ButtonR
                 id="close-button"
                 bg="rgba(0,0,0,.3)"
                 color="white"
-                borderRadius="25px"
+                borderRadius="28px"
                 onClick={toggle}
                 position="absolute"
-                top={0}
-                left={0}
-                zIndex={10}
+                top={20}
+                left={20}
+                zIndex={30}
               >
                 X
-              </Button>
+              </ButtonR>
               <PoseGroup preEnterPose="init">
-                <Lane
-                  key="login"
+                <LeftLane
+                  flexDirection="column"
+                  key="leftPane"
                   height="800px"
                   width={1 / 2}
-                  border={devBorder1}
+                  minHeight="100vh"
                 >
-                  <Image src={this.props.data.photos[0]} />
-                </Lane>
+                  {/* <Image src={this.props.data.photos[0]} /> */}
+                  <BItem>
+                    <Carousel
+                      // component={<Image />}
+                      // component={<ZoomImage />}
+                      photos={this.props.data.photos}
+                    />
+                  </BItem>
+                </LeftLane>
                 <Lane
                   key="rightPane"
                   // height="auto"
@@ -272,7 +279,6 @@ class Modal extends React.Component<CustomModalProps> {
                   flexDirection="column"
                   width={1 / 2}
                   p={4}
-                  border={devBorder1}
                 >
                   <Lane alignItems="center" key="iconBar" width={1} p={2}>
                     <DayPlans ml="auto" />
@@ -311,8 +317,8 @@ class Modal extends React.Component<CustomModalProps> {
                       <Text fontSize={3}>{this.props.data.city}</Text>
                     </Lane>
                   </BItem>
-                  <BItem pt={3} px={4}>
-                    <Text fontSize={2}>
+                  <BItem px={4} py={4}>
+                    <Text fontWeight="400" fontSize={2}>
                       ABOUT {this.props.data.name.toUpperCase()}
                     </Text>
                     <AboutText />
@@ -322,65 +328,111 @@ class Modal extends React.Component<CustomModalProps> {
                     </BItem> */}
                   </BItem>
 
-                  <BItem>
+                  <BItem bg="#f2f2f2" boxShadow="modalItem" my={2}>
                     <Lane
+                      my={2}
                       key="weatherBar"
                       width={1}
                       alignItems="center"
                       p={4}
-                      border={devBorder1}
                     >
-                      <LocalWeather border={devBorder2} />
+                      <LocalWeather />
                       <UserRatings
                         data={this.props.data.averageRating}
                         votes={this.props.data.reviewCount}
-                        border={devBorder2}
                       />
-                      {/* {Object.keys(this.props.data).map(objKey => (
-                        <Text key={Math.random()}>{objKey}</Text>
-                      ))} */}
-                      <UserPhotos border={devBorder2} />
+
+                      <UserPhotos />
                     </Lane>
                   </BItem>
                   <Lane
+                    bg="#f2f2f2"
+                    boxShadow="modalItem"
+                    my={2}
                     alignItems="center"
                     key="amenititesBar"
+                    flexDirection="column"
                     width={1}
                     p={4}
-                    border={devBorder1}
                   >
-                    AMENITIES
-                    <Text> {this.props.data.amenities}</Text>
+                    <BItem pb={3} width={1}>
+                      <Text fontWeight="600">Amenities</Text>
+                    </BItem>
+                    <FItem px={3} justifyContent="space-between" width={1}>
+                      {this.props.fakeAmenities.map(amenity => (
+                        <FItem
+                          key={Math.random()}
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                          mx={2}
+                        >
+                          {amenityIcons[amenity].component || null}{" "}
+                          {amenityIcons[amenity].label || null}
+                        </FItem>
+                      ))}
+                    </FItem>
                   </Lane>
 
                   <Lane
+                    bg="#f2f2f2"
+                    boxShadow="modalItem"
+                    my={2}
                     justifyContent="center"
                     key="mapBar"
                     width={1}
                     p={4}
                     flexDirection="column"
-                    border={devBorder1}
                   >
-                    <Text> {this.props.data.address}</Text>
-                    <Text>
-                      {this.props.data.city}, {this.props.data.state}{" "}
-                      {this.props.data.zip}
-                    </Text>
-                    <Text> {this.props.data.address}</Text>
-                    <Text> {this.props.data.address}</Text>
-                    <Text> {this.props.data.address}</Text>
-                    <Text> {this.props.data.address}</Text>
-                    <Text> {this.props.data.address}</Text>
+                    <Text fontWeight="600">Where is that</Text>
+                    <FItem>
+                      <MapPinIcon height="60px" width="60px" />
+                      <FItem flexDirection="column">
+                        <Text mt={3} fontSize=".8em" fontWeight="600">
+                          ADDRESS
+                        </Text>
+                        <Text> {this.props.data.address}</Text>
+                        <Text mb={3}>
+                          {this.props.data.city}, {this.props.data.state}{" "}
+                          {this.props.data.zipCode}
+                        </Text>
+                        <Button
+                          click={() => console.log("BOOK A ROOM CLICKED!")}
+                          width="130px"
+                          py={2}
+                          label="Check it >"
+                        />
+                      </FItem>
+                    </FItem>
                   </Lane>
 
                   <Lane
-                    alignItems="center"
+                    bg="#f2f2f2"
+                    boxShadow="modalItem"
+                    my={2}
+                    justifyContent="center"
                     key="tripReminders"
+                    flexDirection="column"
                     width={1}
                     p={4}
-                    border={devBorder1}
                   >
-                    TRIP REMINDERS
+                    <BItem>
+                      <Text fontWeight="400" fontSize={3}>
+                        Before you go
+                      </Text>
+                      <ul>
+                        {checkoutRules.map(rule => (
+                          <li key={Math.random()}>{rule}</li>
+                        ))}
+                      </ul>
+                    </BItem>
+                    <FItem justifyContent="center" alignItems="center" px={3}>
+                      <Button
+                        click={() => console.log("BOOK A ROOM CLICKED!")}
+                        py={2}
+                        label="Book a Room"
+                      />
+                    </FItem>
                   </Lane>
                 </Lane>
               </PoseGroup>

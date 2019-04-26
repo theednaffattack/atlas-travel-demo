@@ -25,11 +25,17 @@ export interface HotelGetInput {
 }
 
 export interface ReservationInput {
-  from?: Maybe<DateTime>;
-
-  to?: Maybe<DateTime>;
+  dates: DateInput;
 
   userId: string;
+
+  hotelId: string;
+}
+
+export interface DateInput {
+  from?: DateTime;
+
+  to?: DateTime;
 
   hotelId: string;
 }

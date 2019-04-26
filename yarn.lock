@@ -2184,6 +2184,11 @@
   dependencies:
     "@types/jest-diff" "*"
 
+"@types/lodash@^4.14.123":
+  version "4.14.123"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
+  integrity sha512-pQvPkc4Nltyx7G1Ww45OjVqUsJP4UsZm+GWJpigXgkikZqJgRm4c48g027o6tdgubWHwFRF15iFd+Y4Pmqv6+Q==
+
 "@types/next-server@*":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@types/next-server/-/next-server-7.0.3.tgz#a86f49045bc00e00bad8f6754f540acef33ef08f"
@@ -10521,7 +10526,7 @@ popmotion-pose@^3.4.0:
     ts-essentials "^1.0.3"
     tslib "^1.9.1"
 
-popmotion@^8.6.2:
+popmotion@^8.6.2, popmotion@^8.6.8:
   version "8.6.8"
   resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-8.6.8.tgz#ccc1eaf1613f0611ba6b48d8171c25a518a1e917"
   integrity sha512-BRzdgEHLqicl18RH2+gev/gVAQsU6OJD2eXii+J8Jabvw//fTNdkKIi+o8YM1cFU2QH+bnAAr0PEC3eiXMPJ1w==

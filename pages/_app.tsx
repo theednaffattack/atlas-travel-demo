@@ -23,7 +23,8 @@ const theme = {
   shadows: {
     small: "0 0 4px rgba(0, 0, 0, .125)",
     large: "0 0 24px rgba(0, 0, 0, .125)",
-    special: "0 0 16px 4px rgba(0, 0, 0, .125)"
+    special: "0 0 16px 4px rgba(0, 0, 0, .125)",
+    modalItem: "0px 13px 33px 0px rgba(0, 0, 0, 0.1)"
   },
   radii: {
     card: "17px"

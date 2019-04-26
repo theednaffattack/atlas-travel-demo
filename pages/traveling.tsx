@@ -1,14 +1,14 @@
 import React from "react";
 
-import Layout from "../components/AuthLayoutColorful";
+import Layout from "../components/AuthLayoutPlain";
 import { HelloWorldComponent } from "../generated/apolloComponents";
-import { DiscoverPage } from "../modules/discover/DiscoverPage";
+import { TravelingPage } from "../modules/traveling/Traveling";
 
 export default function() {
   return (
     <Layout>
       <HelloWorldComponent>
-        {data => <DiscoverPage data={data} />}
+        {data => <TravelingPage data={data} />}
       </HelloWorldComponent>
     </Layout>
   );

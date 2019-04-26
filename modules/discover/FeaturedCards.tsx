@@ -117,7 +117,15 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
   state = {
     showModal: initialIsZoomed,
     isZoomed: initialShowModal,
-    modalData: initialModalData
+    modalData: initialModalData,
+    fakeAmenities: [
+      "wifi",
+      "pool",
+      "hotelRestaurant",
+      "innBar",
+      "parking",
+      "nightClub"
+    ]
   };
 
   toggleModal(e) {
@@ -153,6 +161,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
       <FlexBase>
         <Modal
           data={this.state.modalData}
+          fakeAmenities={this.state.fakeAmenities}
           show={this.state.showModal}
           toggle={this.toggleModal}
         />
@@ -182,9 +191,9 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                 /> */}
 
                 <ZoomImg
-                  imageWidth={this.state.isZoomed ? "200px" : "650px"}
                   poseState={this.state.isZoomed ? "zoomedIn" : "zoomedOut"}
                   imageHeight={this.state.isZoomed ? "200px" : "650px"}
+                  imageWidth={this.state.isZoomed ? "200px" : "650px"}
                   src={info.photos[0].uri}
                 />
                 <ContentFlex alignItems="center">

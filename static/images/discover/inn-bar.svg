@@ -1,7 +1,7 @@
 <svg 
  xmlns="http://www.w3.org/2000/svg"
  xmlns:xlink="http://www.w3.org/1999/xlink"
- width="54px" height="54px">
+viewBox="0 0 54 54">
 <path fill-rule="evenodd"  fill-opacity="0.102" fill="rgb(94, 104, 112)"
  d="M27.333,0.000 C42.061,0.000 54.000,11.939 54.000,26.666 C54.000,41.394 42.061,53.333 27.333,53.333 C12.606,53.333 0.667,41.394 0.667,26.666 C0.667,11.939 12.606,0.000 27.333,0.000 Z"/>
 <path fill-rule="evenodd"  fill="rgb(94, 104, 112)"

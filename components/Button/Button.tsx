@@ -3,7 +3,7 @@ import { Button as MyButton, ButtonProps, Text } from "rebass";
 import styled from "styled-components";
 import { borderRadius, boxShadow } from "styled-system";
 
-export interface Props extends ButtonProps {
+export interface CustomProps extends ButtonProps {
   // what the button will read
   label: string;
 
@@ -22,7 +22,7 @@ const StyledButton = styled(MyButton)`
 
   :focus {
     border: 4px lawngreen solid;
-    border-radius: 20px;
+    border-radius: 33px;
     outline: none;
   }
 
@@ -34,10 +34,7 @@ const StyledButton = styled(MyButton)`
   );
 `;
 
-// ts-lint disable
-const noop = () => {};
-
-export const Button = (props: Props) => {
+export const Button = (props: CustomProps) => {
   const {
     bg,
     children,
@@ -45,21 +42,21 @@ export const Button = (props: Props) => {
     label,
     mt,
     mb,
-    onClick,
+    click,
     shadow,
     ...theRest
   } = props;
-  const disabledclass = disabled ? "Button_disabled" : "";
 
   return (
     <StyledButton
       type="button"
-      width="250px"
+      width={1}
       mt={mt}
       bg={bg}
-      borderRadius="23px"
-      onClick={onClick}
+      borderRadius="33px"
+      onClick={click}
       boxShadow="0px 10px 27px 0px rgba(0, 0, 0, 0.1)"
+      {...theRest}
     >
       <Text fontWeight="200" fontFamily="sans">
         {label ? label : children}

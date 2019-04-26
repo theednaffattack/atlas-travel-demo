@@ -163,6 +163,12 @@ export const bitemMotionProps = {
   exit: { opacity: 0 }
 };
 
+export const fitemMotionProps = {
+  init: { opacity: 0 },
+  enter: { opacity: 1, delayChildren: 200, staggerChildren: 150 },
+  exit: { opacity: 0 }
+};
+
 export const itemMotionProps = {
   init: { opacity: 0 },
   enter: { opacity: 1, delayChildren: 2000, staggerChildren: 1500 },
