@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Text } from "rebass";
-import { TravelGradientIcon } from "./Icon/TravelsGradient";
+import Icon from "./Icon/Icon";
 
 interface CustTravelingProps {
   data: any;
@@ -13,9 +13,6 @@ export const TravelingPage = ({ data }: CustTravelingProps, props: any) => (
     justifyContent="center"
     {...props}
   >
-    Traveling Page
-    <Flex flexDirection="column" color="text" width="100px">
-      <TravelGradientIcon fill="active" name="explore" />
-    </Flex>
+    <Text color="text">Traveling Page</Text>
   </Flex>
 );

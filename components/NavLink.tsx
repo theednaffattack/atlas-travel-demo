@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 const StyledLink = styled.a`
   text-decoration: none;
-  color: ${props => props.fill || "white"};
+  color: ${props => props.color || "white"};
 `;
 
-export default ({ href, name, fill, theme }: any) => (
+export default ({ href, name, fill, theme, color }: any) => (
   <Link prefetch href={href} passHref>
-    <StyledLink fill={fill}>{name}</StyledLink>
+    <StyledLink color={color}>{name}</StyledLink>
   </Link>
 );

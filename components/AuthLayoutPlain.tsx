@@ -29,7 +29,7 @@ type Props = {
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  title = "This is the default title"
+  title = "Atlas Travel"
 }) => {
   return (
     <Flex

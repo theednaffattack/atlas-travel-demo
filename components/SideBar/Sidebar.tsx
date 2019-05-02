@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import posed from "react-pose";
-import { Text } from "rebass";
 // import { Link as BaseLink, Router } from "@reach/router";
-import BaseLink from "next/link";
+import Link from "next/link";
 import styled from "styled-components";
 import {
   color,
@@ -14,8 +13,9 @@ import {
   position
 } from "styled-system";
 
+import MyLink from "./Link";
+
 import { navList } from "./navList";
-import { render } from "react-dom";
 
 const SidebarBase = posed.nav({
   open: {
@@ -47,24 +47,6 @@ const StyledLi = styled.li`
   border: 2px dotted black;
 `;
 
-const Link = styled(BaseLink)`
-  ${space}
-  ${width}
-  text-decoration: none !important;
-  &::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: goldenrod;
-    transition: width 0.3s;
-  }
-  &:hover::after {
-    width: 100%;
-    //transition: width .3s;
-  }
-`;
-
 const NavItemPosed = posed.li({
   open: { opacity: 1 },
   closed: { opacity: 0 }
@@ -74,6 +56,12 @@ const NavItem = styled(NavItemPosed)`
   ${space}
   ${width}
 `;
+
+interface CustomSidebarProps {
+  status: string;
+  toggleMenu(): any;
+  navItems: any[];
+}
 
 // const Nav = ({ isOpen, navItems }) => (
 //   <Sidebar pose={isOpen ? "open" : "closed"}>
@@ -87,7 +75,7 @@ const NavItem = styled(NavItemPosed)`
 //   </Sidebar>
 // );
 
-class SideBarClass extends Component {
+class SideBarClass extends Component<CustomSidebarProps> {
   render() {
     const { status, toggleMenu, navItems } = this.props;
     return (
@@ -104,9 +92,7 @@ class SideBarClass extends Component {
           <a onClick={toggleMenu}>X</a>
           {navList.map(({ url, name }) => (
             <NavItem key={url} my={3}>
-              <Link to={url}>
-                <Text color="white">{name}</Text>
-              </Link>
+              <MyLink name={name} href={url} />
             </NavItem>
           ))}
         </StyledList>

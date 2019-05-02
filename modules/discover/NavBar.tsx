@@ -33,6 +33,7 @@ import SearchIconBase from "../../static/images/discover/search.svg";
 import DotIconBase from "../../static/images/discover/dot.svg";
 
 import NavLink from "../../components/NavLink";
+import Icon from "../traveling/Icon/Icon";
 
 const fadedText = "rgba(255,255,255,0.6)";
 
@@ -40,7 +41,7 @@ const Card = styled(CardBase)`
   ${maxWidth}
 `;
 
-const Menu = styled(MenuBase)`
+const Menu = styled(Icon)`
   ${space}
   ${height}
   ${width}
@@ -74,31 +75,31 @@ ${minHeight}
 `;
 
 //Icons
-const TravelIcon = styled(TravelIconBase)`
+const TravelIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const ExploreIcon = styled(ExploreIconBase)`
+const ExploreIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const SavedIcon = styled(SavedIconBase)`
+const SavedIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const ChatIcon = styled(ChatIconBase)`
+const ChatIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const ProfileIcon = styled(ProfileIconBase)`
+const ProfileIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
@@ -137,12 +138,14 @@ const ContentNav = styled(FlexBase)`
   border-bottom: 3px transparent solid;
   box-sizing: border-box;
   :hover {
-    border-bottom: 3px rgba(255, 255, 255, 0.8) solid;
+    border-bottom: 3px #e9486d solid;
   }
   :focus {
-    border-bottom: 3px rgba(255, 255, 255, 0.8) solid;
+    border-bottom: 3px #e9486d solid;
   }
 `;
+
+const baseFill = "rgb(204, 204, 204)";
 
 export class NavBarTop extends Component {
   constructor(props) {
@@ -157,6 +160,7 @@ export class NavBarTop extends Component {
         height="100px"
         bg="transparent"
         width={1}
+        mt={3}
         mb={3}
       >
         <ContentFlex
@@ -166,17 +170,31 @@ export class NavBarTop extends Component {
           width={[1]}
         >
           <ContentFlex width="200px">
-            <ContentFlex alignItems="center" width={1 / 2}>
-              <Menu
+            <ContentFlex
+              justifyContent="center"
+              alignItems="center"
+              width={1 / 2}
+              style={{
+                border: "3px green solid"
+              }}
+            >
+              <FlexBase
+                flexDirection="column"
+                // justifyContent="center"
+                // alignItems="center"
+                // mr="16px"
+                // mt={3}
+                // height="40px"
+                width="35px"
+                style={{ border: "3px red solid" }}
                 onClick={this.props.menuToggle}
-                mr="16px"
-                height="1.5em"
-                width="1.5em"
-              />
+              >
+                <Icon height="40px" width="40px" name="menu" fill={baseFill} />
+              </FlexBase>
               <Text
                 onClick={this.props.menuToggle}
-                mt={-2}
-                color={fadedText}
+                // mt={-2}
+                color={baseFill}
                 fontFamily="montserrat"
               >
                 Menu
@@ -196,53 +214,108 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <TravelIcon mb={2} height="40px" />
+              <div style={{ width: "40px" }}>
+                <TravelIcon
+                  height="40px"
+                  width="40px"
+                  fill="active"
+                  name="travels"
+                />
+              </div>
+              {/* <TravelIcon mb={2} height="40px" /> */}
+              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+                <NavLink color="#e9486d" href="/traveling" name="Traveling" />
+              </Text>
+            </ContentNav>
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <ExploreIcon
+                height="40px"
+                width="40px"
+                fill={baseFill}
+                name="explore"
+                mb={2}
+                height="40px"
+              />
+              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+                <NavLink
+                  color={baseFill}
+                  href="/explore"
+                  name="Explore"
+                  fill={fadedText}
+                />
+              </Text>
+            </ContentNav>
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <SavedIcon
+                height="40px"
+                width="40px"
+                name="saved"
+                fill={baseFill}
+                mb={2}
+                height="40px"
+              />
+              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+                <NavLink
+                  color={baseFill}
+                  href="/saved"
+                  name="Saved"
+                  fill={fadedText}
+                />
+              </Text>
+            </ContentNav>
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <ChatIcon
+                height="40px"
+                width="40px"
+                name="chat"
+                fill={baseFill}
+                mb={2}
+                height="40px"
+              />
+              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+                <NavLink
+                  color={baseFill}
+                  href="/chat"
+                  name="Chat"
+                  fill={fadedText}
+                />
+              </Text>
+            </ContentNav>
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <ProfileIcon
+                height="40px"
+                width="40px"
+                name="profile"
+                fill={baseFill}
+                mb={2}
+              />
               <Text fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="/traveling" name="Traveling" />
-              </Text>
-            </ContentNav>
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <ExploreIcon mb={2} height="40px" />
-              <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="/explore" name="Explore" fill={fadedText} />
-              </Text>
-            </ContentNav>
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <SavedIcon mb={2} height="40px" />
-              <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="/saved" name="Saved" fill={fadedText} />
-              </Text>
-            </ContentNav>
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <ChatIcon mb={2} height="40px" />
-              <Text color={fadedText} fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="/chat" name="Chat" fill={fadedText} />
-              </Text>
-            </ContentNav>
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <ProfileIcon mb={2} height="40px" />
-              <Text fontSize=".9em" fontFamily="montserrat">
-                <NavLink href="/profile" name="Profile" fill={fadedText} />
+                <NavLink
+                  color={baseFill}
+                  href="/profile"
+                  name="Profile"
+                  fill={baseFill}
+                />
               </Text>
             </ContentNav>
           </ContentFlex>

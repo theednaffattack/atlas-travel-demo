@@ -104,6 +104,68 @@ export type Upload = any;
 // Documents
 // ====================================================
 
+export type CreateReservationVariables = {
+  data: ReservationInput;
+};
+
+export type CreateReservationMutation = {
+  __typename?: "Mutation";
+
+  createReservation: CreateReservationCreateReservation;
+};
+
+export type CreateReservationCreateReservation = {
+  __typename?: "Reservation";
+
+  id: string;
+
+  from: DateTime;
+
+  to: DateTime;
+
+  user: CreateReservationUser;
+
+  room: CreateReservationRoom;
+};
+
+export type CreateReservationUser = {
+  __typename?: "User";
+
+  id: string;
+
+  firstName: string;
+
+  lastName: string;
+
+  email: string;
+};
+
+export type CreateReservationRoom = {
+  __typename?: "Room";
+
+  id: string;
+
+  roomNumber: string;
+
+  type: string;
+
+  beds: number;
+
+  costPerNight: number;
+
+  reserved: Maybe<CreateReservationReserved[]>;
+};
+
+export type CreateReservationReserved = {
+  __typename?: "Reservation";
+
+  id: string;
+
+  from: DateTime;
+
+  to: DateTime;
+};
+
 export type ChangePasswordVariables = {
   data: ChangePasswordInput;
 };
@@ -402,6 +464,78 @@ import gql from "graphql-tag";
 // Components
 // ====================================================
 
+export const CreateReservationDocument = gql`
+  mutation CreateReservation($data: ReservationInput!) {
+    createReservation(data: $data) {
+      id
+      from
+      to
+      user {
+        id
+        firstName
+        lastName
+        email
+      }
+      room {
+        id
+        roomNumber
+        type
+        beds
+        costPerNight
+        reserved {
+          id
+          from
+          to
+        }
+      }
+    }
+  }
+`;
+export class CreateReservationComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<
+      CreateReservationMutation,
+      CreateReservationVariables
+    >
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<
+        CreateReservationMutation,
+        CreateReservationVariables
+      >
+        mutation={CreateReservationDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreateReservationProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreateReservationMutation, CreateReservationVariables>
+> &
+  TChildProps;
+export type CreateReservationMutationFn = ReactApollo.MutationFn<
+  CreateReservationMutation,
+  CreateReservationVariables
+>;
+export function CreateReservationHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreateReservationMutation,
+        CreateReservationVariables,
+        CreateReservationProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreateReservationMutation,
+    CreateReservationVariables,
+    CreateReservationProps<TChildProps>
+  >(CreateReservationDocument, operationOptions);
+}
 export const ChangePasswordDocument = gql`
   mutation ChangePassword($data: ChangePasswordInput!) {
     changePassword(data: $data) {
