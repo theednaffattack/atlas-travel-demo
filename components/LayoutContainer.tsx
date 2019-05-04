@@ -23,7 +23,7 @@ export default class LayoutContainer extends Component<
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
   state = {
-    sideBar: "isOpen"
+    sideBar: "isClosed"
   };
 
   componentDidMount() {

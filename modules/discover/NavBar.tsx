@@ -21,21 +21,13 @@ import {
   zIndex
 } from "styled-system";
 
-// import MyLink from "../components/MyLink";
-import MenuBase from "../../static/images/discover/menu2.svg";
-import TravelIconBase from "../../static/images/discover/travels.svg";
-import ExploreIconBase from "../../static/images/discover/explore.svg";
-import SavedIconBase from "../../static/images/discover/saved.svg";
-import ChatIconBase from "../../static/images/discover/chat.svg";
-import ProfileIconBase from "../../static/images/discover/profile.svg";
-import ActivityIconBase from "../../static/images/discover/activity.svg";
-import SearchIconBase from "../../static/images/discover/search.svg";
-import DotIconBase from "../../static/images/discover/dot.svg";
-
 import NavLink from "../../components/NavLink";
 import Icon from "../traveling/Icon/Icon";
+import MenuIcon from "../traveling/Icon/MenuIcon";
 
 const fadedText = "rgba(255,255,255,0.6)";
+
+const activeIcon = "rgb(233, 72, 109)";
 
 const Card = styled(CardBase)`
   ${maxWidth}
@@ -105,19 +97,19 @@ ${width}
 ${space}
 `;
 
-const ActivityIcon = styled(ActivityIconBase)`
+const ActivityIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const SearchIcon = styled(SearchIconBase)`
+const SearchIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
 `;
 
-const DotIcon = styled(DotIconBase)`
+const DotIcon = styled(Icon)`
 ${height}
 ${width}
 ${space}
@@ -154,7 +146,7 @@ export class NavBarTop extends Component {
   render() {
     return (
       <NavBar
-        px={[4]}
+        px={[6]}
         justifyContent="center"
         alignItems="center"
         height="100px"
@@ -174,24 +166,18 @@ export class NavBarTop extends Component {
               justifyContent="center"
               alignItems="center"
               width={1 / 2}
-              style={{
-                border: "3px green solid"
-              }}
             >
-              <FlexBase
-                flexDirection="column"
-                // justifyContent="center"
-                // alignItems="center"
-                // mr="16px"
-                // mt={3}
-                // height="40px"
-                width="35px"
-                style={{ border: "3px red solid" }}
-                onClick={this.props.menuToggle}
-              >
-                <Icon height="40px" width="40px" name="menu" fill={baseFill} />
-              </FlexBase>
+              <BoxBase pt={2} width="30px" onClick={this.props.menuToggle}>
+                <MenuIcon
+                  height="100%"
+                  width="100%"
+                  name="menu"
+                  fill={baseFill}
+                />
+              </BoxBase>
+
               <Text
+                ml={2}
                 onClick={this.props.menuToggle}
                 // mt={-2}
                 color={baseFill}
@@ -308,6 +294,7 @@ export class NavBarTop extends Component {
                 name="profile"
                 fill={baseFill}
                 mb={2}
+                height="40px"
               />
               <Text fontSize=".9em" fontFamily="montserrat">
                 <NavLink
@@ -327,8 +314,17 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <ActivityIcon height="40px" />
-              <DotIcon mt={-3} height="10px" />
+              <BoxBase>
+                <ActivityIcon
+                  fill={baseFill}
+                  name="activity"
+                  width="18px"
+                  height="18px"
+                />
+              </BoxBase>
+              <BoxBase>
+                <DotIcon fill={activeIcon} width="6px" height="6px" mt={-3} />
+              </BoxBase>
             </ContentFlex>
             <ContentFlex
               alignItems="center"
@@ -336,7 +332,13 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <SearchIcon mb={2} height="40px" />
+              <SearchIcon
+                fill={baseFill}
+                name="search"
+                width="18px"
+                height="18px"
+                // mb={2}
+              />
             </ContentFlex>
           </ContentFlex>
         </ContentFlex>

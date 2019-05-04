@@ -1,6 +1,6 @@
 import React from "react";
-import { Flex, Text } from "rebass";
-import Icon from "./Icon/Icon";
+import { Flex } from "rebass";
+import TravelingMain from "./TravelingMain";
 
 interface CustTravelingProps {
   data: any;
@@ -9,10 +9,11 @@ interface CustTravelingProps {
 export const TravelingPage = ({ data }: CustTravelingProps, props: any) => (
   <Flex
     alignItems="center"
+    px={4}
     flexDirection="column"
-    justifyContent="center"
+    // justifyContent="center"
     {...props}
   >
-    <Text color="text">Traveling Page</Text>
+    <TravelingMain data={data} />
   </Flex>
 );

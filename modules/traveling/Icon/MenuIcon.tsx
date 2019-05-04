@@ -55,10 +55,10 @@ const Icon = ({
       fill={fill === "active" ? baseFill : fill}
       d={myPaths[name]["paths"][0]}
     />
-    {myPaths[name]["paths"][1] ? (
+    {myPaths[name][1] ? (
       <path
         fill={fill === "active" ? "url(#PSgrad_0)" : fill}
-        d={myPaths[name]["paths"][1]}
+        d={myPaths[name][1] ? myPaths[name][1] : ""}
       />
     ) : (
       ""

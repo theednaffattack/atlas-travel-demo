@@ -1,82 +1,107 @@
-import posed, { PoseGroup } from "react-pose";
+import posed from "react-pose";
 import React, { Component } from "react";
+import { Button as ButtonBase, Image as ImageBase, Text } from "rebass";
+import styled from "styled-components";
+import { position, top, left, right, bottom, zIndex } from "styled-system";
+
 import Carousel from "./PopSlideCarousel";
-
 import { SaveButtonIcon } from "./SaveButton";
-
-import { Image as ImageBase, Text } from "rebass";
-
 import { MiniCarousel } from "./MiniCarousel";
 
-import { itemMotionProps } from "../motionConfig";
+import { itemMotionProps } from "./motionConfig";
+
+export const ButtonR = styled(ButtonBase)`
+${position}
+${top}
+${left}
+${right}
+${bottom}
+${zIndex}
+`;
 
 export const Item = posed.figure(itemMotionProps);
 
-export const Image = (props: any) => (
+type CustomProps = {
+  clickFunc: any;
+  height: string | number;
+  src: string;
+  width: string | number;
+};
+
+export const Image = ({ clickFunc, height, src, width }: CustomProps) => (
   <Item
-    onClick={props.clickFunc}
+    onClick={clickFunc}
     // width={props.width}
     // height={props.height}
     style={{
-      marginLeft: "10px",
-      marginRight: "10px",
+      // marginLeft: "10px",
+      // marginRight: "10px",
+      margin: 0,
       marginTop: 0,
-      width: "auto",
-      // minHeight: "750px",
+      height: "100%",
+      width: "100%",
       cursor: "grab",
-
-      // backgroundImage:
-      //   "linear-gradient( 75deg, rgb(17,17,17) 0%, rgb(17,17,17) 100%)",
 
       minWidth: "120%"
     }}
   >
-    <ImageBase height="100%" src={props.src.uri} />
+    <ImageBase height="100%" width="100%" src={src} />
     <Text mt={-4} color="white" as="figcaption">
-      {" "}
-      {props.src.uri}
+      {src}
     </Text>
   </Item>
 );
 const slides = ["blue", "red", "yellow", "green"];
 
-// interface CustomProps {
-//   component: Component;
-//   photos: string[];
-// }
-
-interface CustomProps {
+interface CarouselProps {
   // setSlideIndex: any;
   // slideIndex: number;
   // component: Component;
-  photos: string[];
+  photos: any[];
 }
 
-class CarouselContainer extends Component<CustomProps> {
+class CarouselContainer extends Component<CarouselProps> {
   state = {
     slideIndex: 0
   };
 
-  setSlideIndex = slideIndex => {
+  setSlideIndex = (slideIndex: any) => {
     this.setState({ slideIndex });
   };
 
   render() {
     const { slideIndex } = this.state;
-    const { photos } = this.props;
+    const { photos, clickFunc } = this.props;
     return (
       <div
+        key={Math.random()}
         className="App"
         style={{
+          position: "static",
           fontFamily: "sans-serif",
           textAlign: "center",
           width: "100%",
           // position: "relative",
-          overflow: "hidden",
-          minHeight: "400px"
+          overflow: "hidden"
+          // minHeight: "auto"
           // height: "100%"
         }}
       >
+        {" "}
+        <ButtonR
+          id="close-button"
+          bg="rgba(0,0,0,.3)"
+          color="white"
+          borderRadius="28px"
+          onClick={clickFunc}
+          position="absolute"
+          top={20}
+          left={20}
+          zIndex={30}
+        >
+          X
+        </ButtonR>
+        {/* {JSON.stringify(photos)} */}
         <div
           style={{
             position: "relative"
@@ -109,14 +134,14 @@ class CarouselContainer extends Component<CustomProps> {
               // height: "100%"
             }}
           >
-            {photos.map((photo, index) => (
+            {photos.map((photo: any, index: any) => (
               <Image
                 // height="100%"
                 // width="100%"
-                // imageHeight="100%"
-                // imageWidth="100%"
+                imageHeight="100%"
+                imageWidth="100%"
                 index={index}
-                src={photo}
+                src={photo.uri}
                 key={`unsplash-${index}`}
                 clickFunc={() => this.setSlideIndex(index)}
                 // onClick={() => setSlideIndex(index)}

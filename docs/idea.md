@@ -17,6 +17,18 @@ https://css-tricks.com/styling-texty-inputs-only/
 
 https://codepen.io/aderaaij/pen/KvJbGj
 
+## React Pose w/basic Timeline workaround
+
+https://codesandbox.io/s/7z7kq63p5q
+
+## React Pose Carousel
+
+https://codesandbox.io/embed/0094879v40?codemirror=1
+
+## React Pose Modal
+
+https://codesandbox.io/s/o9j849rx0y
+
 # Ideas for Other Projects
 
 https://any-api.com/nba_com/nba_com/docs/_boxscoreadvanced/GET
@@ -32,11 +44,3 @@ https://github.com/toddmotto/public-apis#music
 
 https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
 https://codesandbox.io/s/30q3mzjv91?module=%2Fsrc%2FOutsideAlerter.js
-
-## React Pose Carousel
-
-https://codesandbox.io/embed/0094879v40?codemirror=1
-
-## React Pose Modal
-
-https://codesandbox.io/s/o9j849rx0y
