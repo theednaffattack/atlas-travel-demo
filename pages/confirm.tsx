@@ -17,6 +17,8 @@ export default class Confirm extends React.PureComponent {
       return {};
     }
 
+    console.log("token");
+    console.log(token);
     const trythis = await apolloClient.mutate<
       ConfirmUserMutation,
       ConfirmUserVariables

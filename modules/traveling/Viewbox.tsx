@@ -51,9 +51,17 @@ const CardFlex: React.FunctionComponent<FlexProps> = styled(FlexBase)`
 
 interface CustomViewBoxProps {
   data: any;
+  requestor: any;
+}
+interface CustomState {
+  showModal: boolean;
+  isZoomed: boolean;
 }
 
-export default class ViewBox extends Component<CustomViewBoxProps> {
+export default class ViewBox extends Component<
+  CustomViewBoxProps,
+  CustomState
+> {
   constructor(props: any) {
     super(props);
     this.truncate = this.truncate.bind(this);
@@ -90,6 +98,7 @@ export default class ViewBox extends Component<CustomViewBoxProps> {
     return (
       <FeaturedCards
         // toggle={this.toggleModal}
+        requestor={this.props.requestor}
         zoomState={this.state.isZoomed}
         localContext={this.truncate}
         data={this.props.data ? this.props.data.getAllHotel : []}

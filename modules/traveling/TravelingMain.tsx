@@ -18,10 +18,12 @@ export default class TravelingMain extends React.Component<MyProps, MyState> {
     fakeState: ""
   };
   render() {
+    const thisIsMe = this.props.data.data.me;
     return (
       <Flex bg="transparent" width={[1, 0.6]} flexDirection="column">
         <Flex alignItems="center" color="text">
           <Box width={1}>
+            Hello {thisIsMe.firstName} {thisIsMe.lastName}
             <Text fontWeight="600" fontSize={[4, 5]} color="text">
               Featured
             </Text>
@@ -42,7 +44,7 @@ export default class TravelingMain extends React.Component<MyProps, MyState> {
         >
           {getAllHotel =>
             getAllHotel && getAllHotel.data ? (
-              <Viewbox data={getAllHotel.data} />
+              <Viewbox requestor={thisIsMe} data={getAllHotel.data} />
             ) : (
               "loading..."
             )

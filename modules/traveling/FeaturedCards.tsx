@@ -34,6 +34,7 @@ const Card = styled(CardBase)`
 interface CustomFeatureCardProps {
   data: any;
   localContext: any;
+  requestor: any;
   // src: any;
   // toggle,
   // zoomIn: any;
@@ -132,7 +133,8 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
   render() {
     let {
       data,
-      localContext
+      localContext,
+      requestor
       // toggle,
       // zoomState
     } = this.props;
@@ -145,6 +147,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
       >
         <Modal
           data={this.state.modalData}
+          requestor={requestor}
           fakeAmenities={this.state.fakeAmenities}
           show={this.state.showModal}
           toggle={this.toggleModal}

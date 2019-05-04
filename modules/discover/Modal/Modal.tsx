@@ -1,8 +1,9 @@
 import React from "react";
 import { Image as ImageBase, Text } from "rebass";
-
 import casual from "casual-browserify";
 import posed, { PoseGroup } from "react-pose";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 
 import {
   bitemMotionProps,
@@ -34,6 +35,7 @@ import {
   ShareIcon,
   WifiIcon
 } from "./Icons/Icons";
+import { createReservationMutation } from "../../../graphql/reservation/mutations/CreateReservation";
 
 const checkoutRules = [
   "Payment at checkout",
@@ -155,6 +157,81 @@ function MakeNThings(num: number, thing: any) {
   return collectionOfThings;
 }
 
+// TYPES
+
+interface CustomProps {
+  hotelId: string;
+  requestor: string;
+}
+interface CustomState {
+  description: string;
+  url: string;
+}
+
+// COMPONENTS
+
+class CreateReservation extends React.Component<CustomProps, CustomState> {
+  state = {
+    description: "",
+    url: ""
+  };
+
+  render() {
+    console.log("PROPS");
+    console.log(this.props);
+    const myData = {
+      data: {
+        dates: {
+          from: "2019-08-02",
+          to: "2019-08-07",
+
+          hotelId: this.props.hotelId
+        },
+        userId: this.props.requestor.id,
+        hotelId: this.props.hotelId
+      }
+    };
+    const { description, url } = this.state;
+    return (
+      <Mutation mutation={createReservationMutation} variables={myData}>
+        {(createReservation, { data, loading, error }) => {
+          return (
+            <Lane
+              bg="#f2f2f2"
+              boxShadow="modalItem"
+              my={2}
+              justifyContent="center"
+              key="tripReminders"
+              flexDirection="column"
+              width={1}
+              p={4}
+            >
+              <BItem>
+                <Text fontWeight="400" fontSize={3}>
+                  Before you go
+                </Text>
+                <ul>
+                  {checkoutRules.map(rule => (
+                    <li key={Math.random()}>{rule}</li>
+                  ))}
+                </ul>
+              </BItem>
+              <FItem justifyContent="center" alignItems="center" px={3}>
+                <Button
+                  onClick={createReservation}
+                  py={2}
+                  label="Book a Room"
+                />
+              </FItem>
+              <FItem>{data && JSON.stringify(data, null, 2)}</FItem>
+            </Lane>
+          );
+        }}
+      </Mutation>
+    );
+  }
+}
+
 export const UserRatings = ({ border, data, votes, width }) => (
   <FItem
     flexDirection="column"
@@ -236,7 +313,7 @@ class Modal extends React.Component<CustomModalProps> {
     const { show, toggle, fakeAmenities } = this.props;
     const { index } = this.state;
     const items = [Login, Signup];
-
+    console.log(this.props.data);
     return (
       <PoseGroup preEnterPose="init">
         {show && this.props.data && (
@@ -406,7 +483,12 @@ class Modal extends React.Component<CustomModalProps> {
                     </FItem>
                   </Lane>
 
-                  <Lane
+                  <CreateReservation
+                    hotelId={this.props.data.id}
+                    requestor={this.props.requestor}
+                  />
+
+                  {/* <Lane
                     bg="#f2f2f2"
                     boxShadow="modalItem"
                     my={2}
@@ -433,7 +515,7 @@ class Modal extends React.Component<CustomModalProps> {
                         label="Book a Room"
                       />
                     </FItem>
-                  </Lane>
+                  </Lane> */}
                 </Lane>
               </PoseGroup>
             </OuterPosedFlex>
