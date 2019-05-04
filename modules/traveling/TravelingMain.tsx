@@ -20,20 +20,23 @@ export default class TravelingMain extends React.Component<MyProps, MyState> {
   render() {
     const thisIsMe = this.props.data.data.me;
     return (
-      <Flex bg="transparent" width={[1, 0.6]} flexDirection="column">
+      <Flex
+        bg="transparent"
+        color="text"
+        width={[1, 0.6]}
+        flexDirection="column"
+      >
         <Flex alignItems="center" color="text">
           <Box width={1}>
-            Hello {thisIsMe.firstName} {thisIsMe.lastName}
             <Text fontWeight="600" fontSize={[4, 5]} color="text">
               Featured
             </Text>
-            <Text>### spots</Text>
           </Box>
+
           <Flex>
             <Button height="165px" label="Filters" />
           </Flex>
         </Flex>
-
         <GetAllHotelDataComponent
           variables={{
             data: {
@@ -44,9 +47,13 @@ export default class TravelingMain extends React.Component<MyProps, MyState> {
         >
           {getAllHotel =>
             getAllHotel && getAllHotel.data ? (
-              <Viewbox requestor={thisIsMe} data={getAllHotel.data} />
+              <>
+                <Text>{getAllHotel.data.getAllHotel.length} spots</Text>
+
+                <Viewbox requestor={thisIsMe} data={getAllHotel.data} />
+              </>
             ) : (
-              "loading..."
+              <span>"loading..."</span>
             )
           }
         </GetAllHotelDataComponent>
