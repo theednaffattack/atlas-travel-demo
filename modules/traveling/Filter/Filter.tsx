@@ -5,7 +5,7 @@ import { Amenities } from "./Features";
 
 export const Filter = () => {
   return (
-    <Flex bg="#eee" width={1}>
+    <Flex flexWrap="wrap" bg="#eee" width={1}>
       <Amenities />
     </Flex>
   );

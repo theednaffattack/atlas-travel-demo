@@ -17,8 +17,8 @@ type MyState = {
 };
 
 const FlexSpecial = posed(Flex)({
-  closed: { height: "0" },
-  open: { height: "auto" }
+  closed: { height: "0", opacity: 0 },
+  open: { height: "auto", opacity: 1 }
 });
 
 export default class TravelingMain extends React.Component<MyProps, MyState> {
@@ -34,7 +34,7 @@ export default class TravelingMain extends React.Component<MyProps, MyState> {
         <Flex
           bg="transparent"
           color="text"
-          width={[1, 0.6]}
+          width={[1, 1 / 2]}
           flexDirection="column"
         >
           <Flex alignItems="center" color="text">
