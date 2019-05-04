@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Card as CardBase, Flex as FlexBase, Text } from "rebass";
+import { Box, Card as CardBase, Flex as FlexBase, Image, Text } from "rebass";
 import styled from "styled-components";
 import {
   borders,
@@ -165,7 +165,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                 key={Math.random()}
                 // onClick={this.toggleCustomZoom}
                 id={index.toString()}
-                width={500}
+                width={[1, 0.4]}
                 boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
                 id={index.toString()}
                 onClick={this.toggleModal}
@@ -173,7 +173,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
               >
                 <ContentFlex alignItems="center">
                   <Box width="244px" mr={2}>
-                    <ZoomImg
+                    {/* <ZoomImg
                       zoomState={this.state.isZoomed}
                       poseState={this.state.isZoomed ? true : false}
                       // clicky={this.toggleCustomZoom}
@@ -181,7 +181,8 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                       imageWidth="100%"
                       src={info.photos[0].uri}
                       photos={info.photos}
-                    />
+                    /> */}
+                    <Image borderRadius="17px" src={info.photos[0].uri} />
                   </Box>
 
                   <ContentFlex width={1} flexDirection="column">
