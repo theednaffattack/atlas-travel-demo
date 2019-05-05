@@ -30,15 +30,6 @@ const PFlex = posed(Flex)({
   }
 });
 
-function truncate(words: string, clip: number) {
-  let numLetters = clip || 12;
-  if (words.length > numLetters) {
-    return words.slice(0, numLetters) + "...";
-  } else {
-    return words;
-  }
-}
-
 export class Amenities extends React.Component {
   constructor(props) {
     super(props);

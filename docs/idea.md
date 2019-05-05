@@ -44,3 +44,7 @@ https://github.com/toddmotto/public-apis#music
 
 https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
 https://codesandbox.io/s/30q3mzjv91?module=%2Fsrc%2FOutsideAlerter.js
+
+## Range Slider
+
+https://sghall.github.io/react-compound-slider/#/getting-started/tutorial
