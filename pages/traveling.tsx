@@ -1,10 +1,7 @@
 import React from "react";
 
 import Layout from "../components/AuthLayoutPlain";
-import {
-  HelloWorldComponent,
-  MeComponent
-} from "../generated/apolloComponents";
+import { MeComponent } from "../generated/apolloComponents";
 import { TravelingPage } from "../modules/traveling/Traveling";
 // import { MyContext } from "../interfaces/MyContext";
 

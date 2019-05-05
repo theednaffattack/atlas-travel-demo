@@ -8,7 +8,7 @@ interface SVGProps {
   height: string;
   width: string;
   className: string;
-  size: string;
+  size?: string;
 }
 
 // interface PathProps {
@@ -29,7 +29,7 @@ const Icon = ({
   fill = "currentColor",
   name = "travels",
   className = "icon",
-  size = "1em",
+  size,
   height,
   width
 }: SVGProps) => (

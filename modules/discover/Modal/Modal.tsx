@@ -463,7 +463,7 @@ class Modal extends React.Component<CustomModalProps> {
                   >
                     <Text fontWeight="600">Where is that</Text>
                     <FItem>
-                      <MapPinIcon height="60px" width="60px" />
+                      <MapPinIcon size="1em" />
                       <FItem flexDirection="column">
                         <Text mt={3} fontSize=".8em" fontWeight="600">
                           ADDRESS

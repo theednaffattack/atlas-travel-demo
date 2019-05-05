@@ -1,24 +1,17 @@
 // @ts-ignore
 import react from "React";
-import posed, { PoseGroup } from "react-pose";
 
 import paths from "./paths.json";
 
-interface SVGProps {
-  name?: string;
-  fill?: string;
+interface CustomSVGProps {
+  fill: string;
+  name: string;
   selected: boolean;
+  className?: string;
+  size?: string;
   height: string;
-  width: string;
-  className: string;
-  size: string;
+  width?: string;
 }
-
-// interface PathProps {
-//   travels: string[];
-//   explore: string[];
-//   menu: string[];
-// }
 
 interface PathProps {
   [key: string]: any;
@@ -26,9 +19,7 @@ interface PathProps {
 
 let myPaths: PathProps = paths;
 
-const baseFill = "rgb(204, 204, 204)";
-
-const Icon = ({
+export const Icon = ({
   fill = "rgb(255, 255, 255)",
   selected = false,
   name = "travels",
@@ -36,16 +27,12 @@ const Icon = ({
   size = "1em",
   height,
   width
-}: SVGProps) => (
+}: CustomSVGProps) => (
   <svg
     viewBox={myPaths[name]["viewBox"]}
-    // preserveAspectRatio="xMidYMid slice"
     className={className}
     height={height || size}
     width={width || size}
-    // height="40px"
-    // width="40px"
-    // preserveAspectRatio="xMidYMin meet"
   >
     <defs>
       <filter
@@ -98,102 +85,4 @@ const Icon = ({
   </svg>
 );
 
-// width="42px" height="30px"
-
 export default Icon;
-
-// ICON LIST
-
-const PIcon = posed(Icon)({});
-
-const whiteFill = "rgb(255,255,255)";
-
-type AmenityIcons = {
-  wifi: any;
-  hotelRestaurant: any;
-  pool: any;
-  innBar: any;
-  parking: any;
-  nightClub: any;
-};
-
-export const amenityIcons: AmenityIcons = {
-  wifi: {
-    component: (
-      <Icon
-        name="wifi"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    ),
-    label: "WiFi"
-  },
-  hotelRestaurant: {
-    component: (
-      <Icon
-        name="hotelRestaurant"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    ),
-    label: "Hotel Restaurant"
-  },
-  pool: {
-    component: (
-      <Icon
-        name="pool"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    ),
-    label: "Pool"
-  },
-  innBar: {
-    component: (
-      <Icon
-        name="innBar"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    ),
-    label: "Inn Bar"
-  },
-  parking: {
-    label: "Parking",
-    component: (
-      <Icon
-        name="parking"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    )
-  },
-  nightClub: {
-    component: (
-      <Icon
-        name="nightClub"
-        fill={whiteFill}
-        height="54px"
-        className="icon"
-        size="2em"
-        width="54px"
-      />
-    ),
-    label: "Night Club"
-  }
-};

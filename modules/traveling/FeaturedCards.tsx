@@ -154,26 +154,26 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
         />
 
         {data
-          ? data.map((info: any, index: number) => (
-              <Card
-                bg="#fafafa"
-                color="text"
-                borderRadius="17px"
-                p={3}
-                mx={2}
-                my={2}
-                key={Math.random()}
-                // onClick={this.toggleCustomZoom}
-                id={index.toString()}
-                width={[1, 0.4]}
-                boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
-                id={index.toString()}
-                onClick={this.toggleModal}
-                // onClick={this.state.isZoomed ? this.zoomOut : this.zoomIn}
-              >
-                <ContentFlex alignItems="center">
-                  <Box width="244px" mr={2}>
-                    {/* <ZoomImg
+          ? data.map((info: any, index: number) => {
+              return (
+                <Card
+                  bg="#fafafa"
+                  color="text"
+                  borderRadius="17px"
+                  p={3}
+                  mx={2}
+                  my={2}
+                  key={"cards-" + index}
+                  // onClick={this.toggleCustomZoom}
+                  id={index.toString()}
+                  width={[1, 0.4]}
+                  boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
+                  onClick={this.toggleModal}
+                  // onClick={this.state.isZoomed ? this.zoomOut : this.zoomIn}
+                >
+                  <ContentFlex alignItems="center">
+                    <Box width="244px" mr={2}>
+                      {/* <ZoomImg
                       zoomState={this.state.isZoomed}
                       poseState={this.state.isZoomed ? true : false}
                       // clicky={this.toggleCustomZoom}
@@ -182,46 +182,50 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                       src={info.photos[0].uri}
                       photos={info.photos}
                     /> */}
-                    <Image borderRadius="17px" src={info.photos[0].uri} />
-                  </Box>
+                      <Image
+                        borderRadius="17px"
+                        src={"https://source.unsplash.com/random/1280x720"}
+                      />
+                    </Box>
 
-                  <ContentFlex width={1} flexDirection="column">
-                    <ContentFlex>
-                      <Box>
-                        <Text fontWeight="600">
-                          <span
-                            style={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis"
-                            }}
-                          >
-                            {localContext(info.name)}
-                          </span>
-                        </Text>
-                        <Text fontSize=".85em">${info.price}</Text>
-                      </Box>
-                      <Box ml="auto">
-                        <Icon name="more" fill="black" height="14px" />
-                      </Box>
-                    </ContentFlex>
-                    <ContentFlex>
-                      <Box>
-                        <Icon name="map-pin" fill={baseFill} />
-                        {this.truncate(info.city)}
-                      </Box>
-                      <Box pl={3}>
-                        <Icon name="love" fill={baseFill} />
-                        {info.loveCount}
-                      </Box>
-                      <Box pl={3}>
-                        <Icon name="comment" fill={baseFill} />
-                        {info.commentCount}
-                      </Box>
+                    <ContentFlex width={1} flexDirection="column">
+                      <ContentFlex>
+                        <Box>
+                          <Text fontWeight="600">
+                            <span
+                              style={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis"
+                              }}
+                            >
+                              {localContext(info.name)}
+                            </span>
+                          </Text>
+                          <Text fontSize=".85em">${info.price}</Text>
+                        </Box>
+                        <Box ml="auto">
+                          <Icon name="more" fill="black" height="14px" />
+                        </Box>
+                      </ContentFlex>
+                      <ContentFlex>
+                        <Box>
+                          <Icon size="1em" name="map-pin" fill={baseFill} />
+                          {this.truncate(info.city)}
+                        </Box>
+                        <Box pl={3}>
+                          <Icon size="1em" name="love" fill={baseFill} />
+                          {info.loveCount}
+                        </Box>
+                        <Box pl={3}>
+                          <Icon size="1em" name="comment" fill={baseFill} />
+                          {info.commentCount}
+                        </Box>
+                      </ContentFlex>
                     </ContentFlex>
                   </ContentFlex>
-                </ContentFlex>
-              </Card>
-            ))
+                </Card>
+              );
+            })
           : ""}
       </FlexBase>
     );

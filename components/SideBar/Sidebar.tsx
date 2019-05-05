@@ -20,9 +20,11 @@ import { navList } from "./navList";
 const SidebarBase = posed.nav({
   open: {
     x: "0%",
+    // applyAtStart: { display: "block" },
     // animate child components with 100ms between entries
     staggerChildren: 100
   },
+
   closed: { x: "-150%" }
 });
 

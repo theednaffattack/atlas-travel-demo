@@ -20,6 +20,9 @@ import {
   left,
   zIndex
 } from "styled-system";
+import { withRouter } from "next/router";
+
+import Icon from "./Icon/Icon";
 
 // import MyLink from "../components/MyLink";
 import MenuBase from "../../static/images/discover/menu2.svg";
@@ -144,6 +147,36 @@ const ContentNav = styled(FlexBase)`
   }
 `;
 
+interface CustomIconLinkProps {
+  router: any;
+  href: string;
+  name: string;
+}
+
+function ActiveIcon({ router, href, name }: CustomIconLinkProps) {
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    let prepHref = `/${href}`;
+    router.push(prepHref);
+  };
+
+  return (
+    <Icon
+      onClick={handleClick}
+      name={name}
+      height="40px"
+      fill={router.pathname === href ? "red" : "white"}
+    />
+  );
+}
+
+const AIcon = withRouter(ActiveIcon);
+
+const navItems = [
+  { name: "explore", label: "Explore", fill: "red" },
+  { name: "explore", label: "Explore", fill: "red" }
+];
+
 export class NavBarTop extends Component {
   constructor(props) {
     super(props);
@@ -190,6 +223,17 @@ export class NavBarTop extends Component {
             width={[1 / 2]}
             mx="auto"
           >
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <AIcon name="explore" height="40px" />
+              <Text fontSize=".9em" fontFamily="montserrat">
+                <NavLink href="/traveling" name="Traveling" />
+              </Text>
+            </ContentNav>
             <ContentNav
               alignItems="center"
               flexDirection="column"

@@ -20,6 +20,7 @@ import {
   left,
   zIndex
 } from "styled-system";
+import { withRouter } from "next/router";
 
 import NavLink from "../../components/NavLink";
 import Icon from "../traveling/Icon/Icon";
@@ -139,6 +140,31 @@ const ContentNav = styled(FlexBase)`
 
 const baseFill = "rgb(204, 204, 204)";
 
+interface CustomIconLinkProps {
+  router: any;
+  href: string;
+  name: string;
+}
+
+function ActiveIcon({ router, href, name }: CustomIconLinkProps) {
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    let prepHref = `/${href}`;
+    router.push(prepHref);
+  };
+
+  return (
+    <Icon
+      onClick={handleClick}
+      name={name}
+      height="40px"
+      fill={router.pathname === "/traveling" ? "active" : baseFill}
+    />
+  );
+}
+
+const AIcon = withRouter(ActiveIcon);
+
 export class NavBarTop extends Component {
   constructor(props) {
     super(props);
@@ -213,6 +239,37 @@ export class NavBarTop extends Component {
                 <NavLink color="#e9486d" href="/traveling" name="Traveling" />
               </Text>
             </ContentNav>
+
+            <ContentNav
+              alignItems="center"
+              flexDirection="column"
+              p={4}
+              width={1 / 5}
+            >
+              <div
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  border: "2px green solid"
+                }}
+              >
+                <AIcon
+                  height="40px"
+                  width="40px"
+                  fill="active"
+                  name="explore"
+                />
+              </div>
+              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+                <NavLink
+                  color={baseFill}
+                  href="/explore"
+                  name="Explore"
+                  fill={fadedText}
+                />
+              </Text>
+            </ContentNav>
+
             <ContentNav
               alignItems="center"
               flexDirection="column"
