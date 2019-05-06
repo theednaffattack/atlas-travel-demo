@@ -97,10 +97,10 @@ export class PriceRange extends React.Component {
     return (
       <Flex
         flexDirection="column"
-        width={0.4}
+        width={[1]}
         bg="#f2f2f2"
         p={3}
-        mx={3}
+        // mx={[0, 3]}
         mb={3}
         style={{
           boxShadow: "0px 13px 33px 0px rgba(0, 0, 0, 0.05)"

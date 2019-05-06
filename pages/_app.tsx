@@ -35,6 +35,11 @@ const theme = {
     sans: "montserrat, sans-serif",
     mono: "Menlo, monospace"
   },
+  borders: {
+    dev1: "2px green solid",
+    dev2: "2px crimson solid",
+    dev3: "2px steelblue solid"
+  },
   shadows: {
     small: "0 0 4px rgba(0, 0, 0, .125)",
     large: "0 0 24px rgba(0, 0, 0, .125)",

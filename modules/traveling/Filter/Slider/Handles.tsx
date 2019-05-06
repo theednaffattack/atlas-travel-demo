@@ -7,7 +7,7 @@ export function Handle({ handle: { id, value, percent }, getHandleProps }) {
         left: `${percent}%`,
         position: "absolute",
         marginLeft: -15,
-        marginTop: 25,
+        marginTop: 15,
         zIndex: 2,
         width: 30,
         height: 30,
@@ -20,8 +20,15 @@ export function Handle({ handle: { id, value, percent }, getHandleProps }) {
       }}
       {...getHandleProps(id)}
     >
-      <div style={{ fontFamily: "Roboto", fontSize: 11, marginTop: -35 }}>
-        {value}
+      <div
+        style={{
+          fontFamily: "Roboto",
+          fontSize: 11,
+          marginTop: -25,
+          backgroundColor: "rgba(255,255,255,0.8)"
+        }}
+      >
+        {parseFloat(Math.round(value * 100) / 100).toFixed(1)}
       </div>
     </div>
   );

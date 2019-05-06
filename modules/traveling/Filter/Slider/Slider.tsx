@@ -8,29 +8,42 @@ import {
 } from "react-compound-slider";
 
 import { Handle } from "./Handles";
+import { Track } from "./Track";
+import { Rail as RailDiv } from "./Rail";
+import { Tick } from "./Tick";
 
 const sliderStyle = {
   // Give the slider some width
   position: "relative",
   width: "100%",
-  height: 80,
-  border: "1px solid steelblue"
+  height: 80
+  // border: "1px solid steelblue"
 };
 
 const railStyle = {
   position: "absolute",
   width: "100%",
   height: 10,
-  marginTop: 35,
+  marginTop: 25,
   borderRadius: 5,
-  backgroundColor: "#8B9CB6"
+  backgroundColor: "lightgrey"
 };
 
 export default class Slider extends Component {
   render() {
     return (
-      <SliderThing rootStyle={sliderStyle} domain={[0, 100]} values={[10]}>
-        <div style={railStyle} />
+      <SliderThing
+        rootStyle={sliderStyle}
+        domain={[150, 700]}
+        step={1}
+        mode={2}
+        values={[250, 390]}
+      >
+        <Rail>
+          {(
+            { getRailProps } // adding the rail props sets up events on the rail
+          ) => <RailDiv style={railStyle} getRailProps={getRailProps} />}
+        </Rail>
         <Handles>
           {({ handles, getHandleProps }) => (
             <div>
@@ -44,6 +57,29 @@ export default class Slider extends Component {
             </div>
           )}
         </Handles>
+        <Tracks left={false} right={false}>
+          {({ tracks, getTrackProps }) => (
+            <div>
+              {tracks.map(({ id, source, target }) => (
+                <Track
+                  key={id}
+                  source={source}
+                  target={target}
+                  getTrackProps={getTrackProps}
+                />
+              ))}
+            </div>
+          )}
+        </Tracks>
+        <Ticks values={[200, 300, 400, 500, 600]}>
+          {({ ticks }) => (
+            <div className="slider-ticks">
+              {ticks.map(tick => (
+                <Tick key={tick.id} tick={tick} count={ticks.length} />
+              ))}
+            </div>
+          )}
+        </Ticks>
       </SliderThing>
     );
   }

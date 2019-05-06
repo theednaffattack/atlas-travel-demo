@@ -50,8 +50,8 @@ export class Amenities extends React.Component {
 
   handleSelection(event: any) {
     event.preventDefault();
-    const { target } = event;
-    const { id } = target;
+    const { currentTarget } = event;
+    const { id } = currentTarget;
     const elementPos = fakeAmenities
       .map(function(x) {
         return x.name;
@@ -113,7 +113,6 @@ export class Amenities extends React.Component {
               my={2}
               px={2}
               key={"blah-" + index}
-              style={{ border: "2px green solid" }}
             >
               <Icon
                 name={amenity.name}
