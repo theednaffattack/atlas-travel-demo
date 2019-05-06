@@ -11,7 +11,12 @@ const Flex = styled(FlexBase)`
   ${boxShadow}
   ${overflow}
 `;
-export default class TimePeriod extends React.Component {
+
+interface TimePeriodProps {
+  containerState: any;
+  sideBarOpenOrClosed: string;
+}
+export default class TimePeriod extends React.Component<TimePeriodProps> {
   render() {
     return (
       <Flex

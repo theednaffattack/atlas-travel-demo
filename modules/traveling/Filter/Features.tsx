@@ -1,6 +1,7 @@
 import React from "react";
-import { Flex, Text } from "rebass";
+import { Flex as FlexBase, Text } from "rebass";
 import posed from "react-pose";
+import styled from "styled-components";
 
 import { Icon } from "./Icon/AmenityIcons";
 
@@ -12,6 +13,10 @@ const fakeAmenities = [
   { name: "parking", label: "Parking" },
   { name: "nightClub", label: "Night Club" }
 ];
+
+const Flex = styled(FlexBase)`
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+`;
 
 const PFlex = posed(Flex)({
   enter: {

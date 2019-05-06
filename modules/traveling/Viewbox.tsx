@@ -49,19 +49,17 @@ const CardFlex: React.FunctionComponent<FlexProps> = styled(FlexBase)`
 }
 `;
 
-interface CustomViewBoxProps {
+interface ViewBoxProps {
   data: any;
   requestor: any;
+  filterOpen: any;
 }
-interface CustomState {
+interface ViewBoxState {
   showModal: boolean;
   isZoomed: boolean;
 }
 
-export default class ViewBox extends Component<
-  CustomViewBoxProps,
-  CustomState
-> {
+export default class ViewBox extends Component<ViewBoxProps, ViewBoxState> {
   constructor(props: any) {
     super(props);
     this.truncate = this.truncate.bind(this);
@@ -81,6 +79,22 @@ export default class ViewBox extends Component<
     }
   }
 
+  shouldComponentUpdate(nextProps: ViewBoxProps, nextState: ViewBoxState) {
+    // console.log(nextState);
+    // console.log(this.state);
+
+    if (nextProps.filterOpen !== this.props.filterOpen) {
+      console.log("ViewBox SHOULDCOMPONENTUPDATE(): NEXTPROPS THEN THIS.PROPS");
+      console.log(nextProps.filterOpen !== this.props.filterOpen);
+      // console.log(this.props);
+      // console.log(this.props.data.getAllHotel);
+      // console.log(nextProps.data.getAllHotel);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   /**
    * Toggle hotel modal (example)
    */
@@ -95,13 +109,14 @@ export default class ViewBox extends Component<
   // };
 
   render() {
+    console.log("test rerenders in VIEWBOX");
     return (
       <FeaturedCards
         // toggle={this.toggleModal}
         requestor={this.props.requestor}
         zoomState={this.state.isZoomed}
         localContext={this.truncate}
-        data={this.props.data ? this.props.data.getAllHotel : []}
+        data={this.props.data.getAllHotel}
       />
       //   <ContentFlex py={4} width={1} flexDirection="column">
       //     <CardFlex

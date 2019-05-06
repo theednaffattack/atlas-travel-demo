@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
 export const getAllHotelData = gql`
-  query GetAllHotelData($data: BaseListInput!) {
+  query GetAllHotelData($data: GetAllHotelInput) {
     getAllHotel(data: $data) {
       reviewCount
       averageRating

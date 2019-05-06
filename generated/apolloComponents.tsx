@@ -14,10 +14,36 @@ export interface BaseReviewInput {
   date?: Maybe<DateTime>;
 }
 
-export interface BaseListInput {
+export interface GetAllHotelInput {
   skip?: Maybe<number>;
 
   take?: number;
+
+  dates?: Maybe<DateInputSimple>;
+
+  from?: Maybe<DateTime>;
+
+  to?: Maybe<DateTime>;
+
+  prices?: Maybe<PriceRangeInput>;
+
+  amenities?: Maybe<Amenity[]>;
+}
+
+export interface DateInputSimple {
+  from?: DateTime;
+
+  to?: DateTime;
+}
+
+export interface PriceRangeInput {
+  low?: Maybe<number>;
+
+  high?: Maybe<number>;
+}
+
+export interface Amenity {
+  name?: Maybe<string[]>;
 }
 
 export interface HotelGetInput {
@@ -88,6 +114,12 @@ export interface ChangePasswordInput {
   password: string;
 
   token: string;
+}
+
+export interface BaseListInput {
+  skip?: Maybe<number>;
+
+  take?: number;
 }
 
 export interface PasswordInput {
@@ -354,7 +386,7 @@ export type GetHotelByIdReserved = {
 };
 
 export type GetAllHotelDataVariables = {
-  data: BaseListInput;
+  data?: Maybe<GetAllHotelInput>;
 };
 
 export type GetAllHotelDataQuery = {
@@ -955,7 +987,7 @@ export function GetHotelByIdHOC<TProps, TChildProps = any>(
   >(GetHotelByIdDocument, operationOptions);
 }
 export const GetAllHotelDataDocument = gql`
-  query GetAllHotelData($data: BaseListInput!) {
+  query GetAllHotelData($data: GetAllHotelInput) {
     getAllHotel(data: $data) {
       reviewCount
       averageRating

@@ -23,7 +23,7 @@ const Flex = styled(FlexBase)`
   ${boxShadow}
   ${overflow}
   ${minWidth}
-
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
 const Button = styled(ButtonBase)`
@@ -36,12 +36,25 @@ const Line = styled.hr`
   ${width}
 `;
 
-interface CustomProps {
+interface HorizontalCalendarProps {
   skip: number;
   take: number;
 }
 
-export default class HorizontalCalendar extends React.Component<CustomProps> {
+interface HorizontalCalendarState {
+  selected: boolean;
+  indexLastClicked: number;
+  selectedGroup: any[];
+  fromCalendar: any[];
+  toCalendar: any[];
+  fromSelected: string;
+  toSelected: string;
+}
+
+export default class HorizontalCalendar extends React.Component<
+  HorizontalCalendarProps,
+  HorizontalCalendarState
+> {
   constructor(props) {
     super(props);
 
@@ -51,8 +64,8 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
       selectedGroup: [],
       fromCalendar: [],
       toCalendar: [],
-      fromSelected: [],
-      toSelected: []
+      fromSelected: "",
+      toSelected: ""
     };
     this.handleSelection = this.handleSelection.bind(this);
     this.createCalendar = this.createCalendar.bind(this);
@@ -61,10 +74,10 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
   }
 
   createCalendar() {
-    const arrayOfNumbers = [];
-    const arrayOfFromDates: any[] = [];
-    const arrayOfToDates: any[] = [];
-    const today = new Date();
+    const arrayOfNumbers: number[] = [];
+    const arrayOfFromDates: string[] = [];
+    const arrayOfToDates: string[] = [];
+    const today: Date = new Date();
 
     for (var i = this.props.skip; i <= this.props.take; i++) {
       arrayOfNumbers.push(i);
@@ -98,8 +111,6 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
     event.preventDefault();
     const { currentTarget } = event;
     const { id } = currentTarget;
-    console.log("FROM THE CLICK HANDLER");
-    console.log(id);
 
     const includesChar = (word: string, queryChar: string) => {
       return word.includes(queryChar);
@@ -111,66 +122,63 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
 
     const isFromDate = includesChar(id, "from");
 
-    const arrAccessor = isFromDate ? "fromSelected" : "toSelected";
+    const stateKeyForFromOrToSelected = isFromDate
+      ? "fromSelected"
+      : "toSelected";
 
-    function getTheDate(idString) {
-      const startOfDate = findChar(idString, "--");
+    function getTheDate(id: string) {
+      const startOfDate = findChar(id, "--");
 
       const datePosDelimiterLength = 2;
 
-      return idString.slice(startOfDate + datePosDelimiterLength, id.length);
+      return id.slice(startOfDate + datePosDelimiterLength, id.length);
     }
 
-    // const isToDate = findChar(id, "to");
-    // const targetID =
-    const statePos = this.state[arrAccessor].indexOf(getTheDate(id));
-    //   .map(function(x) {
-    //     return x.name;
-    //   }).indexOf(id);
+    const statePos = this.state[stateKeyForFromOrToSelected].indexOf(
+      getTheDate(id)
+    );
 
-    console.log("statePos".toUpperCase());
-    console.log(statePos);
-    console.log(getTheDate(id));
-    // console.log(startOfDate);
-    console.log(getTheDate(id));
+    // if state string has length and what's stored there
+    // matches our date set state to an empty string
 
-    // if (elementPos === -1) {
-    //   return;
-    // }
-
-    const objectFound = this.state[arrAccessor][statePos];
-    // const statePos = this.state.selectedGroup
-    //   .map(x => x.name)
-    //   .indexOf(objectFound.name);
-
-    if (statePos !== -1) {
-      let selectedCopy = [...this.state[arrAccessor]];
-      console.log("selectedCopy");
-      console.log(selectedCopy);
-      selectedCopy.splice(statePos, 1);
-      this.setState(prevState => {
+    if (
+      this.state[stateKeyForFromOrToSelected].length > 0 &&
+      this.state[stateKeyForFromOrToSelected] === getTheDate(id)
+    ) {
+      //   let selectedCopy = this.state[stateKeyForFromOrToSelected];
+      this.setState(() => {
         return {
           indexLastClicked: statePos,
-          [arrAccessor]: [...selectedCopy]
+          [stateKeyForFromOrToSelected]: ""
         };
       });
     } else {
-      console.log("selectedCopy bypassed");
-      console.log(statePos);
-
-      this.setState(prevState => ({
-        [arrAccessor]: [...prevState[arrAccessor], getTheDate(id)]
-      }));
+      // if it's a different number entirely add it to state
+      this.setState({
+        [stateKeyForFromOrToSelected]: getTheDate(id)
+      });
     }
   }
 
-  componentDidMount = (prevProps, prevState) => {
+  //   componentDidMount = prevState => {
+  //     if (
+  //       prevState.fromCalendar.length === 0 &&
+  //       prevState.toCalendar.length === 0
+  //     ) {
+  //       this.createCalendar();
+  //     }
+  //   };
+
+  componentWillReceiveProps(nextProps) {
+    const { dataVar: fromCalendar } = nextProps; // pass dataVar as props
     this.createCalendar();
-  };
+
+    // this.setState({
+    //     fromCalendar,
+    // });
+  }
 
   render() {
-    console.log("this.state");
-    console.log(this.state);
     const addDaysToDateAndFormat_DD = (
       date: Date,
       numOfDays: number,
@@ -178,17 +186,13 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
     ) => format(addDays(date, numOfDays), formatter);
 
     return (
-      <Flex width={1} flexDirection="column" border="dev2">
+      <Flex width={1} flexDirection="column">
         {/* FROM!!! */}
 
-        <Text color="rgb(160,160,160)" border="dev1" className="title-label">
+        <Text color="rgb(160,160,160)" className="title-label">
           FROM
         </Text>
-        <Flex
-          flexDirection="column"
-          border="dev3"
-          style={{ overflowX: "scroll" }}
-        >
+        <Flex flexDirection="column" style={{ overflowX: "scroll" }}>
           <Flex>
             {this.state.fromCalendar.map((item, index) => {
               return (
@@ -197,7 +201,6 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
                   id={"from-item--" + item}
                   flexDirection="column"
                   boxShadow="0px 13px 33px 0px rgba(0, 0, 0, 0.05)"
-                  border="dev2"
                   minWidth="70px"
                   onClick={this.handleSelection}
                 >
@@ -210,7 +213,7 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
                     width="100%"
                     name="calendar-date"
                     date={this.formatMyDateToNumber(item, "D")}
-                    selected={this.state.fromSelected.indexOf(item) !== -1}
+                    selected={this.state.fromSelected === item}
                   />
                 </Flex>
               );
@@ -218,21 +221,17 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
           </Flex>
         </Flex>
 
-        <Flex border="dev1" className="horizontal-rule">
+        <Flex className="horizontal-rule">
           <Line width={0.9} bg="rgba(221,221,221, 1)" />
         </Flex>
 
         {/* TO!!! */}
 
-        <Text color="rgb(160,160,160)" border="dev1" className="title-label">
+        <Text color="rgb(160,160,160)" className="title-label">
           TO
         </Text>
 
-        <Flex
-          flexDirection="column"
-          border="dev3"
-          style={{ overflowX: "scroll" }}
-        >
+        <Flex flexDirection="column" style={{ overflowX: "scroll" }}>
           <Flex>
             {this.state.toCalendar.map((item, index) => (
               <Flex
@@ -240,7 +239,6 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
                 id={"to-item--" + item}
                 flexDirection="column"
                 boxShadow="0px 13px 33px 0px rgba(0, 0, 0, 0.05)"
-                border="dev2"
                 onClick={this.handleSelection}
                 minWidth="70px"
               >
@@ -252,7 +250,7 @@ export default class HorizontalCalendar extends React.Component<CustomProps> {
                   height="100%"
                   width="100%"
                   name="calendar-date"
-                  selected={this.state.toSelected.indexOf(item) !== -1}
+                  selected={this.state.toSelected === item}
                   date={this.formatMyDateToNumber(item, "D")}
                 />
               </Flex>

@@ -16,7 +16,7 @@ interface CustomLayoutContainerProps {
 interface CustomState {
   sideBar: string;
 }
-export default class LayoutContainer extends Component<
+export default class LayoutContainer extends React.PureComponent<
   CustomLayoutContainerProps,
   CustomState
 > {
