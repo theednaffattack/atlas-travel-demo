@@ -14,10 +14,12 @@ const Flex = styled(FlexBase)`
 
 interface TimePeriodProps {
   containerState: any;
-  sideBarOpenOrClosed: string;
+  filterBoxOpenOrClosed: string;
+  handleTimePeriodUpdate: any;
 }
 export default class TimePeriod extends React.Component<TimePeriodProps> {
   render() {
+    const { handleTimePeriodUpdate } = this.props;
     return (
       <Flex
         flexDirection="column"
@@ -30,6 +32,7 @@ export default class TimePeriod extends React.Component<TimePeriodProps> {
       >
         <Flex overflow="hidden" className="slide-calendar">
           <HorizontalCalendar
+            handleTimePeriodUpdate={handleTimePeriodUpdate}
             // fromSelected={this.state.fromCalendar}
             // toSelected={this.state.toCalendar}
             skip={1}

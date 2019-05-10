@@ -9,7 +9,7 @@ interface CustTravelingProps {
 export const TravelingPage = ({ data }: CustTravelingProps, props: any) => (
   <Flex
     alignItems="center"
-    px={4}
+    px={[3, 4]}
     flexDirection="column"
     // justifyContent="center"
     {...props}

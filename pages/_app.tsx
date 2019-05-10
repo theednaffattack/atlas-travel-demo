@@ -28,7 +28,8 @@ const theme = {
   colors: {
     blue,
     lightgray: "#f6f6ff",
-    text: "rgb(68, 68, 68)"
+    text: "rgb(68, 68, 68)",
+    muted: "#888888"
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256],
   fonts: {

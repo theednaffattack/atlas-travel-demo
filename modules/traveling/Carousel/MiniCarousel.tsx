@@ -1,7 +1,16 @@
 import React from "react";
-import { Box, Flex } from "rebass";
-import { borderRadius, color, height, space, width } from "styled-system";
+import { Box, Flex as FlexBase } from "rebass";
+import {
+  backgroundImage,
+  borderRadius,
+  color,
+  height,
+  space,
+  width
+} from "styled-system";
 import styled from "styled-components";
+
+import { AbWrapper, ButtonR } from "./Comps";
 
 const CarouselControlCircle = styled.div`
   ${borderRadius}
@@ -9,6 +18,10 @@ const CarouselControlCircle = styled.div`
   ${height}
   ${space}
   ${width}
+`;
+
+const Flex = styled(FlexBase)`
+  ${backgroundImage}
 `;
 
 interface CustomProps {
@@ -31,30 +44,34 @@ export const MiniCarousel = ({
       alignItems="center"
       justifyContent="center"
       slideIndex={slideIndex}
+      backgroundImage="linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.3))"
+      pt={4}
+      pb={8}
       style={{
         boxSizing: "content-box",
         margin: "0 auto",
         position: "absolute",
-        marginBottom: "55px",
+        paddingBottom: "55px",
         right: 0,
         left: 0,
         bottom: 0,
-        zIndex: 15
+        zIndex: 30,
+        border: "2px crimson solid"
       }}
     >
-      {photos.map((photo, index) => (
+      {photos.map((photo, miniCarouselIndex) => (
         <CarouselControlCircle
-          key={`carouselControlCircle-${index}`}
+          key={`carouselControlCircle-${miniCarouselIndex}`}
           borderRadius="50%"
           height="20px"
           width="20px"
           bg={
-            slideIndex === index
+            slideIndex === miniCarouselIndex
               ? "rgba(255,255,255,1)"
-              : "rgba(255,255,255,.4)"
+              : "rgba(255,255,255,0.4)"
           }
           mx={2}
-          onClick={() => setSlideIndex(index)}
+          onClick={() => setSlideIndex(miniCarouselIndex)}
         />
       ))}
     </Flex>

@@ -3,7 +3,7 @@ import { Image as ImageBase, Text } from "rebass";
 import casual from "casual-browserify";
 import posed, { PoseGroup } from "react-pose";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import styled from "styled-components";
 
 import {
   bitemMotionProps,
@@ -13,13 +13,21 @@ import {
   posedFlexMotionProps
 } from "./motionConfig";
 
-import { ButtonR, Box, Flex, OuterFlex } from "./LocalStyledComponents/Comps";
+import {
+  AbWrapper,
+  ButtonR,
+  Box,
+  Flex,
+  OuterFlex
+} from "./LocalStyledComponents/Comps";
 
 import { StyledFrame } from "./StyledFrame";
 
 import Carousel from "./Carousel/CarouselContainer";
 
 import { Button } from "../../../components/Button/Button";
+
+import Icon from "../../../components/AllIcons/UserActionIcon";
 
 import {
   DayPlansIcon,
@@ -47,6 +55,23 @@ const checkoutRules = [
 ];
 
 const devBorder3 = "2px #dddddd solid";
+
+const MobileQueryLane = styled(Flex)`
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+const DesktopQueryLane = styled(Flex)`
+  @media (max-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
 
 // posed configs
 const OuterPosedFlex = posed(OuterFlex)(posedFlexMotionProps);
@@ -111,15 +136,23 @@ const amenityIcons: AmenityIcons = {
 
 const EmptySpan = ({ words }: any) => <span>{words}</span>;
 
-const DayPlans = styles =>
-  genBitem(<DayPlansIcon px={2} height="18px" />, styles, "DAY PLANS");
-
-const Share = styles =>
-  genBitem(<ShareIcon px={2} height="18px" />, styles, "SHARE");
-
-const More = styles =>
+const DayPlans = ({ fill, ...styles }) =>
   genBitem(
-    <MoreDarkIcon mx={3} width="4px" height="18px" />,
+    <Icon fill={fill} height="100%" width="100%" name="dayPlans" px={2} />,
+    styles,
+    "DAY PLANS"
+  );
+
+const Share = ({ fill, ...styles }) =>
+  genBitem(
+    <Icon fill={fill} height="100%" width="100%" name="share" px={2} />,
+    styles,
+    "SHARE"
+  );
+
+const More = ({ fill, ...styles }) =>
+  genBitem(
+    <Icon fill={fill} height="100%" width="100%" name="more" px={2} />,
     styles,
     "MORE DARK"
   );
@@ -294,10 +327,11 @@ const Signup = () => (
 );
 
 interface CustomModalProps {
-  show: boolean;
-  fakeAmenities: string[];
-  toggle: any;
   data: any;
+  fakeAmenities: string[];
+  isZoomed: boolean;
+  show: boolean;
+  toggle: any;
 }
 
 class Modal extends React.Component<CustomModalProps> {
@@ -310,35 +344,75 @@ class Modal extends React.Component<CustomModalProps> {
   showSignup = () => this.setState({ index: 1 });
 
   render() {
-    const { show, toggle, fakeAmenities } = this.props;
+    const { show, toggle, fakeAmenities, isZoomed } = this.props;
     const { index } = this.state;
     const items = [Login, Signup];
+
+    // https://github.com/zeit/next.js/issues/2177
+    const isBrowser = typeof window !== "undefined";
+    if (isBrowser && isZoomed) {
+      document.body.style.overflowY = "hidden";
+    }
+    if (isBrowser && !isZoomed) {
+      document.body.style.overflowY = "auto";
+    }
+
+    console.log("Discover Modal this.props.data");
     console.log(this.props.data);
     return (
       <PoseGroup preEnterPose="init">
-        {show && this.props.data && (
+        {((isZoomed && this.props.data) || (show && this.props.data)) && (
           <StyledFrame key="frame">
-            <OuterPosedFlex bg="#eee" color="text" key="content">
-              <ButtonR
-                id="close-button"
-                bg="rgba(0,0,0,.3)"
+            <OuterPosedFlex
+              flexWrap="wrap"
+              bg="#eee"
+              color="text"
+              key="content"
+            >
+              <AbWrapper
+                width={[1, 1 / 2]}
                 color="white"
-                borderRadius="28px"
-                onClick={toggle}
-                position="absolute"
-                top={20}
-                left={20}
+                // position="absolute"
+                backgroundImage="linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,.3))"
+                pt={4}
+                pb={2}
+                px={2}
+                top={0}
+                left={0}
                 zIndex={30}
               >
-                X
-              </ButtonR>
+                <BItem pl={3} onClick={toggle}>
+                  <Icon name="close" fill="mobile" width="20px" />
+                </BItem>
+                <MobileQueryLane
+                  alignItems="center"
+                  key="iconBar"
+                  width={1}
+                  p={2}
+                >
+                  <DayPlans
+                    fill="mobile"
+                    name="dayPlans"
+                    width="20px"
+                    ml="auto"
+                    mr={[1]}
+                  />
+                  <Share
+                    mx={[1]}
+                    fill="mobile"
+                    // height="25px"
+                    width="17px"
+                  />
+                  <More mx={[1]} fill="mobile" width="7px" />
+                </MobileQueryLane>
+              </AbWrapper>
               <PoseGroup preEnterPose="init">
                 <LeftLane
                   flexDirection="column"
                   key="leftPane"
-                  height="800px"
-                  width={1 / 2}
-                  minHeight="100vh"
+                  // height="auto"
+                  width={[1, 1 / 2]}
+                  // minHeight="100vh"
                 >
                   {/* <Image src={this.props.data.photos[0]} /> */}
                   <BItem>
@@ -354,14 +428,23 @@ class Modal extends React.Component<CustomModalProps> {
                   // height="auto"
                   minHeight="0"
                   flexDirection="column"
-                  width={1 / 2}
-                  p={4}
+                  width={[1, 1 / 2]}
+                  px={2}
                 >
-                  <Lane alignItems="center" key="iconBar" width={1} p={2}>
-                    <DayPlans ml="auto" />
-                    <Share />
-                    <More />
-                  </Lane>
+                  <DesktopQueryLane
+                    alignItems="center"
+                    key="iconBar"
+                    width={1}
+                    p={2}
+                  >
+                    <DayPlans name="dayPlans" width="20px" ml="auto" mr={[1]} />
+                    <Share
+                      mx={[1]}
+                      // height="25px"
+                      width="17px"
+                    />
+                    <More mx={[1]} width="7px" />
+                  </DesktopQueryLane>
 
                   <Lane
                     data-key={this.props.data.id}
@@ -396,7 +479,7 @@ class Modal extends React.Component<CustomModalProps> {
                   </BItem>
                   <BItem px={4} py={4}>
                     <Text fontWeight="400" fontSize={2}>
-                      ABOUT {this.props.data.name.toUpperCase()}
+                      {/* ABOUT {this.props.data.name.toUpperCase()} */}
                     </Text>
                     <AboutText />
 
@@ -435,7 +518,12 @@ class Modal extends React.Component<CustomModalProps> {
                     <BItem pb={3} width={1}>
                       <Text fontWeight="600">Amenities</Text>
                     </BItem>
-                    <FItem px={3} justifyContent="space-between" width={1}>
+                    <FItem
+                      px={3}
+                      flexWrap="wrap"
+                      justifyContent="space-between"
+                      width={1}
+                    >
                       {this.props.fakeAmenities.map(amenity => (
                         <FItem
                           key={Math.random()}

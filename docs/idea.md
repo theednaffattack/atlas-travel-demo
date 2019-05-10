@@ -48,3 +48,22 @@ https://codesandbox.io/s/30q3mzjv91?module=%2Fsrc%2FOutsideAlerter.js
 ## Range Slider
 
 https://sghall.github.io/react-compound-slider/#/getting-started/tutorial
+
+## Photos
+
+https://source.unsplash.com/collection/[collection_id]/[width]x[height]
+
+https://unsplash.com/collections/1863748/hotel/
+
+https://source.unsplash.com/collection/1863748/1024x805
+
+https://source.unsplash.com/collection/1863748/1024x805
+
+## Guide to Fetch Photos via Unsplash
+
+https://medium.com/quick-code/how-to-quickly-generate-a-random-gallery-of-images-from-an-unsplash-collection-in-javascript-4ddb2a6a4faf
+
+## Sensing process.browser in NextJS with Typescript
+
+https://github.com/zeit/next.js/issues/2177
+const isBrowser = typeof window !== "undefined";

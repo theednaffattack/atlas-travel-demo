@@ -53,7 +53,7 @@ const FrameBase = styled.div`
   right: 0;
   bottom: 0;
   display: none;
-  background: white;
+  background: transparent;
   transform: translateZ(0);
 `;
 
@@ -96,7 +96,7 @@ class ZoomImg extends React.Component<CustomZoomProps, CustomState> {
   toggleZoom(e: any) {
     e.preventDefault();
     let { target } = e;
-    console.log(target);
+    // console.log(target);
 
     this.setState((prevState: any, prevProps) => {
       return {
@@ -112,16 +112,24 @@ class ZoomImg extends React.Component<CustomZoomProps, CustomState> {
     const { imageWidth, imageHeight, photos, src, ...props } = this.props;
     const pose = isZoomed ? "zoomedIn" : "zoomedOut";
 
+    // https://github.com/zeit/next.js/issues/2177
+    const isBrowser = typeof window !== "undefined";
+    if (isBrowser && isZoomed) {
+      document.body.style.overflowY = "hidden";
+    }
+    if (isBrowser && !isZoomed) {
+      document.body.style.overflowY = "auto";
+    }
     return (
       <Flex width={1}>
         {/* <Frame pose={pose} className="frame" /> */}
         {/*  */}
         <Frame pose={pose}>
-          <Flex flexWrap="wrap" flexDirection="row" height="100%" width={1}>
+          <Flex flexWrap="wrap" flexDirection="row" width={1}>
             <Flex id="leftPane" bg="pink" width={[1, 1 / 2]}>
               <CarouselBase
                 clickFunc={this.toggleZoom}
-                photos={this.props.photos}
+                photos={[this.props.photos[0]]}
               />
             </Flex>
             <Flex id="rightPane" bg="yellow" width={[1, 1 / 2]}>

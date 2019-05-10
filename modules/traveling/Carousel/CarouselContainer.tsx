@@ -2,33 +2,62 @@ import posed from "react-pose";
 import React, { Component } from "react";
 import { Button as ButtonBase, Image as ImageBase, Text } from "rebass";
 import styled from "styled-components";
-import { position, top, left, right, bottom, zIndex } from "styled-system";
+import {
+  position,
+  top,
+  left,
+  right,
+  bottom,
+  space,
+  width,
+  zIndex
+} from "styled-system";
 
+import { AbWrapper, ButtonR } from "./Comps";
 import Carousel from "./PopSlideCarousel";
 import { SaveButtonIcon } from "./SaveButton";
 import { MiniCarousel } from "./MiniCarousel";
 
 import { itemMotionProps } from "./motionConfig";
 
-export const ButtonR = styled(ButtonBase)`
-${position}
-${top}
-${left}
-${right}
-${bottom}
-${zIndex}
+const Figure = styled.figure`
+  ${width}
+  ${space}
 `;
 
-export const Item = posed.figure(itemMotionProps);
+export const Item = posed(Figure)(itemMotionProps);
+
+const StyledDiv = styled.div`
+  overflow: "hidden";
+  border-radius: ${props => (props.isModalViewActive ? 0 : "13px")};
+  border: "2px green solid";
+  mask-image: radial-gradient(white, black);
+`;
 
 type CustomProps = {
   clickFunc: any;
   height: string | number;
   src: string;
   width: string | number;
+  isZoomed: boolean;
+  photos: string[];
+  slides: any;
+  slideIndex: number;
+  setSlideIndex: any;
 };
 
-export const Image = ({ clickFunc, height, src, width }: CustomProps) => (
+export const Image = ({
+  children,
+  clickFunc,
+  height,
+  isZoomed,
+  photos,
+  slides,
+  slideIndex,
+  setSlideIndex,
+  src,
+  width
+}: CustomProps) => (
   <Item
     onClick={clickFunc}
     // width={props.width}
@@ -38,115 +67,162 @@ export const Image = ({ clickFunc, height, src, width }: CustomProps) => (
       // marginRight: "10px",
       margin: 0,
       marginTop: 0,
-      height: "100%",
+      minHeight: "100%",
       width: "100%",
       cursor: "grab",
 
       minWidth: "120%"
     }}
   >
+    {children}
     <ImageBase height="100%" width="100%" src={src} />
-    <Text mt={-4} color="white" as="figcaption">
-      {src}
-    </Text>
+    {isZoomed ? (
+      <Text
+        mt={-4}
+        color="white"
+        as="figcaption"
+        style={{ position: "absolute", bottom: 0, zIndex: 5000 }}
+      >
+        {src}
+      </Text>
+    ) : null}
   </Item>
 );
 const slides = ["blue", "red", "yellow", "green"];
 
-interface CarouselProps {
+interface CarouselContainerProps {
   // setSlideIndex: any;
   // slideIndex: number;
   // component: Component;
+
+  clickFunc: any;
+  index: number;
+  isModalViewActive: boolean;
+  isZoomed: boolean;
   photos: any[];
+  zoomIndex: number | null;
 }
 
-class CarouselContainer extends Component<CarouselProps> {
+interface CarouselContainerState {
+  sliderIndex: number;
+  renderedPhotos: string[];
+}
+
+class CarouselContainer extends Component<
+  CarouselContainerProps,
+  CarouselContainerState
+> {
   state = {
-    slideIndex: 0
+    slideIndex: 0,
+    renderedPhotos: []
   };
 
-  setSlideIndex = (slideIndex: any) => {
+  setSlideIndex = (slideIndex: number) => {
+    console.log("SET SLIDEINDEX");
+    console.log(slideIndex);
     this.setState({ slideIndex });
   };
 
+  renderPhotos(showPhotos, zoomState) {
+    return showPhotos.map((photo: any, index: any) => (
+      <Image
+        // height="100%"
+        // width="100%"
+        slides={slides}
+        // setSlideIndex={this.setSlideIndex}
+        // onSlideChange={this.setSlideIndex}
+        imageHeight="100%"
+        isZoomed={zoomState}
+        imageWidth="100%"
+        index={index}
+        src={photo.uri}
+        key={`unsplash-${index}`}
+        clickFunc={() => this.setSlideIndex(index)}
+        // onClick={() => setSlideIndex(index)}
+      />
+    ));
+  }
+
   render() {
     const { slideIndex } = this.state;
-    const { photos, clickFunc } = this.props;
+    const {
+      children,
+      clickFunc,
+      index,
+      isZoomed,
+      photos,
+      zoomIndex,
+      isModalViewActive
+    } = this.props;
+
+    // https://github.com/zeit/next.js/issues/2177
+
+    let showPhotos = photos;
+
     return (
-      <div
-        key={Math.random()}
-        className="App"
-        style={{
-          position: "static",
-          fontFamily: "sans-serif",
-          textAlign: "center",
-          width: "100%",
-          // position: "relative",
-          overflow: "hidden"
-          // minHeight: "auto"
-          // height: "100%"
-        }}
+      <StyledDiv
+        id={index}
+        className="carouselClick"
+        key={zoomIndex}
+        isModalViewActive={isModalViewActive}
+        onClick={!isZoomed ? clickFunc : null}
       >
-        {" "}
-        <ButtonR
-          id="close-button"
-          bg="rgba(0,0,0,.3)"
-          color="white"
-          borderRadius="28px"
-          onClick={clickFunc}
-          position="absolute"
-          top={20}
-          left={20}
-          zIndex={30}
-        >
-          X
-        </ButtonR>
-        {/* {JSON.stringify(photos)} */}
+        {isModalViewActive ? (
+          <ButtonR
+            id="close-button"
+            bg="rgba(0,0,0,.3)"
+            color="white"
+            borderRadius="28px"
+            onClick={clickFunc}
+            isZoomed={isZoomed}
+            position="absolute"
+            top={20}
+            left={20}
+            zIndex={30}
+          >
+            X
+          </ButtonR>
+        ) : null}
         <div
           style={{
             position: "relative"
-            // border: "5px green solid"
             // height: "auto",
             // width: "auto"
           }}
         >
-          <SaveButtonIcon />
-          <MiniCarousel
-            setSlideIndex={this.setSlideIndex}
-            onSlideChange={this.setSlideIndex}
-            slideIndex={slideIndex}
-            slides={slides}
-            photos={photos}
-          />
+          {isModalViewActive ? (
+            <MiniCarousel
+              index={index}
+              setSlideIndex={this.setSlideIndex}
+              onSlideChange={this.setSlideIndex}
+              isZoomed={isZoomed}
+              slideIndex={slideIndex}
+              slides={slides}
+              photos={photos}
+            />
+          ) : null}
           <Carousel
             slideIndex={slideIndex}
+            isZoomed={isZoomed}
+            setSlideIndex={this.setSlideIndex}
             onSlideChange={this.setSlideIndex}
+            slides={slides}
+            isModalViewActive={isModalViewActive}
             className="wrapper"
             style={{
               boxSizing: "content-box",
-              // margin: "0 auto",
-              position: "relative"
-              // border: "8px solid black",
-              // background: "#eee"
-              // width: "100%",
+              overflow: "hidden",
+              margin: "0 auto",
+              position: "relative",
+              // border: "2px pink solid",
+              background: "#eee",
+              width: "100%"
               // minHeight: "400px",
               // minHeight: "100vh"
               // height: "100%"
             }}
           >
-            {photos.map((photo: any, index: any) => (
-              <Image
-                // height="100%"
-                // width="100%"
-                imageHeight="100%"
-                imageWidth="100%"
-                index={index}
-                src={photo.uri}
-                key={`unsplash-${index}`}
-                clickFunc={() => this.setSlideIndex(index)}
-                // onClick={() => setSlideIndex(index)}
-              />
-            ))}
+            {this.renderPhotos(showPhotos, this.props.isZoomed)}
 
             {/* {slides.map((b, index) => (
               <div
@@ -202,7 +278,7 @@ class CarouselContainer extends Component<CarouselProps> {
             />
           ))}
         </Carousel> */}
-      </div>
+      </StyledDiv>
     );
   }
 }

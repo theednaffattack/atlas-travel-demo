@@ -2,12 +2,16 @@ import React, { PureComponent } from "react";
 import posed from "react-pose";
 import { value, spring } from "popmotion";
 import debounce from "lodash/debounce";
+// import { applyOffset } from "@popmotion/popcorn";
 
 const VELOCITY_THRESHOLD = 600;
 const DISTANCE_PERCENTILE_THRESHOLD = 0.3;
 
 const Draggable = posed.div({
   draggable: "x",
+  dragBounds: ({ isModalViewActive, offset }: any) => {
+    return isModalViewActive ? {} : { left: "100%", right: "100%" };
+  },
   rest: {
     x: ({ offset }) => {
       return -offset;
@@ -93,7 +97,8 @@ export default class PopSlideCarousel extends PureComponent {
 
   onDragStart = e => {
     this.preventClick = false;
-    this.props.onDragStart();
+    this.props.isZoomed ? this.props.onDragStart() : null;
+    // this.props.onDragStart();
   };
 
   onDragEnd = e => {
@@ -134,7 +139,7 @@ export default class PopSlideCarousel extends PureComponent {
   };
 
   render() {
-    const { children, className, style } = this.props;
+    const { children, className, isModalViewActive, style } = this.props;
     const { offset } = this.state;
     const valuesMap = { x: this.x };
 
@@ -145,7 +150,8 @@ export default class PopSlideCarousel extends PureComponent {
           values={valuesMap}
           offset={offset}
           style={draggableStyle}
-          onClickCapture={this.onClickCapture}
+          // onClickCapture={this.onClickCapture}
+          isModalViewActive={isModalViewActive}
           onDragStart={this.onDragStart}
           onDragEnd={this.onDragEnd}
           onPoseComplete={this.props.onTransitionEnd}

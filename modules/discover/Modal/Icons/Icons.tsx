@@ -2,18 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { height, opacity, space, width } from "styled-system";
 
-import DayPlansIconBase from "../../../../static/images/discover/day_plans.svg";
-import ShareIconBase from "../../../../static/images/discover/share.svg";
-import MoreDarkIconBase from "../../../../static/images/discover/more_dark.svg";
-import StarIconBase from "../../../../static/images/discover/star.svg";
-import ThumbsIconBase from "../../../../static/images/discover/thumbs.svg";
 import WifiIconBase from "../../../../static/images/discover/amenities-sprite.svg";
+import DayPlansIconBase from "../../../../static/images/discover/day_plans.svg";
 import HotelRestaurantIconBase from "../../../../static/images/discover/hotel-restaurant.svg";
 import InnBarIconBase from "../../../../static/images/discover/inn-bar.svg";
-import ParkingIconBase from "../../../../static/images/discover/parking-spot.svg";
-import NightClubIconBase from "../../../../static/images/discover/night-club.svg";
-import PoolIconBase from "../../../../static/images/discover/pool.svg";
+
 import MapPinIconBase from "../../../../static/images/discover/map-pin.svg";
+import MoreDarkIconBase from "../../../../static/images/discover/more_dark.svg";
+import NightClubIconBase from "../../../../static/images/discover/night-club.svg";
+import ParkingIconBase from "../../../../static/images/discover/parking-spot.svg";
+
+import PoolIconBase from "../../../../static/images/discover/pool.svg";
+import ShareIconBase from "../../../../static/images/discover/share.svg";
+import StarIconBase from "../../../../static/images/discover/star.svg";
+import ThumbsIconBase from "../../../../static/images/discover/thumbs.svg";
 
 export const MapPinIcon = styled(MapPinIconBase)`
 ${space}

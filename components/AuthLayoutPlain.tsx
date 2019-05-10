@@ -51,7 +51,7 @@ const Layout: React.FunctionComponent<Props> = ({
             />
           </Head>
 
-          <Flex flexDirection="column" minHeight="50vh">
+          <Flex flexDirection="column" minHeight="50vh" p={0}>
             {children}
           </Flex>
         </LayoutContainer>

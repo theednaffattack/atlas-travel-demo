@@ -31,7 +31,7 @@ export const Image = (props: any) => (
       minWidth: "120%"
     }}
   >
-    <ImageBase height="100%" src={props.src.uri} />
+    <ImageBase src={props.src.uri} />
     <Text mt={-4} color="white" as="figcaption">
       {" "}
       {props.src.uri}
@@ -63,7 +63,7 @@ class CarouselContainer extends Component<CustomProps> {
 
   render() {
     const { slideIndex } = this.state;
-    const { photos } = this.props;
+    const { photos, isZoomed } = this.props;
     return (
       <div
         className="App"
@@ -72,58 +72,62 @@ class CarouselContainer extends Component<CustomProps> {
           textAlign: "center",
           width: "100%",
           // position: "relative",
-          overflow: "hidden",
-          minHeight: "400px"
+          overflow: "hidden"
+          // minHeight: "400px"
           // height: "100%"
         }}
       >
         <div
-          style={{
-            position: "relative"
-            // border: "5px green solid"
-            // height: "auto",
-            // width: "auto"
-          }}
+          style={
+            {
+              // position: "relative"
+              // border: "5px green solid"
+              // height: "auto",
+              // width: "auto"
+            }
+          }
         >
           <SaveButtonIcon />
-          <MiniCarousel
-            setSlideIndex={this.setSlideIndex}
-            onSlideChange={this.setSlideIndex}
-            slideIndex={slideIndex}
-            slides={slides}
-            photos={photos}
-          />
-          <Carousel
-            slideIndex={slideIndex}
-            onSlideChange={this.setSlideIndex}
-            className="wrapper"
-            style={{
-              boxSizing: "content-box",
-              // margin: "0 auto",
-              position: "relative"
-              // border: "8px solid black",
-              // background: "#eee"
-              // width: "100%",
-              // minHeight: "400px",
-              // minHeight: "100vh"
-              // height: "100%"
-            }}
-          >
-            {photos.map((photo, index) => (
-              <Image
-                // height="100%"
-                // width="100%"
-                // imageHeight="100%"
-                // imageWidth="100%"
-                index={index}
-                src={photo}
-                key={`unsplash-${index}`}
-                clickFunc={() => this.setSlideIndex(index)}
-                // onClick={() => setSlideIndex(index)}
-              />
-            ))}
+          <div>
+            <MiniCarousel
+              setSlideIndex={this.setSlideIndex}
+              onSlideChange={this.setSlideIndex}
+              slideIndex={slideIndex}
+              slides={slides}
+              photos={photos}
+            />
 
-            {/* {slides.map((b, index) => (
+            <Carousel
+              slideIndex={slideIndex}
+              onSlideChange={this.setSlideIndex}
+              className="wrapper"
+              style={{
+                boxSizing: "content-box"
+                // margin: "0 auto",
+                // position: "relative"
+                // border: "8px solid black",
+                // background: "#eee"
+                // width: "100%",
+                // minHeight: "400px",
+                // minHeight: "100vh"
+                // height: "100%"
+              }}
+            >
+              {photos.map((photo, index) => (
+                <Image
+                  // height="100%"
+                  // width="100%"
+                  // imageHeight="100%"
+                  // imageWidth="100%"
+                  index={index}
+                  src={photo}
+                  key={`unsplash-${index}`}
+                  clickFunc={() => this.setSlideIndex(index)}
+                  // onClick={() => setSlideIndex(index)}
+                />
+              ))}
+
+              {/* {slides.map((b, index) => (
               <div
                 key={index}
                 className="slide"
@@ -136,7 +140,8 @@ class CarouselContainer extends Component<CustomProps> {
                 onClick={() => this.setSlideIndex(index)}
               />
             ))} */}
-          </Carousel>
+            </Carousel>
+          </div>
         </div>
         {/* <br />
         <Carousel

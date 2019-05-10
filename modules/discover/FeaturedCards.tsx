@@ -130,12 +130,12 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
 
   toggleModal(e) {
     e.preventDefault();
-    let { target } = e;
+    let { currentTarget } = e;
     this.setState((prevState: any, prevProps) => {
       return {
         isZoomed: !prevState.isZoomed,
         showModal: !prevState.showModal,
-        modalData: prevProps.data[target.id]
+        modalData: prevProps.data[currentTarget.id]
       };
     });
   }
@@ -169,7 +169,6 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
         {data
           ? data.map((info: any, index: number) => (
               <Card
-                onClick={this.toggleModal}
                 bg="#ddd"
                 color="text"
                 borderRadius="17px"
@@ -213,7 +212,11 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                     </Text>
                   </Box>
                   <Box ml="auto">
-                    <MoreIcon height="14px" />
+                    <MoreIcon
+                      id={index.toString()}
+                      onClick={this.toggleModal}
+                      height="14px"
+                    />
                   </Box>
                 </ContentFlex>
                 <ContentFlex alignItems="center">

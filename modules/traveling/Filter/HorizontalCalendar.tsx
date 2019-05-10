@@ -39,6 +39,7 @@ const Line = styled.hr`
 interface HorizontalCalendarProps {
   skip: number;
   take: number;
+  handleTimePeriodUpdate: any;
 }
 
 interface HorizontalCalendarState {
@@ -47,8 +48,8 @@ interface HorizontalCalendarState {
   selectedGroup: any[];
   fromCalendar: any[];
   toCalendar: any[];
-  fromSelected: string;
-  toSelected: string;
+  from: string;
+  to: string;
 }
 
 export default class HorizontalCalendar extends React.Component<
@@ -64,8 +65,8 @@ export default class HorizontalCalendar extends React.Component<
       selectedGroup: [],
       fromCalendar: [],
       toCalendar: [],
-      fromSelected: "",
-      toSelected: ""
+      from: "",
+      to: ""
     };
     this.handleSelection = this.handleSelection.bind(this);
     this.createCalendar = this.createCalendar.bind(this);
@@ -122,9 +123,7 @@ export default class HorizontalCalendar extends React.Component<
 
     const isFromDate = includesChar(id, "from");
 
-    const stateKeyForFromOrToSelected = isFromDate
-      ? "fromSelected"
-      : "toSelected";
+    const stateKeyForFromOrto = isFromDate ? "from" : "to";
 
     function getTheDate(id: string) {
       const startOfDate = findChar(id, "--");
@@ -134,29 +133,78 @@ export default class HorizontalCalendar extends React.Component<
       return id.slice(startOfDate + datePosDelimiterLength, id.length);
     }
 
-    const statePos = this.state[stateKeyForFromOrToSelected].indexOf(
-      getTheDate(id)
-    );
+    const statePos = this.state[stateKeyForFromOrto].indexOf(getTheDate(id));
 
     // if state string has length and what's stored there
     // matches our date set state to an empty string
 
     if (
-      this.state[stateKeyForFromOrToSelected].length > 0 &&
-      this.state[stateKeyForFromOrToSelected] === getTheDate(id)
+      this.state[stateKeyForFromOrto].length > 0 &&
+      this.state[stateKeyForFromOrto] === getTheDate(id)
     ) {
-      //   let selectedCopy = this.state[stateKeyForFromOrToSelected];
-      this.setState(() => {
-        return {
-          indexLastClicked: statePos,
-          [stateKeyForFromOrToSelected]: ""
-        };
+      this.props.handleTimePeriodUpdate({
+        from: this.state.from,
+        to: this.state.to
       });
+      //   let selectedCopy = this.state[stateKeyForFromOrto];
+      this.setState(
+        {
+          indexLastClicked: statePos,
+          [stateKeyForFromOrto]: ""
+        },
+        () => {
+          this.props.handleTimePeriodUpdate({
+            from: this.state.from,
+            to: this.state.to
+          });
+        }
+      );
     } else {
       // if it's a different number entirely add it to state
-      this.setState({
-        [stateKeyForFromOrToSelected]: getTheDate(id)
-      });
+
+      //   this.props.handleTimePeriodUpdate({
+      //     from:
+      //       [stateKeyForFromOrto] === "from" ? getTheDate(id) : this.state.from,
+      //     to: this.state.to
+      //   });
+      this.setState(
+        (prevState: any, prevProps: any) => {
+          //   let updateObj = {};
+
+          //   if (
+          //     stateKeyForFromOrto === "from" &&
+          //     prevState.from !== getTheDate(id)
+          //   ) {
+          //     updateObj = {
+          //       from: getTheDate(id),
+          //       to: prevState.to
+          //     };
+          //   }
+
+          //   if (
+          //     stateKeyForFromOrto === "from" &&
+          //     prevState.from === getTheDate(id)
+          //   ) {
+          //     updateObj = {
+          //       from: "",
+          //       to: prevState.to
+          //     };
+          //   }
+
+          //   this.props.handleTimePeriodUpdate(updateObj);
+          //   console.log("updateObj");
+          //   console.log(updateObj);
+          return {
+            [stateKeyForFromOrto]: getTheDate(id)
+          };
+        },
+        () => {
+          this.props.handleTimePeriodUpdate({
+            from: this.state.from,
+            to: this.state.to
+          });
+        }
+      );
     }
   }
 
@@ -171,6 +219,8 @@ export default class HorizontalCalendar extends React.Component<
 
   componentWillReceiveProps(nextProps) {
     const { dataVar: fromCalendar } = nextProps; // pass dataVar as props
+    console.log("calendar creation");
+    console.log(this.createCalendar());
     this.createCalendar();
 
     // this.setState({
@@ -213,7 +263,7 @@ export default class HorizontalCalendar extends React.Component<
                     width="100%"
                     name="calendar-date"
                     date={this.formatMyDateToNumber(item, "D")}
-                    selected={this.state.fromSelected === item}
+                    selected={this.state.from === item}
                   />
                 </Flex>
               );
@@ -250,7 +300,7 @@ export default class HorizontalCalendar extends React.Component<
                   height="100%"
                   width="100%"
                   name="calendar-date"
-                  selected={this.state.toSelected === item}
+                  selected={this.state.to === item}
                   date={this.formatMyDateToNumber(item, "D")}
                 />
               </Flex>

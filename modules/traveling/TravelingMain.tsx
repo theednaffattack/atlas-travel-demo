@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Flex, Text } from "rebass";
 import posed from "react-pose";
+import styled from "styled-components";
 
 import Viewbox from "./Viewbox";
 import {
@@ -20,12 +21,40 @@ type TravelingMainState = {
   open: boolean;
 };
 
-const FlexSpecial = posed(Flex)({
-  closed: { height: "0", opacity: 0 },
-  open: { height: "auto", opacity: 1 }
+const transition = {
+  duration: 400,
+  ease: [0.08, 0.69, 0.2, 0.99]
+};
+const FlexSpecialBase = posed(Flex)({
+  closed: {
+    applyAtEnd: { display: "none" },
+    height: "0",
+    opacity: 0,
+    transition: {
+      height: {
+        duration: 300,
+        ease: [0.08, 0.69, 0.2, 0.99]
+      }
+    }
+  },
+  open: {
+    applyAtStart: { display: "flex" },
+    height: "auto",
+    opacity: 1,
+    transition: {
+      height: {
+        duration: 500,
+        ease: [0.08, 0.69, 0.2, 0.99]
+      }
+    }
+  }
 });
 
-export default class TravelingMain extends React.PureComponent<
+const FlexSpecial = styled(FlexSpecialBase)`
+  transform: translateZ(0);
+`;
+
+export default class TravelingMain extends React.Component<
   TravelingMainProps,
   TravelingMainState
 > {
@@ -64,7 +93,7 @@ export default class TravelingMain extends React.PureComponent<
         <FlexSpecial width={1} pose={this.state.open ? "open" : "closed"}>
           <Filter
             hotelRefetch={refetch}
-            sideBarOpenOrClosed={this.state.open ? "isOpen" : "isClosed"}
+            filterBoxOpenOrClosed={this.state.open ? "isOpen" : "isClosed"}
           />
         </FlexSpecial>
         <Text>{data.getAllHotel.length} spots</Text>

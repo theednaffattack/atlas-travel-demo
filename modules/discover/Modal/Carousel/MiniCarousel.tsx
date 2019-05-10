@@ -31,6 +31,7 @@ export const MiniCarousel = ({
       alignItems="center"
       justifyContent="center"
       slideIndex={slideIndex}
+      mb={7}
       style={{
         boxSizing: "content-box",
         margin: "0 auto",
