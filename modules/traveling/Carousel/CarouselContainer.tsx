@@ -143,6 +143,10 @@ class CarouselContainer extends Component<
     ));
   }
 
+  componentDidMount() {
+    this.renderPhotos(this.props.photos, this.props.isZoomed);
+  }
+
   render() {
     const { slideIndex } = this.state;
     const {

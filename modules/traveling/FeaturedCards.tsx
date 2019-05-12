@@ -23,8 +23,8 @@ import {
 } from "body-scroll-lock";
 
 import IconBase from "./Icon/Icon";
-// import ZoomImg from "./Modal/ZoomImage";
-// import Modal from "../discover/Modal/Modal";
+import ZoomImg from "./Modal/ZoomImage";
+import Modal from "../discover/Modal/Modal";
 import CarouselBase from "./Carousel/CarouselContainer";
 
 const baseFill = "rgb(204, 204, 204)";
@@ -54,43 +54,43 @@ const ContentFlex = styled(FlexBase)`
   ${borders}
 `;
 
-const CardStyled = styled(CardBase)`
+const Card = styled(CardBase)`
   ${minWidth}
 `;
 
-const Card = posed(CardStyled)({
-  open: {
-    applyAtStart: { position: "fixed", zIndex: 10 },
-    // height: "auto",
-    // height: "100vh",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderRadius: 0,
-    // opacity: 1,
-    transition: {
-      duration: 500,
-      ease: [0.08, 0.69, 0.2, 0.99]
-    },
-    flip: true
-  },
-  closed: {
-    applyAtStart: {
-      position: "relative",
-      zIndex: 0
-    },
-    borderRadius: "17px",
-    height: "auto",
-    // height: "0",
-    // opacity: 1,
-    transition: {
-      duration: 600,
-      ease: [0.08, 0.69, 0.2, 0.99]
-    },
-    flip: true
-  }
-});
+// const Card = posed(CardStyled)({
+//   open: {
+//     applyAtStart: { position: "fixed", zIndex: 10 },
+//     // height: "auto",
+//     // height: "100vh",
+//     top: 0,
+//     left: 0,
+//     right: 0,
+//     bottom: 0,
+//     borderRadius: 0,
+//     // opacity: 1,
+//     transition: {
+//       duration: 500,
+//       ease: [0.08, 0.69, 0.2, 0.99]
+//     },
+//     flip: true
+//   },
+//   closed: {
+//     applyAtStart: {
+//       position: "relative",
+//       zIndex: 0
+//     },
+//     borderRadius: "17px",
+//     height: "auto",
+//     // height: "0",
+//     // opacity: 1,
+//     transition: {
+//       duration: 600,
+//       ease: [0.08, 0.69, 0.2, 0.99]
+//     },
+//     flip: true
+//   }
+// });
 
 interface CustomFeatureCardProps {
   data: any;
@@ -210,6 +210,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
   toggleModal(e: any) {
     e.preventDefault();
     let { currentTarget } = e;
+    console.log(currentTarget);
     this.setState((prevState: any, prevProps) => {
       return {
         isZoomed: !prevState.isZoomed,
@@ -220,8 +221,6 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
   }
 
   zoomIn(e: any) {
-    console.log(e.target);
-    console.log(e.target.src);
     this.setState({ isZoomed: true });
   }
 
@@ -268,14 +267,14 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
         width="100%"
         flexWrap="wrap"
       >
-        {/* <Modal
+        <Modal
           data={this.state.modalData}
           isZoomed={false} // {this.state.isZoomed}
           show={this.state.showModal}
           toggle={this.toggleModal}
           requestor={requestor}
           fakeAmenities={this.state.fakeAmenities}
-        /> */}
+        />
 
         {data
           ? data.map((info: any, index: number) => {
@@ -306,21 +305,23 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                     width={["auto", isModalViewActive ? 1 : 1]}
                   >
                     <Box
+                      id={index.toString()}
                       width={[
                         isModalViewActive ? 1 : 0.4,
                         isModalViewActive ? 0.4 : 0.6
                       ]}
                       minWidth={[isModalViewActive ? 1 : 0.41]}
+                      onClick={this.toggleModal}
                     >
-                      <CarouselBase
+                      {/* <CarouselBase
                         // id={index.toString()}
                         isModalViewActive={isModalViewActive}
                         index={index}
                         zoomIndex={this.state.zoomIndex}
                         isZoomed={this.state.isZoomed}
                         clickFunc={this.toggleCustomZoom}
-                        photos={info.photos}
-                      />
+                        photos={[info.photos[0]]}
+                      /> */}
 
                       {/* <ZoomImg
                         zoomState={this.state.isZoomed}
@@ -331,11 +332,11 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                         src={info.photos[0].uri}
                         photos={info.photos}
                       /> */}
-                      {/* <Image
+                      <Image
                         minHeight="77px"
                         borderRadius="17px"
                         src={info.photos[0].uri}
-                      /> */}
+                      />
                     </Box>
 
                     <ContentFlex

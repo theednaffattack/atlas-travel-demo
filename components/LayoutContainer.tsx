@@ -62,11 +62,7 @@ export default class LayoutContainer extends React.PureComponent<
    * Toggle sidebar menu
    */
   toggleMenu() {
-    console.log("MENU TOGGLED");
-    console.log(this.state);
     this.setState(prevState => {
-      console.log("PREV STATE");
-      console.log(prevState.sideBar);
       return {
         sideBar: prevState.sideBar === "isOpen" ? "isClosed" : "isOpen"
       };

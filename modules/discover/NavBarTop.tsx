@@ -24,7 +24,19 @@ import { withRouter } from "next/router";
 
 import NavLink from "../../components/NavLink";
 import Icon from "../traveling/Icon/Icon";
+import {
+  ActivityIcon,
+  ChatIcon,
+  DotIcon,
+  ExploreIcon,
+  ProfileIcon,
+  SavedIcon,
+  SearchIcon,
+  TravelIcon
+} from "./Icons";
 import MenuIcon from "../traveling/Icon/MenuIcon";
+
+import { size } from "../../components/mediaQueries";
 
 const fadedText = "rgba(255,255,255,0.6)";
 
@@ -53,6 +65,8 @@ const ContentFlex = styled(FlexBase)`
 
 // const navItemXMargin = "4em";
 
+const hideMobileShowDesktop = () => {};
+
 const NavBar = styled(FlexBase)`
 ${borders}
 ${height}
@@ -65,55 +79,14 @@ ${minHeight}
   ${zIndex}
 
   box-sizing: border-box;
-`;
 
-//Icons
-const TravelIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const ExploreIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const SavedIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const ChatIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const ProfileIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const ActivityIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const SearchIcon = styled(Icon)`
-${height}
-${width}
-${space}
-`;
-
-const DotIcon = styled(Icon)`
-${height}
-${width}
-${space}
+  /* hide on mobile, show on desktop */
+  @media (max-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 const Box = styled(BoxBase)`
@@ -152,13 +125,15 @@ function ActiveIcon({ router, href, name }: CustomIconLinkProps) {
     let prepHref = `/${href}`;
     router.push(prepHref);
   };
+  console.log("router.pathname".toUpperCase());
+  console.log(router.pathname);
 
   return (
     <Icon
       onClick={handleClick}
       name={name}
       height="40px"
-      fill={router.pathname === "/traveling" ? "active" : baseFill}
+      fill={router.pathname.replace("/", "") === name ? "active" : baseFill}
     />
   );
 }
@@ -181,38 +156,38 @@ export class NavBarTop extends Component {
         mt={3}
         mb={3}
       >
+        <ContentFlex width="200px">
+          <ContentFlex
+            justifyContent="center"
+            alignItems="center"
+            width={1 / 2}
+          >
+            <BoxBase pt={2} width="30px" onClick={this.props.menuToggle}>
+              <MenuIcon
+                height="100%"
+                width="100%"
+                name="menu"
+                fill={baseFill}
+              />
+            </BoxBase>
+
+            <Text
+              ml={2}
+              onClick={this.props.menuToggle}
+              // mt={-2}
+              color={baseFill}
+              fontFamily="montserrat"
+            >
+              Menu
+            </Text>
+          </ContentFlex>
+        </ContentFlex>
         <ContentFlex
           alignItems="center"
           justifyContent="center"
           flexDirection="row"
           width={[1]}
         >
-          <ContentFlex width="200px">
-            <ContentFlex
-              justifyContent="center"
-              alignItems="center"
-              width={1 / 2}
-            >
-              <BoxBase pt={2} width="30px" onClick={this.props.menuToggle}>
-                <MenuIcon
-                  height="100%"
-                  width="100%"
-                  name="menu"
-                  fill={baseFill}
-                />
-              </BoxBase>
-
-              <Text
-                ml={2}
-                onClick={this.props.menuToggle}
-                // mt={-2}
-                color={baseFill}
-                fontFamily="montserrat"
-              >
-                Menu
-              </Text>
-            </ContentFlex>
-          </ContentFlex>
           <ContentFlex
             alignItems="center"
             justifyContent="center"
@@ -239,51 +214,13 @@ export class NavBarTop extends Component {
                 <NavLink color="#e9486d" href="/traveling" name="Traveling" />
               </Text>
             </ContentNav>
-
             <ContentNav
               alignItems="center"
               flexDirection="column"
               p={4}
               width={1 / 5}
             >
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  border: "2px green solid"
-                }}
-              >
-                <AIcon
-                  height="40px"
-                  width="40px"
-                  fill="active"
-                  name="explore"
-                />
-              </div>
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink
-                  color={baseFill}
-                  href="/explore"
-                  name="Explore"
-                  fill={fadedText}
-                />
-              </Text>
-            </ContentNav>
-
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <ExploreIcon
-                height="40px"
-                width="40px"
-                fill={baseFill}
-                name="explore"
-                mb={2}
-                height="40px"
-              />
+              <AIcon width="100%" fill={baseFill} name="explore" mb={2} />
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}

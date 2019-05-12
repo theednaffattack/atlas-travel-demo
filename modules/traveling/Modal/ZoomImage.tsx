@@ -9,7 +9,8 @@ import { itemMotionProps } from "../../discover/Modal/motionCon ";
 
 export const ZoomImageAnimation = {
   zoomedIn: {
-    applyAtEnd: { display: "none" },
+    // applyAtStart: { position: "fixed" },
+    applyAtEnd: { display: "flex" },
     position: "fixed",
     borderRadius: 0,
     top: 0,
@@ -52,8 +53,8 @@ const FrameBase = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  background: transparent;
+  /* display: none; */
+  background: white;
   transform: translateZ(0);
 `;
 
@@ -122,8 +123,6 @@ class ZoomImg extends React.Component<CustomZoomProps, CustomState> {
     }
     return (
       <Flex width={1}>
-        {/* <Frame pose={pose} className="frame" /> */}
-        {/*  */}
         <Frame pose={pose}>
           <Flex flexWrap="wrap" flexDirection="row" width={1}>
             <Flex id="leftPane" bg="pink" width={[1, 1 / 2]}>

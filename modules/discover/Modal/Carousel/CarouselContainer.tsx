@@ -8,6 +8,8 @@ import { Image as ImageBase, Text } from "rebass";
 
 import { MiniCarousel } from "./MiniCarousel";
 
+import { AbWrapper } from "../LocalStyledComponents/Comps";
+
 import { itemMotionProps } from "../motionConfig";
 
 export const Item = posed.figure(itemMotionProps);
@@ -32,6 +34,7 @@ export const Image = (props: any) => (
     }}
   >
     <ImageBase src={props.src.uri} />
+
     <Text mt={-4} color="white" as="figcaption">
       {" "}
       {props.src.uri}
@@ -71,24 +74,21 @@ class CarouselContainer extends Component<CustomProps> {
           fontFamily: "sans-serif",
           textAlign: "center",
           width: "100%",
-          // position: "relative",
+          position: "relative",
           overflow: "hidden"
           // minHeight: "400px"
           // height: "100%"
         }}
       >
         <div
-          style={
-            {
-              // position: "relative"
-              // border: "5px green solid"
-              // height: "auto",
-              // width: "auto"
-            }
-          }
+          style={{
+            position: "relative"
+            // height: "auto",
+            // width: "auto"
+          }}
         >
           <SaveButtonIcon />
-          <div>
+          <div style={{}}>
             <MiniCarousel
               setSlideIndex={this.setSlideIndex}
               onSlideChange={this.setSlideIndex}
@@ -96,38 +96,38 @@ class CarouselContainer extends Component<CustomProps> {
               slides={slides}
               photos={photos}
             />
+          </div>
+          <Carousel
+            slideIndex={slideIndex}
+            onSlideChange={this.setSlideIndex}
+            className="wrapper"
+            style={{
+              boxSizing: "content-box"
+              // margin: "0 auto",
+              // position: "relative"
+              // border: "8px solid black",
+              // background: "#eee"
+              // width: "100%",
+              // minHeight: "400px",
+              // minHeight: "100vh"
+              // height: "100%"
+            }}
+          >
+            {photos.map((photo, index) => (
+              <Image
+                // height="100%"
+                // width="100%"
+                // imageHeight="100%"
+                // imageWidth="100%"
+                index={index}
+                src={photo}
+                key={`unsplash-${index}`}
+                clickFunc={() => this.setSlideIndex(index)}
+                // onClick={() => setSlideIndex(index)}
+              />
+            ))}
 
-            <Carousel
-              slideIndex={slideIndex}
-              onSlideChange={this.setSlideIndex}
-              className="wrapper"
-              style={{
-                boxSizing: "content-box"
-                // margin: "0 auto",
-                // position: "relative"
-                // border: "8px solid black",
-                // background: "#eee"
-                // width: "100%",
-                // minHeight: "400px",
-                // minHeight: "100vh"
-                // height: "100%"
-              }}
-            >
-              {photos.map((photo, index) => (
-                <Image
-                  // height="100%"
-                  // width="100%"
-                  // imageHeight="100%"
-                  // imageWidth="100%"
-                  index={index}
-                  src={photo}
-                  key={`unsplash-${index}`}
-                  clickFunc={() => this.setSlideIndex(index)}
-                  // onClick={() => setSlideIndex(index)}
-                />
-              ))}
-
-              {/* {slides.map((b, index) => (
+            {/* {slides.map((b, index) => (
               <div
                 key={index}
                 className="slide"
@@ -140,8 +140,7 @@ class CarouselContainer extends Component<CustomProps> {
                 onClick={() => this.setSlideIndex(index)}
               />
             ))} */}
-            </Carousel>
-          </div>
+          </Carousel>
         </div>
         {/* <br />
         <Carousel

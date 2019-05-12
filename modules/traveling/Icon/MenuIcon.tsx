@@ -5,10 +5,10 @@ import paths from "./paths.json";
 interface SVGProps {
   name?: string;
   fill?: string;
-  height: string;
+  height?: string;
   width: string;
   className: string;
-  size: string;
+  size?: string;
 }
 
 // interface PathProps {

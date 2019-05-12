@@ -28,7 +28,7 @@ const transition = {
 const FlexSpecialBase = posed(Flex)({
   closed: {
     applyAtEnd: { display: "none" },
-    height: "0",
+    height: 0,
     opacity: 0,
     transition: {
       height: {
@@ -39,14 +39,14 @@ const FlexSpecialBase = posed(Flex)({
   },
   open: {
     applyAtStart: { display: "flex" },
-    height: "auto",
-    opacity: 1,
-    transition: {
-      height: {
-        duration: 500,
-        ease: [0.08, 0.69, 0.2, 0.99]
-      }
-    }
+    height: "500px",
+    opacity: 1
+    // transition: {
+    //   height: {
+    //     duration: 500,
+    //     ease: [0.08, 0.69, 0.2, 0.99]
+    //   }
+    // }
   }
 });
 
@@ -97,11 +97,13 @@ export default class TravelingMain extends React.Component<
           />
         </FlexSpecial>
         <Text>{data.getAllHotel.length} spots</Text>
-        <Viewbox
-          filterOpen={this.state.open}
-          requestor={this.props.data.data.me}
-          data={data}
-        />
+        <Flex flexDirection="column">
+          <Viewbox
+            filterOpen={this.state.open}
+            requestor={this.props.data.data.me}
+            data={data}
+          />
+        </Flex>
       </>
     );
   }
@@ -131,6 +133,7 @@ export default class TravelingMain extends React.Component<
     return (
       <Flex
         bg="transparent"
+        height="auto"
         color="text"
         width={[1, 1 / 2]}
         flexDirection="column"

@@ -364,6 +364,7 @@ class Modal extends React.Component<CustomModalProps> {
         {((isZoomed && this.props.data) || (show && this.props.data)) && (
           <StyledFrame key="frame">
             <OuterPosedFlex
+              position="relative"
               flexWrap="wrap"
               bg="#eee"
               color="text"
@@ -372,16 +373,16 @@ class Modal extends React.Component<CustomModalProps> {
               <AbWrapper
                 width={[1, 1 / 2]}
                 color="white"
-                // position="absolute"
-                backgroundImage="linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,.3))"
-                pt={4}
-                pb={2}
+                position="absolute"
+                backgroundImage="linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,.4))"
+                pt={2}
+                pb={4}
                 px={2}
                 top={0}
                 left={0}
                 zIndex={30}
               >
-                <BItem pl={3} onClick={toggle}>
+                <BItem pt={2} pl={3} onClick={toggle}>
                   <Icon name="close" fill="mobile" width="20px" />
                 </BItem>
                 <MobileQueryLane

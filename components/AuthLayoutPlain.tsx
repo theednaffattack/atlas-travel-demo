@@ -4,9 +4,11 @@ import { Flex as FlexBase } from "rebass";
 import { minHeight, borders } from "styled-system";
 import styled from "styled-components";
 
-import { NavBarTop } from "../modules/discover/NavBar";
+import { NavBarBottom } from "../modules/discover/NavBarBottom";
+import { NavBarTop } from "../modules/discover/NavBarTop";
 
 import LayoutContainer from "./LayoutContainer";
+import { MenuBar } from "../modules/discover/MenuBar";
 
 const Flex = styled(FlexBase)`
   ${minHeight}
@@ -18,6 +20,10 @@ const PlainFlex = styled(FlexBase)`
 
   background-color: #eee;
 `;
+
+const Footer = (props?: any) => {
+  return <NavBarBottom />;
+};
 
 type Props = {
   title?: string;
@@ -33,15 +39,17 @@ const Layout: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Flex
-      // border="3px crimson solid"
+      bg="#eee"
       m={[0]}
       minHeight="100vh"
       flexDirection="column"
       width={[1]}
     >
-      <PlainFlex color="white" flexDirection="column" minHeight="100vh">
+      <PlainFlex color="white" flexDirection="column" flex="1 0 0">
         <LayoutContainer>
+          <MenuBar />
           <NavBarTop />
+          {/* <NavBarBottom /> */}
           <Head>
             <title>{title}</title>
             <meta charSet="utf-8" />

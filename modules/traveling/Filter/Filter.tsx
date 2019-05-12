@@ -53,7 +53,7 @@ export class Filter extends React.Component<FilterProps, FilterState> {
     let { filterBoxOpenOrClosed, hotelRefetch } = this.props;
     let { amenities, priceRange, timePeriod } = this.state;
     return (
-      <Flex flexWrap="wrap" bg="#eee" width={1}>
+      <Flex height="auto" flexWrap="wrap" bg="#eee" width={1}>
         Cmon already
         <SVGSlider
           handlePriceRange={this.handlePriceRange}

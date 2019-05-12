@@ -8,6 +8,7 @@ import {
 import styled from "styled-components";
 import {
   borders,
+  boxShadow,
   height,
   width,
   minHeight,
@@ -51,10 +52,9 @@ const ContentFlex = styled(FlexBase)`
   ${borders}
 `;
 
-// const navItemXMargin = "4em";
-
 const NavBar = styled(FlexBase)`
 ${borders}
+${boxShadow}
 ${height}
 ${position}
 ${minHeight}
@@ -165,21 +165,24 @@ function ActiveIcon({ router, href, name }: CustomIconLinkProps) {
 
 const AIcon = withRouter(ActiveIcon);
 
-export class NavBarTop extends Component {
+export class NavBarBottom extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <NavBar
-        px={[6]}
+        // px={[6]}
+        boxShadow="0px -40px 100px 0px rgba(0, 0, 0, 0.1)"
         justifyContent="center"
         alignItems="center"
         height="100px"
-        bg="transparent"
+        // position="fixed"
+        // bottom={0}
+        zIndex={1805}
+        bg="#fefefe"
         width={1}
         mt={3}
-        mb={3}
       >
         <ContentFlex
           alignItems="center"
@@ -187,32 +190,6 @@ export class NavBarTop extends Component {
           flexDirection="row"
           width={[1]}
         >
-          <ContentFlex width="200px">
-            <ContentFlex
-              justifyContent="center"
-              alignItems="center"
-              width={1 / 2}
-            >
-              <BoxBase pt={2} width="30px" onClick={this.props.menuToggle}>
-                <MenuIcon
-                  height="100%"
-                  width="100%"
-                  name="menu"
-                  fill={baseFill}
-                />
-              </BoxBase>
-
-              <Text
-                ml={2}
-                onClick={this.props.menuToggle}
-                // mt={-2}
-                color={baseFill}
-                fontFamily="montserrat"
-              >
-                Menu
-              </Text>
-            </ContentFlex>
-          </ContentFlex>
           <ContentFlex
             alignItems="center"
             justifyContent="center"
@@ -226,18 +203,17 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <div style={{ width: "40px" }}>
+              <Box width="40px">
                 <TravelIcon
                   height="40px"
                   width="40px"
                   fill="active"
                   name="travels"
                 />
-              </div>
-              {/* <TravelIcon mb={2} height="40px" /> */}
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+              </Box>
+              {/* <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink color="#e9486d" href="/traveling" name="Traveling" />
-              </Text>
+              </Text> */}
             </ContentNav>
 
             <ContentNav
@@ -246,53 +222,24 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  border: "2px green solid"
-                }}
-              >
+              <Box width="40px">
                 <AIcon
                   height="40px"
                   width="40px"
                   fill="active"
                   name="explore"
                 />
-              </div>
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+              </Box>
+              {/* <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}
                   href="/explore"
                   name="Explore"
                   fill={fadedText}
                 />
-              </Text>
+              </Text> */}
             </ContentNav>
 
-            <ContentNav
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <ExploreIcon
-                height="40px"
-                width="40px"
-                fill={baseFill}
-                name="explore"
-                mb={2}
-                height="40px"
-              />
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink
-                  color={baseFill}
-                  href="/explore"
-                  name="Explore"
-                  fill={fadedText}
-                />
-              </Text>
-            </ContentNav>
             <ContentNav
               alignItems="center"
               flexDirection="column"
@@ -307,14 +254,14 @@ export class NavBarTop extends Component {
                 mb={2}
                 height="40px"
               />
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+              {/* <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}
                   href="/saved"
                   name="Saved"
                   fill={fadedText}
                 />
-              </Text>
+              </Text> */}
             </ContentNav>
             <ContentNav
               alignItems="center"
@@ -330,14 +277,14 @@ export class NavBarTop extends Component {
                 mb={2}
                 height="40px"
               />
-              <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
+              {/* <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}
                   href="/chat"
                   name="Chat"
                   fill={fadedText}
                 />
-              </Text>
+              </Text> */}
             </ContentNav>
             <ContentNav
               alignItems="center"
@@ -353,50 +300,15 @@ export class NavBarTop extends Component {
                 mb={2}
                 height="40px"
               />
-              <Text fontSize=".9em" fontFamily="montserrat">
+              {/* <Text fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}
                   href="/profile"
                   name="Profile"
                   fill={baseFill}
                 />
-              </Text>
+              </Text> */}
             </ContentNav>
-          </ContentFlex>
-
-          <ContentFlex>
-            <ContentFlex
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <BoxBase>
-                <ActivityIcon
-                  fill={baseFill}
-                  name="activity"
-                  width="18px"
-                  height="18px"
-                />
-              </BoxBase>
-              <BoxBase>
-                <DotIcon fill={activeIcon} width="6px" height="6px" mt={-3} />
-              </BoxBase>
-            </ContentFlex>
-            <ContentFlex
-              alignItems="center"
-              flexDirection="column"
-              p={4}
-              width={1 / 5}
-            >
-              <SearchIcon
-                fill={baseFill}
-                name="search"
-                width="18px"
-                height="18px"
-                // mb={2}
-              />
-            </ContentFlex>
           </ContentFlex>
         </ContentFlex>
       </NavBar>
