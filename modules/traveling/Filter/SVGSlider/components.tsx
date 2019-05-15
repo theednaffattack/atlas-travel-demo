@@ -8,15 +8,17 @@ import { dims } from "./constants";
 export function SliderRail({ getRailProps }) {
   const h0 = dims[1] * 0.2; // inner - visible
   const h1 = dims[1] * 0.6; // outer - invisible w/ events
-
+  console.log("h0, h1");
+  console.log(h0, h1);
+  console.log(dims[0]);
   return (
     <g>
       <rect
         x={0}
         y={dims[1] / 2 - h0 / 2}
         width={dims[0]}
-        height={h0}
-        rx={h0 / 2}
+        height={h0 / 2}
+        rx={h0 / 2 / 2}
         style={{ pointerEvents: "none" }}
         fill="#999"
       />
@@ -24,8 +26,8 @@ export function SliderRail({ getRailProps }) {
         x={0}
         y={dims[1] / 2 - h1 / 2}
         width={dims[0]}
-        height={h1}
-        rx={h1 / 2}
+        height={h1 / 2}
+        rx={h1 / 2 / 2}
         style={{ cursor: "pointer" }}
         fill="rgba(0,0,0,0)"
         {...getRailProps()}
@@ -96,14 +98,14 @@ export function Track({ source, target, getTrackProps }) {
 
   return (
     <Fragment>
-      <rect x={x0} y={-h0 / 2} width={x1 - x0} height={h0} fill="#5061A6" />
+      <rect x={x0} y={-h0 / 2} width={x1 - x0} height={h0 / 2} fill="#5061A6" />
       <rect
         x={x0}
-        y={-h1 / 2}
+        y={-h1 / 2 / 2}
         width={x1 - x0}
-        height={h1}
+        height={h1 / 2}
         style={{ cursor: "pointer" }}
-        fill="rgba(0,0,0,0)"
+        fill="rgba(0,0,0,0.2)"
         {...getTrackProps()}
       />
     </Fragment>

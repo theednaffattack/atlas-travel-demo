@@ -1,7 +1,16 @@
 import React from "react";
 // import PropTypes from "prop-types";
 
-export default function Surface(props) {
+interface SurfaceProps {
+  className: string;
+  view: any;
+  trbl: any;
+  style: any;
+  children: any;
+  [key: string]: any;
+}
+
+export default function Surface(props: SurfaceProps) {
   const { className, view, trbl, style, children, ...other } = props;
   const paddingBottom = `${Math.round((view[1] / view[0]) * 100)}%`;
 

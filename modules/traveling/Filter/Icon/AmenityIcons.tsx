@@ -71,7 +71,9 @@ export const Icon = ({
     {/* 🔥 🔥 🔥  FIREBREAK  🔥 🔥 🔥 */}
     <path
       fillRule="evenodd"
-      fill={selected ? "url(#PSgrad_0)" : "rgb(94, 104, 112, 0.1)"}
+      fill={
+        selected ? "url(#atlas-svg-button-fill)" : "rgba(94, 104, 112, 0.1)"
+      }
       d={myPaths[name]["paths"][0]}
     />
     {myPaths[name]["paths"][1] ? (

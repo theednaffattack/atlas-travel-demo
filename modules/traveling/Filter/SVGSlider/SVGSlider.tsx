@@ -6,6 +6,23 @@ import { SliderRail, Handle, Track, Tick } from "./components"; // example rende
 import { view, trbl, dims } from "./constants";
 import Surface from "./Surface";
 
+const sliderStyle = {
+  // Give the slider some width
+  position: "relative",
+  width: "100%",
+  height: 80
+  // border: "1px solid steelblue"
+};
+
+const railStyle = {
+  position: "absolute",
+  width: "100%",
+  height: 10,
+  marginTop: 25,
+  borderRadius: 5,
+  backgroundColor: "lightgrey"
+};
+
 const sliderProps = {
   width: dims[0],
   height: dims[1],
@@ -14,10 +31,18 @@ const sliderProps = {
   stroke: "red"
 };
 
-const domain = [100, 500];
-const defaultValues = [150, 300];
+const domain: number[] = [100, 500];
+const defaultValues: number[] = [150, 300];
 
-export default class SVGSlider extends Component {
+interface SVGSliderProps {
+  width: number | string;
+  height?: number | string;
+  fill: string;
+  opacity?: number;
+  stroke?: string;
+}
+
+export default class SVGSlider extends Component<SVGSliderProps> {
   constructor(props) {
     super(props);
     this.onUpdate = this.onUpdate.bind(this);

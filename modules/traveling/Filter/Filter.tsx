@@ -53,18 +53,24 @@ export class Filter extends React.Component<FilterProps, FilterState> {
     let { filterBoxOpenOrClosed, hotelRefetch } = this.props;
     let { amenities, priceRange, timePeriod } = this.state;
     return (
-      <Flex height="auto" flexWrap="wrap" bg="#eee" width={1}>
-        Cmon already
-        <SVGSlider
-          handlePriceRange={this.handlePriceRange}
-          containerState={priceRange}
-        />
-        {/* <pre style={{ width: "100%" }}>
-          <Text fontFamily="montserrat" fontSize={[3]}>
-            FILTER CONTAINER STATE
-          </Text>
-          {JSON.stringify(this.state, null, 2)}
-        </pre> */}
+      <Flex flexWrap="wrap" bg="#eee" width={1}>
+        <svg
+          style={{ width: 0, height: 0, position: "absolute" }}
+          aria-hidden="true"
+          focusable="false"
+        >
+          <linearGradient
+            id="atlas-svg-button-fill"
+            x1="0%"
+            x2="5.234%"
+            y1="99.863%"
+            y2="0%"
+          >
+            <stop offset="6%" stopColor="rgb(210,48,120)" stopOpacity="0.5" />
+            <stop offset="74%" stopColor="rgb(254,97,97)" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="rgb(255,121,85)" stopOpacity="0.5" />
+          </linearGradient>
+        </svg>
         <Amenities containerState={amenities} />
         <PriceRange
           handlePriceRange={this.handlePriceRange}

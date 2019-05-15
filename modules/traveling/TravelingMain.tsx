@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Flex, Text } from "rebass";
+import { Box, Flex as FlexBase, Text } from "rebass";
 import posed from "react-pose";
 import styled from "styled-components";
+import { borders } from "styled-system";
 
 import Viewbox from "./Viewbox";
 import {
@@ -25,11 +26,17 @@ const transition = {
   duration: 400,
   ease: [0.08, 0.69, 0.2, 0.99]
 };
+
+const Flex = styled(FlexBase)`
+  ${borders}
+`;
+
 const FlexSpecialBase = posed(Flex)({
   closed: {
     applyAtEnd: { display: "none" },
     height: 0,
     opacity: 0,
+    // flip: true
     transition: {
       height: {
         duration: 300,
@@ -39,14 +46,15 @@ const FlexSpecialBase = posed(Flex)({
   },
   open: {
     applyAtStart: { display: "flex" },
-    height: "500px",
-    opacity: 1
-    // transition: {
-    //   height: {
-    //     duration: 500,
-    //     ease: [0.08, 0.69, 0.2, 0.99]
-    //   }
-    // }
+    height: "auto",
+    opacity: 1,
+    // flip: true,
+    transition: {
+      height: {
+        duration: 300,
+        ease: [0.08, 0.69, 0.2, 0.99]
+      }
+    }
   }
 });
 
@@ -77,34 +85,30 @@ export default class TravelingMain extends React.Component<
 
   queryChildren({ data, error, loading, networkStatus, refetch, updateQuery }) {
     // const thisIsMe = this.props.data.data.me;
-    console.log(this.props.data.data.me);
-    // console.log({
-    //   data,
-    //   error,
-    //   loading,
-    //   networkStatus,
-    //   refetch,
-    //   updateQuery
-    // });
+
     if (loading) return <span>loading...</span>;
     if (error) return `Error! ${error}`;
     return (
-      <>
-        <FlexSpecial width={1} pose={this.state.open ? "open" : "closed"}>
+      <Flex flexDirection="column" width={1}>
+        <FlexSpecial
+          // height="100%"
+          width={1}
+          pose={this.state.open ? "open" : "closed"}
+        >
           <Filter
             hotelRefetch={refetch}
             filterBoxOpenOrClosed={this.state.open ? "isOpen" : "isClosed"}
           />
         </FlexSpecial>
-        <Text>{data.getAllHotel.length} spots</Text>
-        <Flex flexDirection="column">
+        <Text pt={2}>{data.getAllHotel.length} spots</Text>
+        <Flex width={1} flexDirection="column">
           <Viewbox
             filterOpen={this.state.open}
             requestor={this.props.data.data.me}
             data={data}
           />
         </Flex>
-      </>
+      </Flex>
     );
   }
 
@@ -115,13 +119,6 @@ export default class TravelingMain extends React.Component<
     nextState: TravelingMainState
   ) {
     if (nextProps.open === this.state.open) {
-      console.log(
-        "TravelingMain SHOULDCOMPONENTUPDATE(): NEXTPROPS THEN THIS.PROPS"
-      );
-      console.log(nextProps);
-      console.log(this.props);
-      console.log(nextState);
-      console.log(this.state);
       return false;
     } else {
       return true;
@@ -129,13 +126,11 @@ export default class TravelingMain extends React.Component<
   }
 
   render() {
-    const { open } = this.state;
     return (
       <Flex
         bg="transparent"
-        height="auto"
         color="text"
-        width={[1, 1 / 2]}
+        width={[1, 2 / 3]}
         flexDirection="column"
       >
         <Flex alignItems="center" color="text">

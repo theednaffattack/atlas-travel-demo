@@ -17,6 +17,7 @@ const Flex = styled(FlexBase)`
 
 const PlainFlex = styled(FlexBase)`
   ${minHeight}
+  ${borders}
 
   background-color: #eee;
 `;
@@ -45,7 +46,7 @@ const Layout: React.FunctionComponent<Props> = ({
       flexDirection="column"
       width={[1]}
     >
-      <PlainFlex color="white" flexDirection="column" flex="1 0 0">
+      <PlainFlex color="white" flexDirection="column">
         <LayoutContainer>
           <MenuBar />
           <NavBarTop />
@@ -59,7 +60,7 @@ const Layout: React.FunctionComponent<Props> = ({
             />
           </Head>
 
-          <Flex flexDirection="column" minHeight="50vh" p={0}>
+          <Flex width={1} flexDirection="column" p={0}>
             {children}
           </Flex>
         </LayoutContainer>

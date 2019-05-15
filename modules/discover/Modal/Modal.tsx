@@ -21,7 +21,7 @@ import {
   OuterFlex
 } from "./LocalStyledComponents/Comps";
 
-import { StyledFrame } from "./StyledFrame";
+import { RefFrame } from "./StyledFrame";
 
 import Carousel from "./Carousel/CarouselContainer";
 
@@ -328,6 +328,7 @@ const Signup = () => (
 
 interface CustomModalProps {
   data: any;
+  refPass: any;
   fakeAmenities: string[];
   isZoomed: boolean;
   show: boolean;
@@ -344,31 +345,34 @@ class Modal extends React.Component<CustomModalProps> {
   showSignup = () => this.setState({ index: 1 });
 
   render() {
-    const { show, toggle, fakeAmenities, isZoomed } = this.props;
+    const { fakeAmenities, isZoomed, refPass, show, toggle } = this.props;
     const { index } = this.state;
     const items = [Login, Signup];
 
     // https://github.com/zeit/next.js/issues/2177
-    const isBrowser = typeof window !== "undefined";
-    if (isBrowser && isZoomed) {
-      document.body.style.overflowY = "hidden";
-    }
-    if (isBrowser && !isZoomed) {
-      document.body.style.overflowY = "auto";
-    }
+    // const isBrowser = typeof window !== "undefined";
+    // if (isBrowser && isZoomed) {
+    //   document.body.style.overflowY = "hidden";
 
-    console.log("Discover Modal this.props.data");
-    console.log(this.props.data);
+    // }
+    // if (isBrowser && !isZoomed) {
+    //   document.body.style.overflowY = "auto";
+    // }
+
+    // console.log("Discover Modal this.props.data");
+    // console.log(this.props.data);
+    // return React.forwardRef((props, ref) =>
     return (
       <PoseGroup preEnterPose="init">
         {((isZoomed && this.props.data) || (show && this.props.data)) && (
-          <StyledFrame key="frame">
+          <RefFrame ref={refPass} key="frame">
             <OuterPosedFlex
               position="relative"
               flexWrap="wrap"
               bg="#eee"
               color="text"
               key="content"
+              width={1}
             >
               <AbWrapper
                 width={[1, 1 / 2]}
@@ -608,11 +612,20 @@ class Modal extends React.Component<CustomModalProps> {
                 </Lane>
               </PoseGroup>
             </OuterPosedFlex>
-          </StyledFrame>
+          </RefFrame>
         )}
       </PoseGroup>
     );
+    // );
   }
 }
 
-export default Modal;
+const WrappedModal = React.forwardRef(function myFunction(props, ref) {
+  return (
+    <Modal refPass={ref} {...props}>
+      {props.children}
+    </Modal>
+  );
+});
+
+export default WrappedModal;

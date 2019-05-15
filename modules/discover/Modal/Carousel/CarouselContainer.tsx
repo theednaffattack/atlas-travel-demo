@@ -20,8 +20,8 @@ export const Image = (props: any) => (
     // width={props.width}
     // height={props.height}
     style={{
-      marginLeft: "10px",
-      marginRight: "10px",
+      marginLeft: 0, // "10px",
+      marginRight: 0, // "10px",
       marginTop: 0,
       width: "auto",
       // minHeight: "750px",

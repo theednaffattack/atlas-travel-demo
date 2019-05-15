@@ -115,6 +115,9 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleCustomZoom = this.toggleCustomZoom.bind(this);
     this.truncate = this.truncate.bind(this);
+
+    this.targetRef = React.createRef();
+    this.targetElement = null;
   }
 
   state = {
@@ -134,9 +137,6 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
     ]
   };
 
-  targetRef = React.createRef();
-  targetElement = null;
-
   toggleZoom(e: any) {
     this.setState((prevState: any, prevProps: any) => {
       return {
@@ -153,38 +153,14 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
     }
   }
 
-  disableScroll() {
-    document.body.addEventListener(
-      "touchmove",
-      () => (document.body.style.overflowY = "hidden"),
-      {
-        passive: false
-      }
-    );
-  }
-
-  enableScroll() {
-    document.body.addEventListener(
-      "touchmove",
-      () => (document.body.style.overflowY = "auto")
-    );
-  }
-
-  componentWillUnmount() {
-    document.body.removeEventListener(
-      "touchmove",
-      () => (document.body.style.overflowY = "auto")
-    );
-  }
-
   toggleCustomZoom(e: any) {
     e.preventDefault();
     let { currentTarget } = e;
     // target the growing card (basically a modal)
     // so that we can target that node and disable body scrolling
-    this.targetElement = currentTarget.className.includes("carouselClick")
-      ? currentTarget
-      : null;
+    // this.targetElement = currentTarget.className.includes("carouselClick")
+    //   ? currentTarget
+    //   : null;
 
     // set state zooming in
     // @todo: double check this setting of state
@@ -195,6 +171,8 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
         console.log("SCROLL DISABLED");
       } else {
         clearAllBodyScrollLocks();
+
+        // enableBodyScroll(this.targetElement);
         console.log("SCROLL ENABLED");
       }
       return {
@@ -210,14 +188,43 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
   toggleModal(e: any) {
     e.preventDefault();
     let { currentTarget } = e;
+    // alert("clicked");
+    console.log("toggleModal");
     console.log(currentTarget);
-    this.setState((prevState: any, prevProps) => {
-      return {
-        isZoomed: !prevState.isZoomed,
-        showModal: !prevState.showModal,
-        modalData: prevProps.data[currentTarget.id]
-      };
-    });
+    console.log(currentTarget.className.includes("modalClick"));
+    console.log(this.targetRef.current);
+    console.log(this.targetElement);
+    // target the growing card (basically a modal)
+    // so that we can target that node and disable body scrolling
+    // this.targetElement = currentTarget.className.includes("modalClick")
+    //   ? currentTarget
+    //   : null;
+
+    this.setState(
+      (prevState: any, prevProps) => {
+        return {
+          isZoomed: !prevState.isZoomed,
+          showModal: !prevState.showModal,
+          modalData: prevProps.data[currentTarget.id]
+        };
+      },
+      () => {
+        console.log(this.targetRef.current);
+
+        if (this.state.showModal) {
+          disableBodyScroll(this.targetRef.current, {
+            allowTouchMove: this.targetRef.current
+          });
+          console.log("SCROLL DISABLED");
+          console.log(this.targetRef.current);
+        } else {
+          // clearAllBodyScrollLocks();
+          enableBodyScroll(this.targetRef.current);
+          console.log("SCROLL ENABLED");
+          console.log(this.targetRef.current);
+        }
+      }
+    );
   }
 
   zoomIn(e: any) {
@@ -228,28 +235,10 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
     this.setState({ isZoomed: false });
   }
 
-  generateHotelImages() {}
-
   // componentDidMount() {
-  //   const numItemsToGenerate = this.state.modalData.length; //how many gallery items you want on the screen
-  //   const imageWidth = 1024; //your desired image width in pixels
-  //   const imageHeight = 805; //desired image height in pixels
-  //   const collectionID = 1863748; //the collection ID from the original url
-  //   function renderGalleryItem() {
-  //     fetch(
-  //       `https://source.unsplash.com/collection/${collectionID}/${imageWidth}x${imageHeight}/`
-  //     ).then(response => {
-  //       let galleryItem = document.createElement("div");
-  //       galleryItem.classList.add("gallery-item");
-  //       galleryItem.innerHTML = `
-  //     <img class="gallery-image" src="${response.url}" alt="gallery image"/>
-  //   `;
-  //       document.body.appendChild(galleryItem);
-  //     });
-  //   }
-  //   for (let i = 0; i < numItemsToGenerate; i++) {
-  //     renderGalleryItem();
-  //   }
+  //   // 3. Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav).
+  //   this.targetElement = this.targetRef.current;
+  //   console.log(this.targetRef.current);
   // }
 
   render() {
@@ -260,15 +249,19 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
       // toggle,
       // zoomState
     } = this.props;
+
+    // console.log("this.targetElement.current");
+    // console.log(this.targetElement.current);
     return (
-      <FlexBase
+      <ContentFlex
         flexDirection="row"
         justifyContent="center"
-        width="100%"
+        width={1}
         flexWrap="wrap"
       >
         <Modal
           data={this.state.modalData}
+          refPass={this.targetRef}
           isZoomed={false} // {this.state.isZoomed}
           show={this.state.showModal}
           toggle={this.toggleModal}
@@ -281,15 +274,16 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
               let isModalViewActive = index === this.state.zoomIndex;
               return (
                 <Card
-                  ref={this.targetElement}
                   bg="#fafafa"
                   color="text"
                   pose={
                     this.state.isZoomed && isModalViewActive ? "open" : "closed"
                   }
+                  className="featureCard"
                   borderRadius="17px"
                   p={!isModalViewActive ? 3 : 0}
-                  my={!isModalViewActive ? 2 : 0}
+                  my={!isModalViewActive ? 2 : 1}
+                  mx={!isModalViewActive ? 4 : 2}
                   key={"cards-" + index}
                   id={index.toString()}
                   width={[1, isModalViewActive ? 1 : 0.4]}
@@ -304,8 +298,10 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                     alignItems="center"
                     width={["auto", isModalViewActive ? 1 : 1]}
                   >
-                    <Box
+                    <ContentFlex
                       id={index.toString()}
+                      className="modalClick"
+                      alignItems="center"
                       width={[
                         isModalViewActive ? 1 : 0.4,
                         isModalViewActive ? 0.4 : 0.6
@@ -334,21 +330,22 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                       /> */}
                       <Image
                         minHeight="77px"
-                        borderRadius="17px"
+                        borderRadius="9px"
                         src={info.photos[0].uri}
                       />
-                    </Box>
+                    </ContentFlex>
 
                     <ContentFlex
                       pl={[2, 3]}
-                      width={[1, isModalViewActive ? 0.6 : 1]}
+                      width={[1, 1]}
+                      height="100%"
                       flexDirection="column"
                     >
                       <ContentFlex>
                         <Box mr="auto">
                           <Text
                             color="text"
-                            fontSize="1em"
+                            fontSize={[4, 4]}
                             fontWeight={600}
                             style={{
                               overflow: "hidden",
@@ -366,12 +363,12 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                           id={index.toString()}
                           onClick={this.toggleModal}
                           // ml="auto"
-                          width={["6px", "3px"]}
+                          width={["6px"]}
                         >
-                          <Icon name="more" fill="#aaa" height="100%" />
+                          <Icon name="more" fill="#aaa" width="100%" />
                         </Box>
                       </ContentFlex>
-                      <ContentFlex>
+                      <ContentFlex mt={4}>
                         <ContentFlex>
                           <Icon size="1em" name="map-pin" fill={baseFill} />
                           <Text
@@ -413,7 +410,7 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
               );
             })
           : ""}
-      </FlexBase>
+      </ContentFlex>
     );
   }
 }

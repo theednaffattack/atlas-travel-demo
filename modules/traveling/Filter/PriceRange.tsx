@@ -108,7 +108,12 @@ export class PriceRange extends React.Component {
       >
         <Text>Price Range</Text>
 
-        <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
+        <Flex
+          mt={4}
+          alignItems="center"
+          justifyContent="center"
+          flexWrap="wrap"
+        >
           <SliderComp />
         </Flex>
       </Flex>

@@ -219,8 +219,7 @@ export default class HorizontalCalendar extends React.Component<
 
   componentWillReceiveProps(nextProps) {
     const { dataVar: fromCalendar } = nextProps; // pass dataVar as props
-    console.log("calendar creation");
-    console.log(this.createCalendar());
+
     this.createCalendar();
 
     // this.setState({
@@ -245,6 +244,9 @@ export default class HorizontalCalendar extends React.Component<
         <Flex flexDirection="column" style={{ overflowX: "scroll" }}>
           <Flex>
             {this.state.fromCalendar.map((item, index) => {
+              console.log("calender debug");
+              console.log(item);
+              console.log(this.state.from);
               return (
                 <Flex
                   key={"from-item--" + index}
@@ -261,7 +263,7 @@ export default class HorizontalCalendar extends React.Component<
                     className="test"
                     height="100%"
                     width="100%"
-                    name="calendar-date"
+                    name="calendarDate"
                     date={this.formatMyDateToNumber(item, "D")}
                     selected={this.state.from === item}
                   />
@@ -299,7 +301,7 @@ export default class HorizontalCalendar extends React.Component<
                   className="test"
                   height="100%"
                   width="100%"
-                  name="calendar-date"
+                  name="calendarDate"
                   selected={this.state.to === item}
                   date={this.formatMyDateToNumber(item, "D")}
                 />
