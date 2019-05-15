@@ -201,14 +201,14 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <div style={{ width: "40px" }}>
-                <TravelIcon
-                  height="40px"
-                  width="40px"
-                  fill="active"
-                  name="travels"
-                />
-              </div>
+              {/* <div style={{ width: "42px" }}> */}
+              <TravelIcon
+                height="100%"
+                width="100%"
+                fill="active"
+                name="traveling"
+              />
+              {/* </div> */}
               {/* <TravelIcon mb={2} height="40px" /> */}
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <NavLink color="#e9486d" href="/traveling" name="Traveling" />
