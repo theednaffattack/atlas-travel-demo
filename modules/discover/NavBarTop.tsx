@@ -23,7 +23,7 @@ import {
 import { withRouter } from "next/router";
 
 import NavLink from "../../components/NavLink";
-import Icon from "../traveling/Icon/Icon";
+import IconBase from "../traveling/Icon/Icon";
 import {
   ActivityIcon,
   ChatIcon,
@@ -41,6 +41,12 @@ import { size } from "../../components/mediaQueries";
 const fadedText = "rgba(255,255,255,0.6)";
 
 const activeIcon = "rgb(233, 72, 109)";
+
+const Icon = styled(IconBase)`
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const Card = styled(CardBase)`
   ${maxWidth}
@@ -93,9 +99,6 @@ const Box = styled(BoxBase)`
   ${borders}
   border-bottom: 3px transparent solid;
   box-sizing: border-box;
-  :hover {
-    border-bottom: 3px pink solid;
-  }
 `;
 
 const ContentNav = styled(FlexBase)`
@@ -117,28 +120,33 @@ interface CustomIconLinkProps {
   router: any;
   href: string;
   name: string;
+  handleClick: any;
 }
 
-function ActiveIcon({ router, href, name }: CustomIconLinkProps) {
+function ActiveIcon({ href, name, router }: CustomIconLinkProps) {
   const handleClick = (e: any) => {
     e.preventDefault();
-    let prepHref = `/${href}`;
-    router.push(prepHref);
+    // let prepHref = `/${href}`;
+    // router.push(prepHref);
+    router.push(href);
   };
-  console.log("router.pathname".toUpperCase());
-  console.log(router.pathname);
-
+  console.log("view href");
+  console.log(href);
   return (
-    <Icon
-      onClick={handleClick}
-      name={name}
-      height="40px"
-      fill={router.pathname.replace("/", "") === name ? "active" : baseFill}
-    />
+    <a href={href}>
+      <Icon
+        // onClick={handleClick}
+        name={name}
+        height="100%"
+        fill={router.pathname.replace("/", "") === name ? "active" : baseFill}
+      />
+    </a>
   );
 }
 
 const AIcon = withRouter(ActiveIcon);
+
+const ANavLink = withRouter(NavLink);
 
 export class NavBarTop extends Component {
   constructor(props) {
@@ -201,17 +209,25 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              {/* <div style={{ width: "42px" }}> */}
-              <TravelIcon
-                height="100%"
-                width="100%"
-                fill="active"
-                name="traveling"
-              />
-              {/* </div> */}
+              <Box width="55px">
+                {/* <TravelIcon
+                  height="100%"
+                  width="100%"
+                  fill="active"
+                  name="traveling"
+                /> */}
+                <AIcon
+                  height="100%"
+                  width="100%"
+                  fill={baseFill}
+                  href="traveling"
+                  name="traveling"
+                  mb={2}
+                />
+              </Box>
               {/* <TravelIcon mb={2} height="40px" /> */}
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink color="#e9486d" href="/traveling" name="Traveling" />
+                <ANavLink color={baseFill} href="/traveling" name="Traveling" />
               </Text>
             </ContentNav>
             <ContentNav
@@ -220,13 +236,21 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <AIcon width="100%" fill={baseFill} name="explore" mb={2} />
+              <Box width="52px">
+                <AIcon
+                  href="explore"
+                  width="100%"
+                  fill={baseFill}
+                  name="explore"
+                  mb={2}
+                />
+              </Box>
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink
+                <ANavLink
                   color={baseFill}
                   href="/explore"
                   name="Explore"
-                  fill={fadedText}
+                  // fill={fadedText}
                 />
               </Text>
             </ContentNav>
@@ -236,16 +260,18 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <SavedIcon
-                height="40px"
-                width="40px"
-                name="saved"
-                fill={baseFill}
-                mb={2}
-                height="40px"
-              />
+              <Box width="50px">
+                <AIcon
+                  height="100%"
+                  width="100%"
+                  href="saved"
+                  name="saved"
+                  fill={baseFill}
+                  mb={2}
+                />
+              </Box>
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink
+                <ANavLink
                   color={baseFill}
                   href="/saved"
                   name="Saved"
@@ -259,16 +285,18 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <ChatIcon
-                height="40px"
-                width="40px"
-                name="chat"
-                fill={baseFill}
-                mb={2}
-                height="40px"
-              />
+              <Box width="50px">
+                <AIcon
+                  height="100%"
+                  width="100%"
+                  href="chat"
+                  name="chat"
+                  fill={baseFill}
+                  mb={2}
+                />
+              </Box>
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <NavLink
+                <ANavLink
                   color={baseFill}
                   href="/chat"
                   name="Chat"
@@ -282,14 +310,16 @@ export class NavBarTop extends Component {
               p={4}
               width={1 / 5}
             >
-              <ProfileIcon
-                height="40px"
-                width="40px"
-                name="profile"
-                fill={baseFill}
-                mb={2}
-                height="40px"
-              />
+              <Box width="50px">
+                <AIcon
+                  height="100%"
+                  width="100%"
+                  href="profile"
+                  name="profile"
+                  fill={baseFill}
+                  mb={2}
+                />
+              </Box>
               <Text fontSize=".9em" fontFamily="montserrat">
                 <NavLink
                   color={baseFill}

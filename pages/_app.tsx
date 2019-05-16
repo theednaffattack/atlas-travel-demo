@@ -9,6 +9,7 @@ import withApollo from "../lib/withApollo";
 const GlobalStyle = createGlobalStyle`
 html {
   box-sizing: border-box;
+  height: 100%;
 }  
 body {
     margin: 0;

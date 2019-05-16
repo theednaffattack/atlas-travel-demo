@@ -10,26 +10,17 @@ import {
   maxWidth,
   minHeight,
   minWidth,
-  position
+  position,
+  height
 } from "styled-system";
 
 import MyLink from "./Link";
 
 import { navList } from "./navList";
 
-const SidebarBase = posed.nav({
-  open: {
-    x: "0%",
-    // applyAtStart: { display: "block" },
-    // animate child components with 100ms between entries
-    staggerChildren: 100
-  },
-
-  closed: { x: "-150%" }
-});
-
-const Sidebar = styled(SidebarBase)`
+const SidebarBase = styled.div`
   ${color}
+  ${height}
   ${space}
   ${width}
   ${minWidth}
@@ -44,6 +35,17 @@ const StyledList = styled.ul`
   padding: 0;
   margin: 0;
 `;
+
+const SideBar = posed(SidebarBase)({
+  open: {
+    x: "0%",
+    // applyAtStart: { display: "block" },
+    // animate child components with 100ms between entries
+    staggerChildren: 100
+  },
+
+  closed: { x: "-150%" }
+});
 
 const StyledLi = styled.li`
   border: 2px dotted black;
@@ -81,12 +83,14 @@ class SideBarClass extends Component<CustomSidebarProps> {
   render() {
     const { status, toggleMenu, navItems } = this.props;
     return (
-      <Sidebar
+      <SideBar
+        className="sidebar"
         maxWidth="200px"
         minWidth="170px"
         px={3}
         bg="blue"
         position="absolute"
+        height="100%"
         minHeight="100vh"
         pose={status === "isOpen" ? "open" : "closed"}
       >
@@ -98,7 +102,7 @@ class SideBarClass extends Component<CustomSidebarProps> {
             </NavItem>
           ))}
         </StyledList>
-      </Sidebar>
+      </SideBar>
     );
   }
 }

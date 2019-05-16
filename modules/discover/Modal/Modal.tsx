@@ -472,7 +472,7 @@ class Modal extends React.Component<CustomModalProps> {
                       flexDirection="row"
                       borderBottom={devBorder3}
                     >
-                      <Text fontSize={3}>${this.props.data.price}</Text>
+                      <Text fontSize={4}>${this.props.data.price}</Text>
                       &nbsp;&nbsp;
                       <Text pb={1} fontSize={5}>
                         {" "}

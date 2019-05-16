@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Box, Flex as FlexBase } from "rebass";
 import styled from "styled-components";
-import { minHeight } from "styled-system";
+import { height, minHeight } from "styled-system";
 
 import SideBar from "./SideBar";
 
 const Flex = styled(FlexBase)`
+  ${height}
   ${minHeight}
 `;
 
@@ -78,8 +79,18 @@ export default class LayoutContainer extends React.PureComponent<
       });
     });
     return (
-      <Flex flexDirection="column">
-        <div ref={this.setWrapperRef}>
+      <Flex
+        className="LayoutFlex"
+        width={1}
+        minHeight="100%"
+        flexDirection="column"
+        style={{ height: "100%" }}
+      >
+        <div
+          className="wrapperRef"
+          ref={this.setWrapperRef}
+          style={{ height: "100%", width: "100%" }}
+        >
           <SideBar
             id="SideBar"
             toggleMenu={this.toggleMenu}

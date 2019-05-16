@@ -52,6 +52,9 @@ const Box = styled(BoxBase)`
 const ContentFlex = styled(FlexBase)`
   ${minHeight}
   ${borders}
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Card = styled(CardBase)`
@@ -92,7 +95,7 @@ const Card = styled(CardBase)`
 //   }
 // });
 
-interface CustomFeatureCardProps {
+interface CustomSavedCardProps {
   data: any;
   localContext: any;
   requestor: any;
@@ -107,7 +110,7 @@ const initialZoomIndex = null;
 
 const initialShowModal = false;
 
-export class FeaturedCards extends Component<CustomFeatureCardProps> {
+export class SavedCards extends Component<CustomSavedCardProps> {
   constructor(props: any) {
     super(props);
     this.zoomIn = this.zoomIn.bind(this);
@@ -275,76 +278,50 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
               return (
                 <Card
                   bg="#fafafa"
-                  color="text"
+                  color="white"
                   pose={
                     this.state.isZoomed && isModalViewActive ? "open" : "closed"
                   }
-                  className="featureCard"
+                  className="SavedCard"
+                  backgroundImage={`url(${info.photos[0].uri})`}
+                  backgroundSize="cover"
                   borderRadius="17px"
-                  p={!isModalViewActive ? 3 : 0}
-                  my={!isModalViewActive ? 2 : 1}
-                  mx={!isModalViewActive ? 4 : 2}
+                  p={0}
+                  my={2}
+                  mx={4}
                   key={"cards-" + index}
                   id={index.toString()}
-                  width={[1, isModalViewActive ? 1 : 0.4]}
+                  width={[1, 0.28]}
                   boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
                   style={{
-                    overflowY: isModalViewActive ? "auto" : "hidden"
+                    overflow: "hidden"
                   }}
                 >
                   <ContentFlex
-                    flexWrap={isModalViewActive ? "wrap" : "nowrap"}
+                    alignItems="flex-end"
+                    flexWrap={"nowrap"}
+                    minHeight={["315px"]}
                     id={index.toString()}
-                    alignItems="center"
-                    width={["auto", isModalViewActive ? 1 : 1]}
+                    width={["auto", 1]}
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to bottom left, rgba(0,0,0,0.1),rgba(0,0,0,0.6))",
+                      backgroundSize: "cover"
+                    }}
                   >
                     <ContentFlex
-                      id={index.toString()}
-                      className="modalClick"
-                      alignItems="center"
-                      width={[
-                        isModalViewActive ? 1 : 0.4,
-                        isModalViewActive ? 0.4 : 0.6
-                      ]}
-                      minWidth={[isModalViewActive ? 1 : 0.41]}
-                      onClick={this.toggleModal}
-                    >
-                      {/* <CarouselBase
-                        // id={index.toString()}
-                        isModalViewActive={isModalViewActive}
-                        index={index}
-                        zoomIndex={this.state.zoomIndex}
-                        isZoomed={this.state.isZoomed}
-                        clickFunc={this.toggleCustomZoom}
-                        photos={[info.photos[0]]}
-                      /> */}
-
-                      {/* <ZoomImg
-                        zoomState={this.state.isZoomed}
-                        poseState={this.state.isZoomed ? true : false}
-                        // clicky={this.toggleCustomZoom}
-                        imageHeight="100%"
-                        imageWidth="100%"
-                        src={info.photos[0].uri}
-                        photos={info.photos}
-                      /> */}
-                      <Image
-                        minHeight="77px"
-                        borderRadius="9px"
-                        src={info.photos[0].uri}
-                      />
-                    </ContentFlex>
-
-                    <ContentFlex
-                      pl={[2, 3]}
+                      px={[2, 3]}
+                      pb={[2, 3]}
                       width={[1, 1]}
-                      height="100%"
                       flexDirection="column"
                     >
-                      <ContentFlex>
+                      <ContentFlex
+                        id={index.toString()}
+                        onClick={this.toggleModal}
+                        className="modalClick"
+                      >
                         <Box mr="auto">
                           <Text
-                            color="text"
                             fontSize={[4, 4]}
                             fontWeight={600}
                             style={{
@@ -356,24 +333,19 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                             {localContext(info.name)}
                           </Text>
 
-                          <Text fontSize={[3, 3]} color="muted">
-                            ${info.price}
-                          </Text>
+                          <Text fontSize={[3, 3]}>${info.price}</Text>
                         </Box>
                         <Box
-                          id={index.toString()}
-                          onClick={this.toggleModal}
                           // ml="auto"
-                          width={["6px"]}
+                          width="6px"
                         >
-                          <Icon name="more" fill="#aaa" width="100%" />
+                          <Icon name="more" fill="white" width="100%" />
                         </Box>
                       </ContentFlex>
                       <ContentFlex mt={4}>
                         <ContentFlex>
                           <Icon size="1em" name="map-pin" fill={baseFill} />
                           <Text
-                            color="text"
                             width={1}
                             fontSize=".9em"
                             style={{
