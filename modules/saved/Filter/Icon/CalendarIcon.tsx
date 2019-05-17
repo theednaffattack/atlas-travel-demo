@@ -59,9 +59,15 @@ export default function CalendarIcon({
             <stop offset="74%" stopColor="rgb(254,97,97)" stopOpacity="0.5" />
             <stop offset="100%" stopColor="rgb(255,121,85)" stopOpacity="0.5" />
           </linearGradient>
+
+          <linearGradient id="pretty" x1="0%" x2="0%" y1="100%" y2="0%">
+            <stop offset="6%" stopColor="rgb(210,48,120)" stopOpacity="1" />
+            <stop offset="74%" stopColor="rgb(254,97,97)" stopOpacity="1" />
+            <stop offset="100%" stopColor="rgb(255,121,85)" stopOpacity="1" />
+          </linearGradient>
         </defs>
         <path
-          fill="url(#atlas-svg-button-fill)" // fill="url(#PSgrad_0)"
+          fill="url(#pretty)" // fill="url(#PSgrad_0)"
           // fillRule="evenodd"
           strokeWidth={selected ? "0" : "2px"}
           stroke="rgb(221, 221, 221)"

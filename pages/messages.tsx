@@ -2,7 +2,7 @@ import React from "react";
 
 import Layout from "../components/AuthLayoutPlain";
 import { MeComponent } from "../generated/apolloComponents";
-import { SavedPage } from "../modules/saved/SavedPage";
+import MessagesPage from "../modules/messages/MessagesPage";
 // import { MyContext } from "../interfaces/MyContext";
 
 export default class Traveling extends React.Component {
@@ -19,7 +19,7 @@ export default class Traveling extends React.Component {
   render() {
     return (
       <Layout>
-        <MeComponent>{data => <SavedPage data={data} />}</MeComponent>
+        <MeComponent>{data => <MessagesPage data={data} />}</MeComponent>
       </Layout>
     );
   }

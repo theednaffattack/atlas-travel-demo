@@ -244,9 +244,6 @@ export default class HorizontalCalendar extends React.Component<
         <Flex flexDirection="column" style={{ overflowX: "scroll" }}>
           <Flex>
             {this.state.fromCalendar.map((item, index) => {
-              console.log("calender debug");
-              console.log(item);
-              console.log(this.state.from);
               return (
                 <Flex
                   key={"from-item--" + index}

@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes, DetailedHTMLProps } from "react";
+import { Text } from "rebass";
 import styled from "styled-components";
 import { FieldProps } from "formik";
 // import { Text } from "rebass";
@@ -37,19 +38,18 @@ const StyledCheckbox = styled.div`
   height: 20px;
   background: ${props => (props.checked ? "" : "papayawhip")};
   border-radius: 7px;
-  border: ${props => (!props.checked ? "1px rgba(0,0,0,0.3) solid" : "")};
+  border: ${props =>
+    !props.checked ? "1px rgba(0,0,0,0.3) solid" : "1px rgba(0,0,0,0) solid"};
   transition: all 150ms;
   background-image:  ${props =>
     props.checked
       ? "linear-gradient(90deg, rgb(210,48,120) 6%, rgb(254,97,97) 74%, rgb(255,121,85) 100%);"
-      : ""}
+      : "rgba(0,0,0,0)"}
 
-  ${HiddenCheckbox}:focus + & {
+  /* ${HiddenCheckbox}:focus + & {
     box-shadow: 0 0 0 2.5px lawngreen;
 
-  /* border: 1px lawngreen solid; */
-
-  }
+  } */
 
   ${Icon} {
     visibility: ${props => (props.checked ? "visible" : "hidden")};
@@ -93,4 +93,28 @@ const CheckBox = ({ field, form, ...props }: FieldProps & InputProps) => (
   </CheckboxContainer>
 );
 
-export { CheckBox };
+const FilterCheckBox = ({ field, form, ...props }: FieldProps & InputProps) => (
+  <CheckboxContainer>
+    <HiddenCheckbox
+      checked={form.values.businessTrip}
+      name={field.name}
+      onChange={() => {
+        const nextValue = !form.values.businessTrip;
+
+        form.setFieldValue("businessTrip", nextValue);
+      }}
+      {...props}
+    />
+    <StyledCheckbox checked={form.values.businessTrip}>
+      <Icon viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </Icon>
+    </StyledCheckbox>
+
+    {/* <Text>{Object.keys(props)}</Text> */}
+    {/* <Text>{Object.keys(field)}</Text>
+    <Text>{props.value}</Text> */}
+  </CheckboxContainer>
+);
+
+export { CheckBox, FilterCheckBox };

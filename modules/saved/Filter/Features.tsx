@@ -2,6 +2,7 @@ import React from "react";
 import { Flex as FlexBase, Text } from "rebass";
 import posed from "react-pose";
 import styled from "styled-components";
+import { borders } from "styled-system";
 
 import { Icon } from "./Icon/AmenityIcons";
 
@@ -15,6 +16,12 @@ const fakeAmenities = [
 ];
 
 const Flex = styled(FlexBase)`
+  ${borders}
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+`;
+
+const FlexContainer = styled(FlexBase)`
+  overflow-x: auto;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
@@ -103,9 +110,11 @@ export class Amenities extends React.Component {
           boxShadow: "0px 13px 33px 0px rgba(0, 0, 0, 0.05)"
         }}
       >
-        <Text>Amenities</Text>
+        <Text fontWeight={600} mb={3}>
+          Features
+        </Text>
 
-        <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
+        <FlexContainer justifyContent="flex-start">
           {fakeAmenities.map((amenity, index) => (
             <PFlex
               pressable={true}
@@ -131,10 +140,10 @@ export class Amenities extends React.Component {
                     .indexOf(amenity.name) !== -1
                 }
               />
-              <Text>{this.truncate(amenity.label, 10)}</Text>
+              <Text>{this.truncate(amenity.label, 5)}</Text>
             </PFlex>
           ))}
-        </Flex>
+        </FlexContainer>
       </Flex>
     );
   }

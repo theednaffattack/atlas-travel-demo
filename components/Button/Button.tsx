@@ -21,9 +21,9 @@ const StyledButton = styled(MyButton)`
   ${borderRadius}
 
   :focus {
-    border: 4px lawngreen solid;
+    /* border: 1px lawngreen solid; */
     border-radius: 33px;
-    outline: none;
+    /* outline: none; */
   }
 
   background-image: linear-gradient(
@@ -55,7 +55,7 @@ export const Button = (props: CustomProps) => {
       bg={bg}
       borderRadius="33px"
       onClick={click}
-      boxShadow="0px 10px 27px 0px rgba(0, 0, 0, 0.1)"
+      boxShadow="0px 10px 17px 0px rgba(0, 0, 0, 0.2)"
       {...theRest}
     >
       <Text fontWeight="200" fontFamily="sans">

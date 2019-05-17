@@ -130,15 +130,14 @@ function ActiveIcon({ href, name, router }: CustomIconLinkProps) {
     // router.push(prepHref);
     router.push(href);
   };
-  console.log("view href");
-  console.log(href);
+
   return (
     <a href={href}>
       <Icon
         // onClick={handleClick}
         name={name}
         height="100%"
-        fill={router.pathname.replace("/", "") === name ? "active" : baseFill}
+        fill={router.pathname.replace("/", "") === href ? "active" : baseFill}
       />
     </a>
   );
@@ -210,12 +209,6 @@ export class NavBarTop extends Component {
               width={1 / 5}
             >
               <Box width="55px">
-                {/* <TravelIcon
-                  height="100%"
-                  width="100%"
-                  fill="active"
-                  name="traveling"
-                /> */}
                 <AIcon
                   height="100%"
                   width="100%"
@@ -225,7 +218,6 @@ export class NavBarTop extends Component {
                   mb={2}
                 />
               </Box>
-              {/* <TravelIcon mb={2} height="40px" /> */}
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <ANavLink color={baseFill} href="/traveling" name="Traveling" />
               </Text>
@@ -246,12 +238,7 @@ export class NavBarTop extends Component {
                 />
               </Box>
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
-                <ANavLink
-                  color={baseFill}
-                  href="/explore"
-                  name="Explore"
-                  // fill={fadedText}
-                />
+                <ANavLink color={baseFill} href="/explore" name="Explore" />
               </Text>
             </ContentNav>
             <ContentNav
@@ -289,7 +276,7 @@ export class NavBarTop extends Component {
                 <AIcon
                   height="100%"
                   width="100%"
-                  href="chat"
+                  href="messages"
                   name="chat"
                   fill={baseFill}
                   mb={2}
@@ -298,7 +285,7 @@ export class NavBarTop extends Component {
               <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">
                 <ANavLink
                   color={baseFill}
-                  href="/chat"
+                  href="/messages"
                   name="Chat"
                   fill={fadedText}
                 />

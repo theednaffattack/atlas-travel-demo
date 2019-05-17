@@ -84,8 +84,8 @@ export default class ViewBox extends Component<ViewBoxProps, ViewBoxState> {
     // console.log(this.state);
 
     if (nextProps.filterOpen !== this.props.filterOpen) {
-      console.log("ViewBox SHOULDCOMPONENTUPDATE(): NEXTPROPS THEN THIS.PROPS");
-      console.log(nextProps.filterOpen !== this.props.filterOpen);
+      // console.log("ViewBox SHOULDCOMPONENTUPDATE(): NEXTPROPS THEN THIS.PROPS");
+      // console.log(nextProps.filterOpen !== this.props.filterOpen);
       // console.log(this.props);
       // console.log(this.props.data.getAllHotel);
       // console.log(nextProps.data.getAllHotel);

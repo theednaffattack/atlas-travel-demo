@@ -30,6 +30,9 @@ export default class TimePeriod extends React.Component<TimePeriodProps> {
         // border="dev2"
         mb={3}
       >
+        <Text mb={3} fontWeight={600}>
+          Time Period
+        </Text>
         <Flex overflow="hidden" className="slide-calendar">
           <HorizontalCalendar
             handleTimePeriodUpdate={handleTimePeriodUpdate}

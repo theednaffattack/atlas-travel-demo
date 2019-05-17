@@ -60,6 +60,12 @@ export const Icon = ({
         <stop offset="74%" stopColor="rgb(254,97,97)" stopOpacity="0.5" />
         <stop offset="100%" stopColor="rgb(255,121,85)" stopOpacity="0.5" />
       </linearGradient>
+
+      <linearGradient id="pretty" x1="0%" x2="0%" y1="100%" y2="0%">
+        <stop offset="6%" stopColor="rgb(210,48,120)" stopOpacity="1" />
+        <stop offset="74%" stopColor="rgb(254,97,97)" stopOpacity="1" />
+        <stop offset="100%" stopColor="rgb(255,121,85)" stopOpacity="1" />
+      </linearGradient>
     </defs>
     <g filter="url(#PSgrad_0)">
       <path
@@ -71,9 +77,7 @@ export const Icon = ({
     {/* 🔥 🔥 🔥  FIREBREAK  🔥 🔥 🔥 */}
     <path
       fillRule="evenodd"
-      fill={
-        selected ? "url(#atlas-svg-button-fill)" : "rgba(94, 104, 112, 0.1)"
-      }
+      fill={selected ? "url(#pretty)" : "rgba(94, 104, 112, 0.1)"}
       d={myPaths[name]["paths"][0]}
     />
     {myPaths[name]["paths"][1] ? (

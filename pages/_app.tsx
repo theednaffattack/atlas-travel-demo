@@ -39,9 +39,9 @@ const theme = {
     mono: "Menlo, monospace"
   },
   borders: {
-    dev1: "2px green solid",
-    dev2: "2px crimson solid",
-    dev3: "2px steelblue solid"
+    lime: "2px limegreen solid",
+    crimson: "2px crimson solid",
+    steelblue: "2px steelblue solid"
   },
   shadows: {
     small: "0 0 4px rgba(0, 0, 0, .125)",

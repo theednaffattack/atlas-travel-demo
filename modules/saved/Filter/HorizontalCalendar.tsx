@@ -238,15 +238,12 @@ export default class HorizontalCalendar extends React.Component<
       <Flex width={1} flexDirection="column">
         {/* FROM!!! */}
 
-        <Text color="rgb(160,160,160)" className="title-label">
+        <Text mb={4} color="rgb(160,160,160)" className="title-label">
           FROM
         </Text>
         <Flex flexDirection="column" style={{ overflowX: "scroll" }}>
           <Flex>
             {this.state.fromCalendar.map((item, index) => {
-              console.log("calender debug");
-              console.log(item);
-              console.log(this.state.from);
               return (
                 <Flex
                   key={"from-item--" + index}
@@ -279,7 +276,7 @@ export default class HorizontalCalendar extends React.Component<
 
         {/* TO!!! */}
 
-        <Text color="rgb(160,160,160)" className="title-label">
+        <Text mt={2} mb={4} color="rgb(160,160,160)" className="title-label">
           TO
         </Text>
 

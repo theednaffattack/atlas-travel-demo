@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import posed from "react-pose";
-// import { Link as BaseLink, Router } from "@reach/router";
-import Link from "next/link";
 import styled from "styled-components";
 import {
   color,
@@ -20,13 +18,15 @@ import { navList } from "./navList";
 
 const SidebarBase = styled.div`
   ${color}
-  ${height}
   ${space}
-  ${width}
-  ${minWidth}
-  ${maxWidth}
-  ${position}
-  ${minHeight}
+  max-width: 200px;
+  min-width: 170px;
+  padding-left: 8px;
+  padding-right: 8px;
+  position: fixed;
+  top: 0;
+  left: ${props => (props.status === "isOpen" ? 0 : "-110%")};
+  bottom: 0;
 `;
 
 const StyledList = styled.ul`
@@ -37,21 +37,35 @@ const StyledList = styled.ul`
 `;
 
 const SideBar = posed(SidebarBase)({
+  init: { x: "-110%", display: "none" },
   open: {
     x: "0%",
-    // applyAtStart: { display: "block" },
+    applyAtStart: { display: "block" },
     // animate child components with 100ms between entries
     staggerChildren: 100
   },
 
-  closed: { x: "-150%" }
+  closed: { x: "-110%", display: "none" }
 });
 
 const StyledLi = styled.li`
   border: 2px dotted black;
+  text-decoration: none !important;
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: goldenrod;
+    transition: width 0.3s;
+  }
+  &:hover::after {
+    width: 100%;
+    //transition: width .3s;
+  }
 `;
 
-const NavItemPosed = posed.li({
+const NavItemPosed = posed(StyledLi)({
   open: { opacity: 1 },
   closed: { opacity: 0 }
 });
@@ -84,14 +98,9 @@ class SideBarClass extends Component<CustomSidebarProps> {
     const { status, toggleMenu, navItems } = this.props;
     return (
       <SideBar
-        className="sidebar"
-        maxWidth="200px"
-        minWidth="170px"
-        px={3}
+        status={status}
         bg="blue"
-        position="absolute"
-        height="100%"
-        minHeight="100vh"
+        initialPose="closed"
         pose={status === "isOpen" ? "open" : "closed"}
       >
         <StyledList m={0}>

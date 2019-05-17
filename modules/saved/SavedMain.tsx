@@ -31,7 +31,13 @@ const Flex = styled(FlexBase)`
   ${borders}
 `;
 
-const FlexSpecialBase = posed(Flex)({
+const FlexMakeSpecial = styled(FlexBase)`
+  ${borders}
+  height: 0;
+  opacity: 0;
+`;
+
+const FlexSpecialBase = posed(FlexMakeSpecial)({
   closed: {
     applyAtEnd: { display: "none" },
     height: 0,
@@ -86,11 +92,11 @@ export default class SavedMain extends React.Component<
   queryChildren({ data, error, loading, networkStatus, refetch, updateQuery }) {
     // const thisIsMe = this.props.data.data.me;
 
-    if (loading) return <span>loading...</span>;
     if (error) return `Error! ${error}`;
     return (
       <Flex flexDirection="column" width={1}>
         <FlexSpecial
+          px={[1, 5]}
           // height="100%"
           width={1}
           pose={this.state.open ? "open" : "closed"}
@@ -100,8 +106,12 @@ export default class SavedMain extends React.Component<
             filterBoxOpenOrClosed={this.state.open ? "isOpen" : "isClosed"}
           />
         </FlexSpecial>
-        <Text pt={2}>{data.getAllHotel.length} spots</Text>
+        <Text px={[5]} pt={2}>
+          {data.getAllHotel.length} spots
+        </Text>
         <Flex width={1} flexDirection="column">
+          {error ? <span>error 😥 😥 😥...</span> : null}
+          {loading ? <span>loading...</span> : null}
           <Viewbox
             filterOpen={this.state.open}
             requestor={this.props.data.data.me}
@@ -125,15 +135,20 @@ export default class SavedMain extends React.Component<
   render() {
     return (
       <Flex bg="transparent" color="text" width={[1, 1]} flexDirection="column">
-        <Flex alignItems="center" color="text">
+        <Flex px={[5]} alignItems="center" color="text">
           <Box width={1}>
             <Text fontWeight="600" fontSize={[4, 5]} color="text">
               Saved
             </Text>
           </Box>
 
-          <Flex>
-            <Button onClick={this.openFilters} height="165px" label="Filters" />
+          <Flex pb={2}>
+            <Button
+              mb={4}
+              onClick={this.openFilters}
+              height="165px"
+              label="Filters"
+            />
           </Flex>
         </Flex>
 
