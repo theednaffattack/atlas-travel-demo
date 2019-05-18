@@ -1,65 +1,28 @@
 import React from "react";
-import { Box as BoxBase, Flex as FlexBase, Image, Text } from "rebass";
-import styled from "styled-components";
-import {
-  borders,
-  position,
-  top,
-  left,
-  bottom,
-  right,
-  zIndex
-} from "styled-system";
+import { Image, Text } from "rebass";
+import distanceInWords from "date-fns/distance_in_words";
 
-import { MessageThreadProperties } from "./MessagesPage";
-
-const Flex = styled(FlexBase)`
-  ${borders}
-`;
-const Box = styled(BoxBase)`
-  ${borders}
-  ${position}
-`;
-
-const DotBase = () => (
-  <svg viewBox="0 0 21 21">
-    <path
-      fillRule="evenodd"
-      strokeWidth="2px"
-      stroke="rgba(242, 242, 242, 1)"
-      fill="rgb(244, 50, 127)"
-      d="M10.500,7.166 C12.525,7.166 14.167,8.808 14.167,10.833 C14.167,12.858 12.525,14.500 10.500,14.500 C8.475,14.500 6.833,12.858 6.833,10.833 C6.833,8.808 8.475,7.166 10.500,7.166 Z"
-    />
-  </svg>
-);
-
-const AbBox = styled(BoxBase)`
-${borders}
-${position}
-  ${top}
-  ${right}
-  ${bottom}
-  ${left}
-  ${zIndex}
-`;
-
-const Dot = styled(DotBase)`
-  ${position}
-  ${top}
-  ${right}
-  ${bottom}
-  ${left}
-  ${zIndex}
-`;
+import { Flex, Box, Dot, AbBox } from "./StyledRebass";
+import { MessageThreadProperties } from "./types";
+import { truncate, getTimeWords } from "./utilities";
 
 export const MessageThreadItem = ({
-  id,
-  name,
   avatar,
-  messages
+  id,
+  handleSelectMessageThread,
+  messages,
+  messageIndex,
+  name
 }: MessageThreadProperties) => {
   return (
-    <Flex py={3} alignItems="center" width={1} borderBottom="2px #eee solid">
+    <Flex
+      id={id}
+      onClick={handleSelectMessageThread}
+      py={3}
+      alignItems="center"
+      width={1}
+      borderBottom="2px #eee solid"
+    >
       <Box position="relative">
         <Image borderRadius="17px" src={avatar} />
         <AbBox
@@ -78,11 +41,24 @@ export const MessageThreadItem = ({
           <Box>
             <Text fontWeight={600}>{name}</Text>
           </Box>
-          <Box color="muted">{messages[0].messageText}</Box>
+          <Box color="muted">
+            {truncate(messages[0].messageText, 45, " 🎶")}
+          </Box>
         </Flex>
-        <Box ml="auto" color="muted">
-          XX mins ago
-        </Box>
+        <Flex
+          alignItems="start"
+          justifyContent="flex-end"
+          width={1 / 4}
+          ml="auto"
+          color="muted"
+        >
+          <Text fontSize={[".8em"]} color="muted" fontWeight={600}>
+            {getTimeWords(
+              new Date(messages[0].timestamp),
+              new Date()
+            ).toUpperCase()}
+          </Text>
+        </Flex>
       </Flex>
     </Flex>
   );

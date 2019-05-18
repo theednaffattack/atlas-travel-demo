@@ -67,3 +67,7 @@ https://medium.com/quick-code/how-to-quickly-generate-a-random-gallery-of-images
 
 https://github.com/zeit/next.js/issues/2177
 const isBrowser = typeof window !== "undefined";
+
+## SVG Line Width
+
+https://codepen.io/techniq/pen/rLXwJJ
