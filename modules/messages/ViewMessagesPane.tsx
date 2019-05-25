@@ -19,12 +19,9 @@ export default class ViewMessagesPane extends Component {
   componentDidMount() {
     this.props.subscriptionFunc(
       this.props.subscribeToMore,
-      this.props.variables
+      this.props.variables,
+      this.scrollToBottom
     );
-
-    console.log("this.messageEnd");
-    console.log(this.messageEnd);
-    this.scrollToBottom();
   }
   render() {
     const {
@@ -33,9 +30,7 @@ export default class ViewMessagesPane extends Component {
       error: getMessageError,
       subscribeToMore,
       subscriptionFunc,
-      variables: {
-        subscribeToMoreInput: { message }
-      }
+      variables: { subscribeToMoreInput }
     } = this.props;
     return (
       <Flex>
@@ -43,7 +38,6 @@ export default class ViewMessagesPane extends Component {
         {/* {error ? error.message : ""} */}
         <div>
           {getMessageData!.getMyMessages!.map((message: any, index: number) => (
-            // <div key={index}>{message.message}</div>
             <IncomingMessageBubble
               subscriptionsFunc={subscriptionFunc}
               subscribeToMore={subscribeToMore}
@@ -52,23 +46,12 @@ export default class ViewMessagesPane extends Component {
             />
           ))}
           <div
-            style={{ float: "left", clear: "both" }}
+            style={{ marginTop: "80px", float: "left", clear: "both" }}
             ref={el => {
               this.messagesEnd = el;
             }}
           />
         </div>
-        {/* <CurrentMessagesPane
-            me={me}
-            messages={
-              this.state.selectedMessageType === "ACTIVE"
-                ? activeMessageThreads
-                : archivedMessageThreads
-            }
-            messagesSelectorId={
-              this.state.selectedMessageId ? this.state.selectedMessageId : ""
-            }
-          /> */}
       </Flex>
     );
   }

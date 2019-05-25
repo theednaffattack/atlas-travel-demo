@@ -91,3 +91,7 @@ https://www.prisma.io/blog/how-to-build-a-real-time-chat-with-graphql-subscripti
 ## GraphQL Server Errors
 
 https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1
+
+## ScrollToBottom / ScrollIntoView
+
+https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react

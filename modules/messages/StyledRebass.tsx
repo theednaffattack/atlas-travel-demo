@@ -57,6 +57,7 @@ export const Dot = styled(DotBase)`
 
 export const Flex = styled(FlexBase)`
   ${borders}
+  ${position}
 `;
 
 export const Box = styled(BoxBase)`
