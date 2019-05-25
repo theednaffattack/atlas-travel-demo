@@ -63,12 +63,6 @@ function create(initialState: any, { getToken }: Options) {
         // split based on operation type
         ({ query }) => {
           const definition = getMainDefinition(query);
-          console.log("IS SPLIT WORKING?");
-          console.log(definition);
-          console.log(
-            definition.kind === "OperationDefinition" &&
-              definition.operation === "subscription"
-          );
           return (
             definition.kind === "OperationDefinition" &&
             definition.operation === "subscription"
@@ -98,9 +92,6 @@ function create(initialState: any, { getToken }: Options) {
 
   const authLink = setContext((_, { headers }) => {
     const token = getToken();
-
-    console.log("WHAT IS THE TOKEN");
-    console.log(token);
     return {
       headers: {
         ...headers,

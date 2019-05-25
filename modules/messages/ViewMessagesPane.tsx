@@ -6,25 +6,35 @@ import { GlobalSVGGradient } from "./GlobalSVGGradient";
 import { IncomingMessageBubble } from "./IncomingMessageBubbleNew";
 import { Flex } from "./StyledRebass";
 
-import { NewMessageComponent } from "../../generated/apolloComponents";
 import { newMessageSub } from "../../graphql/message/subscriptions/NewMessage";
 
 export default class ViewMessagesPane extends Component {
-  //   componentDidMount() {
-  //     this.props.subscriptionFunc(
-  //       this.props.subscribeToMore,
-  //       this.props.variables
-  //     );
-  //   }
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+  componentDidMount() {
+    this.props.subscriptionFunc(
+      this.props.subscribeToMore,
+      this.props.variables
+    );
+
+    console.log("this.messageEnd");
+    console.log(this.messageEnd);
+    this.scrollToBottom();
+  }
   render() {
     const {
-      //   data,
-      //   loading,
-      //   error,
-      //   subscribeToMore,
-      //   subscriptionFunc,
+      data: getMessageData,
+      loading: getMessageLoading,
+      error: getMessageError,
+      subscribeToMore,
+      subscriptionFunc,
       variables: {
-        subInput: { message }
+        subscribeToMoreInput: { message }
       }
     } = this.props;
     return (
@@ -32,30 +42,21 @@ export default class ViewMessagesPane extends Component {
         <GlobalSVGGradient />
         {/* {error ? error.message : ""} */}
         <div>
-          {/* {data!.getMyMessages!.map((message: any, index: number) => (
+          {getMessageData!.getMyMessages!.map((message: any, index: number) => (
             // <div key={index}>{message.message}</div>
-            <IncomingMessageBubble key={index} {...message} />
-          ))} */}
-
-          {/* <div>{loading ? <Text>loading...</Text> : ""}</div> */}
-          <NewMessageComponent
-            // onSubscriptionData={() => console.log("SUBSCIPTION BOOOOOOOY")}
-            subscription={newMessageSub}
-            variables={{
-              message
+            <IncomingMessageBubble
+              subscriptionsFunc={subscriptionFunc}
+              subscribeToMore={subscribeToMore}
+              key={index}
+              {...message}
+            />
+          ))}
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={el => {
+              this.messagesEnd = el;
             }}
-          >
-            {({ data, error, loading }) => (
-              <div>
-                {/* {JSON.stringify(variables, null, 2)} */}
-                {/* {!loading && newMessage.message} */}
-                {data ? Object.keys(data) : "no data"}
-                {data ? <Text>{data.newMessage.message}</Text> : "not yet"}
-                {loading ? "loading... " : ""}
-                {!loading && <IncomingMessageBubble {...data.newMessage} />}
-              </div>
-            )}
-          </NewMessageComponent>
+          />
         </div>
         {/* <CurrentMessagesPane
             me={me}

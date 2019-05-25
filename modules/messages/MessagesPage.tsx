@@ -20,30 +20,48 @@ const input = {
   user: "00a33f72-4a23-4753-a607-d98aaaed69f9"
 };
 
-const subInput = {
+const subscribeToMoreInput = {
   message: "bleaker"
 };
+
+// const subscribeToMoreFunc = (subscribeToMore, variables) =>
+//   subscribeToMore({
+//     document: newMessageSub,
+//     variables: variables[subscribeToMoreInput],
+//     updateQuery: (prev, { subscriptionData }) => {
+//       const {
+//         subscribeToMoreInput: { message }
+//       } = variables;
+//       console.log(
+//         "INSIDE UPDATEQUERY FROM SUBSCRIBETOMOREFUNC INSIDE SUBSCRIBETOMORE METHOD"
+//       );
+//       console.log(Object.keys(subscriptionData));
+
+//       if (!subscriptionData.data) return prev;
+//       const newFeedItem = subscriptionData.data.newMessage;
+
+//       return prev;
+
+//       return Object.assign({}, prev, {
+//         getMyMessages: [newFeedItem, ...prev.getMyMessages]
+//       });
+//     }
+//   });
 
 const subscribeToMoreFunc = (subscribeToMore, variables) =>
   subscribeToMore({
     document: newMessageSub,
-    variables: variables[subInput],
+    variables: { message: subscribeToMoreInput.message },
     updateQuery: (prev, { subscriptionData }) => {
+      // `prev` and `{ subscriptionData }` are supplied by
+      // appollo to the updateQuery function
       const {
-        subInput: { message }
+        subscribeToMoreInput: { message }
       } = variables;
-      console.log(
-        "INSIDE UPDATEQUERY FROM SUBSCRIBETOMOREFUNC INSIDE SUBSCRIBETOMORE METHOD"
-      );
-      console.log(Object.keys(subscriptionData));
-
       if (!subscriptionData.data) return prev;
       const newFeedItem = subscriptionData.data.newMessage;
-
-      return prev;
-
       return Object.assign({}, prev, {
-        getMyMessages: [newFeedItem, ...prev.getMyMessages]
+        getMyMessages: [...prev.getMyMessages, newFeedItem]
       });
     }
   });
@@ -54,6 +72,7 @@ export default class MessagesPage extends Component<
 > {
   constructor(props: MessageThreadProps) {
     super(props);
+    this.subscribeToMoreFunc = subscribeToMoreFunc.bind(this);
     this.handleSelectMessageThread = this.handleSelectMessageThread.bind(this);
     this.handleSelectArchivedMessageThread = this.handleSelectArchivedMessageThread.bind(
       this
@@ -174,8 +193,25 @@ export default class MessagesPage extends Component<
             {({ loading, data, error, subscribeToMore }) => (
               <ViewMessagesPane
                 subscribeToMore={subscribeToMore}
-                subscriptionFunc={subscribeToMoreFunc}
-                variables={{ subInput }}
+                subscriptionFunc={(subscribeToMore, variables) =>
+                  subscribeToMore({
+                    document: newMessageSub,
+                    variables: { message: subscribeToMoreInput.message },
+                    updateQuery: (prev, { subscriptionData }) => {
+                      // `prev` and `{ subscriptionData }` are supplied by
+                      // appollo to the updateQuery function
+                      const {
+                        subscribeToMoreInput: { message }
+                      } = variables;
+                      if (!subscriptionData.data) return prev;
+                      const newFeedItem = subscriptionData.data.newMessage;
+                      return Object.assign({}, prev, {
+                        getMyMessages: [...prev.getMyMessages, newFeedItem]
+                      });
+                    }
+                  })
+                }
+                variables={{ subscribeToMoreInput }}
                 loading={loading}
                 data={data}
                 error={error}
