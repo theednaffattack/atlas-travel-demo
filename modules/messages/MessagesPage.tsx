@@ -1,93 +1,113 @@
 import React, { Component } from "react";
-import { Box as BoxBase, Card, Flex as FlexBase, Image, Text } from "rebass";
-import styled from "styled-components";
-import { borders, position } from "styled-system";
+import { Card, Text } from "rebass";
 
 import { MessageThreadItem } from "./MessageThreadItem";
-import { activeMessageThreads } from "./mockData";
-import { IncomingMessageBubble } from "./IncomingMessageBubble";
-import { IncomingMessageBubble as IncomingMessageBubbleNew } from "./IncomingMessageBubbleNew";
-import { GlobalSVGGradient } from "./GlobalSVGGradient";
-import { MessageBody, MessageThreadProperties } from "./types";
+import { activeMessageThreads, archivedMessageThreads } from "./mockData";
 
-const Flex = styled(FlexBase)`
-  ${borders}
-`;
-const Box = styled(BoxBase)`
-  ${borders}
-  ${position}
-`;
-interface MessagePageState {
-  selectedMessageThreadId: string;
-  selectedMessageIndex: number | null;
-}
+import { MessageThreadProps, MessagePageState } from "./types";
 
-const styles = {
-  exampleText: {
-    width: 200
-  },
-  range: {
-    marginLeft: 25,
-    width: 275
-  },
-  svg: {
-    height: 125,
-    display: "block",
-    border: "1px solid #aaa",
-    marginBottom: 10
-  }
+import { Flex, Box } from "./StyledRebass";
+import ViewMessagesPane from "./ViewMessagesPane";
+import {
+  GetMyMessagesComponent,
+  NewMessageDocument
+} from "../../generated/apolloComponents";
+
+import { newMessageSub } from "../../graphql/message/subscriptions/NewMessage";
+
+const input = {
+  sentBy: "00840864-fa70-4b19-968a-0421b77b2074",
+  user: "00a33f72-4a23-4753-a607-d98aaaed69f9"
 };
 
-// From the console...
-// new Date().toISOString()
-// "2019-05-17T18:01:32.567Z"
+const subInput = {
+  message: "bleaker"
+};
+
+const subscribeToMoreFunc = (subscribeToMore, variables) =>
+  subscribeToMore({
+    document: newMessageSub,
+    variables: variables[subInput],
+    updateQuery: (prev, { subscriptionData }) => {
+      const {
+        subInput: { message }
+      } = variables;
+      console.log(
+        "INSIDE UPDATEQUERY FROM SUBSCRIBETOMOREFUNC INSIDE SUBSCRIBETOMORE METHOD"
+      );
+      console.log(Object.keys(subscriptionData));
+
+      if (!subscriptionData.data) return prev;
+      const newFeedItem = subscriptionData.data.newMessage;
+
+      return prev;
+
+      return Object.assign({}, prev, {
+        getMyMessages: [newFeedItem, ...prev.getMyMessages]
+      });
+    }
+  });
 
 export default class MessagesPage extends Component<
-  MessageThreadProperties,
+  MessageThreadProps,
   MessagePageState
 > {
-  constructor(props) {
+  constructor(props: MessageThreadProps) {
     super(props);
     this.handleSelectMessageThread = this.handleSelectMessageThread.bind(this);
+    this.handleSelectArchivedMessageThread = this.handleSelectArchivedMessageThread.bind(
+      this
+    );
     this.state = {
-      selectedMessageThreadId: "",
-      selectedMessageIndex: null
+      selectedMessageType: "",
+      selectedMessageId: null
     };
   }
 
   handleSelectMessageThread(event: any) {
-    console.log(event.currentTarget.id);
+    let {
+      currentTarget: { id }
+    } = event;
+
+    this.setState({
+      selectedMessageId: id,
+      selectedMessageType: "ACTIVE"
+    });
+  }
+
+  handleSelectArchivedMessageThread(event: any) {
     let {
       currentTarget: { id }
     } = event;
     this.setState({
-      selectedMessageIndex: id
+      selectedMessageId: id,
+      selectedMessageType: "ARCHIVED"
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // Typical usage (don't forget to compare props):
-    if (this.state.selectedMessageIndex !== prevProps.selectedMessageIndex) {
-      // this.fetchData(this.props.userID);
+  // componentDidMount() {
+  //   this.props.subscribeToNewComments();
+  // }
 
-      const pathNodes = Array.from(document.querySelectorAll(".messageWindow"));
-      const justOne = pathNodes[0].getBBox();
-
-      const arrayOfPathDimensions = pathNodes.map((node, index) => {
-        console.log("VIEW NODE DIMENSIONS");
-        console.log(node.getBBox());
-        return node.getBBox();
-      });
-
-      console.log(arrayOfPathDimensions);
-      console.log(Object.keys(pathNodes));
-      console.log(justOne);
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // Typical usage (don't forget to compare props):
+  //   // if (this.state.selectedMessageIndex !== prevProps.selectedMessageIndex) {
+  //   //   // this.fetchData(this.props.userID);
+  //   //   const pathNodes = Array.from(document.querySelectorAll(".messageWindow"));
+  //   //   const justOne = pathNodes[0].getBBox();
+  //   //   const arrayOfPathDimensions = pathNodes.map((node, index) => {
+  //   //     console.log("VIEW NODE DIMENSIONS");
+  //   //     console.log(node.getBBox());
+  //   //     return node.getBBox();
+  //   //   });
+  //   //   console.log(arrayOfPathDimensions);
+  //   //   console.log(Object.keys(pathNodes));
+  //   //   console.log(justOne);
+  //   // }
+  // }
 
   render() {
-    const getPathDimensions =
-      this.state.selectedMessageIndex !== null && window ? "hello" : "nope";
+    const { me } = this.props.data.data;
     return (
       <Flex
         flexWrap="wrap"
@@ -95,22 +115,26 @@ export default class MessagesPage extends Component<
         color="text"
         style={{ overflow: "hidden", minHeight: 0 }}
       >
+        {/* LEFT PANE GOES HERE */}
         <Flex mr={3} width={[1, 1, 1, 0.37]}>
           <Card
             p={3}
             width={1}
             bg="white"
-            borderRadius="17px"
+            borderRadius="12px"
             boxShadow="0 27px 40px 0 rgba(0, 0, 0, 0.05)"
           >
             <Text fontSize={5}>Messages</Text>
-            <Box py={3} borderTop="2px #eee solid">
-              <Text color="muted">ACTIVE NOW</Text>
+            <Box borderTop="2px #eee solid">
+              <Text pt={3} color="muted">
+                ACTIVE NOW
+              </Text>
 
               {activeMessageThreads.map(
-                (item: MessageThreadProperties, index: number) => (
+                (item: MessageThreadProps, index: number, array: any[]) => (
                   <MessageThreadItem
                     id={item.id}
+                    last={index === array.length - 1}
                     messageIndex={index}
                     key={`${index}-${item.id}`}
                     handleSelectMessageThread={this.handleSelectMessageThread}
@@ -118,42 +142,46 @@ export default class MessagesPage extends Component<
                   />
                 )
               )}
-            </Box>
-            <Box>
-              <Text color="muted">ARCHIVES</Text>
-              <Box>Person 1</Box>
-              <Box>Person 2</Box>
+              <Text pt={3} color="muted">
+                ARCHIVES
+              </Text>
+
+              {archivedMessageThreads.map(
+                (item: MessageThreadProps, index: number, array: any[]) => (
+                  <MessageThreadItem
+                    id={item.id}
+                    last={index === array.length - 1}
+                    messageIndex={index}
+                    key={`${index}-${item.id}`}
+                    handleSelectArchivedMessageThread={
+                      this.handleSelectArchivedMessageThread
+                    }
+                    {...item}
+                  />
+                )
+              )}
             </Box>
           </Card>
         </Flex>
+        {/* RIGHT PANE GOES HERE */}
         <Flex
           flexDirection="column"
           border="lime"
           width={[1, 1, 1, 0.62]}
-          style={{ overflowY: "scroll", maxHeight: "70vh" }}
+          style={{ overflowY: "scroll", maxHeight: "80vh" }}
         >
-          Current Chat Pane
-          <GlobalSVGGradient />
-          {this.state.selectedMessageIndex !== null
-            ? activeMessageThreads
-                .filter(x => x.id === this.state.selectedMessageIndex)[0]
-                .messages.map((message: MessageBody, index: number) => (
-                  // <IncomingMessageBubbleNew
-                  //   key={`${index}-${message.id}`}
-                  //   {...message}
-                  // />
-                  <Box key={`${index}-${message.id}`} width={[1, 1 / 2]}>
-                    <IncomingMessageBubble
-                      x={33.051998138427734}
-                      y={19.666000366210938}
-                      width={247}
-                      styles={styles}
-                      passIndex={index}
-                      {...message}
-                    />
-                  </Box>
-                ))
-            : ""}
+          <GetMyMessagesComponent variables={{ input }}>
+            {({ loading, data, error, subscribeToMore }) => (
+              <ViewMessagesPane
+                subscribeToMore={subscribeToMore}
+                subscriptionFunc={subscribeToMoreFunc}
+                variables={{ subInput }}
+                loading={loading}
+                data={data}
+                error={error}
+              />
+            )}
+          </GetMyMessagesComponent>
         </Flex>
       </Flex>
     );

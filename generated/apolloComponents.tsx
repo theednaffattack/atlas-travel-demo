@@ -66,6 +66,12 @@ export interface DateInput {
   hotelId: string;
 }
 
+export interface GetMessagesInput {
+  sentBy: string;
+
+  user: string;
+}
+
 export interface HotelInput {
   name: string;
 
@@ -135,6 +141,60 @@ export type Upload = any;
 // ====================================================
 // Documents
 // ====================================================
+
+export type AddNewMessageVariables = {
+  message: string;
+};
+
+export type AddNewMessageMutation = {
+  __typename?: "Mutation";
+
+  addNewMessage: boolean;
+};
+
+export type GetMyMessagesVariables = {
+  input: GetMessagesInput;
+};
+
+export type GetMyMessagesQuery = {
+  __typename?: "Query";
+
+  getMyMessages: Maybe<GetMyMessagesGetMyMessages[]>;
+};
+
+export type GetMyMessagesGetMyMessages = {
+  __typename?: "Message";
+
+  id: string;
+
+  message: string;
+
+  createdAt: DateTime;
+
+  sentBy: string;
+};
+
+export type NewMessageVariables = {
+  message: string;
+};
+
+export type NewMessageSubscription = {
+  __typename?: "Subscription";
+
+  newMessage: NewMessageNewMessage;
+};
+
+export type NewMessageNewMessage = {
+  __typename?: "MessageSubType";
+
+  id: string;
+
+  message: Maybe<string>;
+
+  sentBy: string;
+
+  createdAt: Maybe<DateTime>;
+};
 
 export type CreateReservationVariables = {
   data: ReservationInput;
@@ -496,6 +556,138 @@ import gql from "graphql-tag";
 // Components
 // ====================================================
 
+export const AddNewMessageDocument = gql`
+  mutation AddNewMessage($message: String!) {
+    addNewMessage(message: $message)
+  }
+`;
+export class AddNewMessageComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<AddNewMessageMutation, AddNewMessageVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<AddNewMessageMutation, AddNewMessageVariables>
+        mutation={AddNewMessageDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type AddNewMessageProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<AddNewMessageMutation, AddNewMessageVariables>
+> &
+  TChildProps;
+export type AddNewMessageMutationFn = ReactApollo.MutationFn<
+  AddNewMessageMutation,
+  AddNewMessageVariables
+>;
+export function AddNewMessageHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        AddNewMessageMutation,
+        AddNewMessageVariables,
+        AddNewMessageProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    AddNewMessageMutation,
+    AddNewMessageVariables,
+    AddNewMessageProps<TChildProps>
+  >(AddNewMessageDocument, operationOptions);
+}
+export const GetMyMessagesDocument = gql`
+  query GetMyMessages($input: GetMessagesInput!) {
+    getMyMessages(input: $input) {
+      id
+      message
+      createdAt
+      sentBy
+    }
+  }
+`;
+export class GetMyMessagesComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetMyMessagesQuery, GetMyMessagesVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetMyMessagesQuery, GetMyMessagesVariables>
+        query={GetMyMessagesDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetMyMessagesProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetMyMessagesQuery, GetMyMessagesVariables>
+> &
+  TChildProps;
+export function GetMyMessagesHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetMyMessagesQuery,
+        GetMyMessagesVariables,
+        GetMyMessagesProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetMyMessagesQuery,
+    GetMyMessagesVariables,
+    GetMyMessagesProps<TChildProps>
+  >(GetMyMessagesDocument, operationOptions);
+}
+export const NewMessageDocument = gql`
+  subscription NewMessage($message: String!) {
+    newMessage(message: $message) {
+      id
+      message
+      sentBy
+      createdAt
+    }
+  }
+`;
+export class NewMessageComponent extends React.Component<
+  Partial<
+    ReactApollo.SubscriptionProps<NewMessageSubscription, NewMessageVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Subscription<NewMessageSubscription, NewMessageVariables>
+        subscription={NewMessageDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type NewMessageProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<NewMessageSubscription, NewMessageVariables>
+> &
+  TChildProps;
+export function NewMessageHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewMessageSubscription,
+        NewMessageVariables,
+        NewMessageProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewMessageSubscription,
+    NewMessageVariables,
+    NewMessageProps<TChildProps>
+  >(NewMessageDocument, operationOptions);
+}
 export const CreateReservationDocument = gql`
   mutation CreateReservation($data: ReservationInput!) {
     createReservation(data: $data) {

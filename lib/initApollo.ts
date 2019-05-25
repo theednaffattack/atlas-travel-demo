@@ -8,6 +8,11 @@ import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
 import { onError } from "apollo-link-error";
 
+import { split } from "apollo-link";
+// import { HttpLink } from "apollo-link-http";
+import { WebSocketLink } from "apollo-link-ws";
+import { getMainDefinition } from "apollo-utilities";
+
 import { isBrowser } from "./isBrowser";
 import Router from "next/router";
 
@@ -22,17 +27,67 @@ interface Options {
   getToken: () => string;
 }
 
+const homeHost = "192.168.1.40";
+
 function create(initialState: any, { getToken }: Options) {
   const httpLink = createHttpLink({
-    uri: "http://192.168.1.40:4000/graphql",
+    uri: `http://${homeHost}:4000/graphql`,
     credentials: "include"
   });
+
+  // const authToken = getToken();
+
+  // token ? `qid=${token}` : ""
+  // return {
+  //   headers: {
+  //     ...headers,
+  //     cookie: token ? `qid=${token}` : ""
+  //   }
+  // };
+
+  // Create a WebSocket link:
+  const wsLink = isBrowser
+    ? new WebSocketLink({
+        uri: `ws://${homeHost}:4000/subscriptions`,
+        options: {
+          reconnect: true
+          // connectionParams: {
+          //   authToken: authToken ? `qid=${authToken}` : ""
+          // }
+        }
+      })
+    : null;
+
+  const link = isBrowser
+    ? split(
+        // split based on operation type
+        ({ query }) => {
+          const definition = getMainDefinition(query);
+          console.log("IS SPLIT WORKING?");
+          console.log(definition);
+          console.log(
+            definition.kind === "OperationDefinition" &&
+              definition.operation === "subscription"
+          );
+          return (
+            definition.kind === "OperationDefinition" &&
+            definition.operation === "subscription"
+          );
+        },
+        wsLink!,
+        httpLink
+      )
+    : httpLink;
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
       graphQLErrors.map(({ message, locations, path }) => {
         console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(
+            locations,
+            null,
+            2
+          )}, Path: ${path}`
         );
         if (isBrowser && message.includes("Not authenticated")) {
           Router.replace("/login");
@@ -43,6 +98,9 @@ function create(initialState: any, { getToken }: Options) {
 
   const authLink = setContext((_, { headers }) => {
     const token = getToken();
+
+    console.log("WHAT IS THE TOKEN");
+    console.log(token);
     return {
       headers: {
         ...headers,
@@ -55,7 +113,7 @@ function create(initialState: any, { getToken }: Options) {
   return new ApolloClient({
     connectToDevTools: isBrowser,
     ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
-    link: errorLink.concat(authLink.concat(httpLink)),
+    link: errorLink.concat(authLink.concat(link)),
     cache: new InMemoryCache().restore(initialState || {})
   });
 }

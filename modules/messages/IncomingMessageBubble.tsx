@@ -20,10 +20,13 @@ export const IncomingMessageBubble = (props: any) => {
     <svg
       style={{ border: "2px red solid" }}
       width="100%"
+      preserveAspectRatio="xMidYMax meet"
+      // preserveAspectRatio="none"
       height="100%"
       // width="313px"
       // height="233px"
-      viewBox="0 0 313 233"
+      // viewBox="33 20 247 67"
+      viewBox="33 20 247 167"
       xlinkHref="http://www.w3.org/1999/xlink"
     >
       <defs>
@@ -82,7 +85,7 @@ export const IncomingMessageBubble = (props: any) => {
         width={props.width}
         kerning="auto"
         fill="white"
-        fontSize="18px"
+        fontSize="16px"
         // transform="matrix( 0.49313725490196, 0, 0, 0.49313724040985, 62.5340519607843, 84.5584735023976)"
       >
         {props.messageText}

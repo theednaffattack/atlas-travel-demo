@@ -10,15 +10,15 @@ const gradient: string =
 
 export const IncomingMessageBubble = ({
   title,
-  messageText,
+  message,
   id,
-  timestamp
+  createdAt
 }: MessageBody) => {
   return (
     <Card
       color="white"
       px={0}
-      pb={4}
+      pb={2}
       ml={[3, 5]}
       my={3}
       boxShadow="0px 13px 33px 0px rgba(0, 0, 0, 0.1)"
@@ -27,19 +27,24 @@ export const IncomingMessageBubble = ({
     >
       <Box py={3} px={4}>
         <Text>{title}</Text>
+        <Text>({id})</Text>
       </Box>
       <StyledHR />
-      <Box px={4}>
-        <Text>{messageText}</Text>
+      <Box py={3} px={4}>
+        <Text fontSize={[3]}>{message}</Text>
       </Box>
-      <Box px={4}>
-        <Text>{id}</Text>
-      </Box>
-      <Box px={4}>
-        <Text>
-          {getTimeWords(new Date(timestamp), new Date()).toUpperCase()}
+      <Card
+        borderRadius="17px"
+        width="180px"
+        bg="rgba(0,0,0,0.125)"
+        py={1}
+        px={2}
+        ml={3}
+      >
+        <Text textAlign="center" fontSize={[1]}>
+          {getTimeWords(createdAt)}
         </Text>
-      </Box>
+      </Card>
     </Card>
   );
 };

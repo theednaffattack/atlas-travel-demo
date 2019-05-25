@@ -46,7 +46,7 @@ export const activeMessageThreads: MessageThreadProperties[] = [
         id: "789gwer5e65efty45",
         title: "Title 3",
         messageText:
-          "🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶",
+          "🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶 🎶 🎶 Whoa oo oh oh oh ohhhhhhhh 🎶 🎶",
         timestamp: "2019-05-17T18:01:32.567Z"
       }
     ]

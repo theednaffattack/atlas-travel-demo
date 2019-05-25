@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import {
+  backgroundImage,
   borders,
   position,
   top,
   left,
   bottom,
   right,
-  zIndex
+  zIndex,
+  minHeight
 } from "styled-system";
 import React from "react";
 import { Box as BoxBase, Flex as FlexBase, Image, Text } from "rebass";
@@ -19,6 +21,17 @@ ${position}
   ${bottom}
   ${left}
   ${zIndex}
+`;
+
+export const AbWrapper = styled(FlexBase)`
+${borders}
+${position}
+${top}
+${left}
+${right}
+${bottom}
+${zIndex}
+${backgroundImage}
 `;
 
 export const DotBase = (props: any) => (
@@ -45,8 +58,10 @@ export const Dot = styled(DotBase)`
 export const Flex = styled(FlexBase)`
   ${borders}
 `;
+
 export const Box = styled(BoxBase)`
   ${borders}
+  ${minHeight}
   ${position}
 `;
 

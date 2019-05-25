@@ -23,6 +23,12 @@ export default (App: any) => {
     };
 
     static async getInitialProps(ctx: any) {
+      console.log("STATIC METHOD GETINITIALPROPS IN WITHAPOLLO");
+      console.log("what is ctx?");
+      console.log(Object.keys(ctx.ctx));
+      // console.log(parseCookies(ctx.ctx.req));
+      // console.log(ctx.ctx.req.headers);
+      // console.log(Object.keys(ctx.ctx.req));
       const {
         Component,
         router,

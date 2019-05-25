@@ -6,10 +6,8 @@ export function truncate(
   trailingElem?: any
 ) {
   if (words.length > truncateLen) {
-    const wordCount = words.split(" ").length;
     const returnSet = words.slice(0, truncateLen);
-    console.log("word count:", wordCount);
-    return `${returnSet} ${trailingElem}`; //  ? trailingElem : "...";
+    return `${returnSet} ${trailingElem}`;
   } else {
     return words;
   }

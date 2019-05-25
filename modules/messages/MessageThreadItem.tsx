@@ -10,6 +10,8 @@ export const MessageThreadItem = ({
   avatar,
   id,
   handleSelectMessageThread,
+  handleSelectArchivedMessageThread,
+  last,
   messages,
   messageIndex,
   name
@@ -17,11 +19,15 @@ export const MessageThreadItem = ({
   return (
     <Flex
       id={id}
-      onClick={handleSelectMessageThread}
+      onClick={
+        handleSelectMessageThread
+          ? handleSelectMessageThread
+          : handleSelectArchivedMessageThread
+      }
       py={3}
       alignItems="center"
       width={1}
-      borderBottom="2px #eee solid"
+      borderBottom={last ? "" : "2px #eee solid"}
     >
       <Box position="relative">
         <Image borderRadius="17px" src={avatar} />

@@ -71,3 +71,23 @@ const isBrowser = typeof window !== "undefined";
 ## SVG Line Width
 
 https://codepen.io/techniq/pen/rLXwJJ
+
+## SVG Path guide
+
+https://css-tricks.com/svg-path-syntax-illustrated-guide/
+
+## Path editor
+
+http://jxnblk.com/paths/?d=M263%20187%20L59%20186%20C128%20186.66%2042.667%20179.2%2042.667%20170%20L42.667%2071%20L42.67%2053.6%20L42.67%2039.6%20C42.227%2036.36%2040.87%2033.6%2039%2031.9%20L34.489%2027.285%20L34.49%2027.27%20C33.6%2026.47%2033%2025.3%2033%2024%20C33%2021.667%2034.9%2019.74%2037.29%2019.7%20L37.28%2019.69%20L42.84%2019.684%20L42.84%2019.66%20L59.33%2019.66%20L66.729%2019.66%20L263%2019.66%20L263%20103.33%20C272.25%2019.66%20279.667%2027.128%20279.667%2036.33%20L279.67%2053.66%20L279.67%2071.33%20L279.67%20170%20C279.667%20179.2%20272.2%20186.66%20263%20186.6%20Z
+
+## Apollo Client Subscriptions
+
+https://www.apollographql.com/docs/react/advanced/subscriptions
+
+## Real Time Chat Client
+
+https://www.prisma.io/blog/how-to-build-a-real-time-chat-with-graphql-subscriptions-and-apollo-d4004369b0d4
+
+## GraphQL Server Errors
+
+https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1

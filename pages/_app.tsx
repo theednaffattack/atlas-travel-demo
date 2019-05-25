@@ -23,6 +23,8 @@ body {
 
 const blue = "#07c";
 
+const darken: any = (n: number) => `rgba(0,0,0,${n})`;
+
 const theme = {
   breakpoints: ["40em", "52em", "64em"],
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
@@ -31,7 +33,19 @@ const theme = {
     lightgray: "#f6f6ff",
     text: "rgb(68, 68, 68)",
     muted: "#888888",
-    baseFill: "rgb(204, 204, 204)"
+    baseFill: "rgb(204, 204, 204)",
+
+    shade: [
+      darken(0),
+      darken(1 / 8),
+      darken(1 / 4),
+      darken(3 / 8),
+      darken(1 / 2),
+      darken(5 / 8),
+      darken(3 / 4),
+      darken(7 / 8),
+      darken(1)
+    ]
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256],
   fonts: {

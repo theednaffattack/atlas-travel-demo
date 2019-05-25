@@ -4,6 +4,8 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import Modal from "../modules/discover/Modal/Modal";
 import { hotel } from "../mockData/hotel/hotel";
+import { NewMessageComponent } from "../generated/NewMessageComponent";
+import { newMessageSub } from "../graphql/message/subscriptions/NewMessage";
 
 const fakeAmenities = [
   "wifi",
@@ -20,7 +22,7 @@ class AboutPage extends Component<React.Component> {
   }
 
   state = {
-    showModal: true
+    showModal: false
   };
 
   toggleModal() {
@@ -51,6 +53,11 @@ class AboutPage extends Component<React.Component> {
           show={this.state.showModal}
           toggle={this.toggleModal}
         />
+        <NewMessageComponent>
+          {(newMessageSub: any) => (
+            <div>Some more stuff {Object.keys(newMessageSub)}</div>
+          )}
+        </NewMessageComponent>
       </Layout>
     );
   }
