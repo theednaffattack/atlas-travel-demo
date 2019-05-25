@@ -116,7 +116,7 @@ export default class MessagesPage extends Component<
       >
         <Flex width="100%" position="static" />
         {/* LEFT PANE GOES HERE */}
-        <Flex mr={3} width={[1, 1, 1, 0.37]}>
+        <Flex mr={[0, 3]} width={[1, 1, 1, 0.37]}>
           <Card
             p={3}
             width={1}
@@ -193,7 +193,7 @@ export default class MessagesPage extends Component<
           <AbBox
             width={1}
             zIndex={999}
-            bg="transparent"
+            bg="#eee"
             position="absolute"
             pt={3}
             px={4}
@@ -208,13 +208,14 @@ export default class MessagesPage extends Component<
                 <Formik
                   validateOnBlur={false}
                   validateOnChange={false}
-                  onSubmit={async (data, { setErrors }) => {
+                  onSubmit={async (data, { setErrors, resetForm }) => {
                     console.log("SUBMIT!!!");
                     console.log(JSON.stringify(data, null, 2));
 
                     addNewMEssage({
                       variables: { message: data.message }
                     });
+                    resetForm();
                     // variables={{ message: "ayyyyyyy" }}
 
                     // let response;

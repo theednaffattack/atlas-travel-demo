@@ -46,11 +46,18 @@ export default class ViewMessagesPane extends Component {
             />
           ))}
           <div
-            style={{ marginTop: "80px", float: "left", clear: "both" }}
+            style={{
+              color: "white",
+              marginTop: "80px",
+              float: "left",
+              clear: "both"
+            }}
             ref={el => {
               this.messagesEnd = el;
             }}
-          />
+          >
+            .
+          </div>
         </div>
       </Flex>
     );
