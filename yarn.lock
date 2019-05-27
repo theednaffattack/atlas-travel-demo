@@ -2347,12 +2347,12 @@
   dependencies:
     csstype "^2.2.0"
 
-"@types/styled-system@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-4.0.0.tgz#d6fe4f1d6a9ed075b86c54a5d792748a68aba130"
-  integrity sha512-pRbhOmp4C2Psj2jXHwTsTrUwzOYinZGmSq7dLEGCYUMQq9aePAswQLYqTEQK3002ZtfEX5okipifDMhlOBcQ4w==
+"@types/styled-system@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-4.2.1.tgz#dc03af329452b5208aba9dc56fdfc6971b9ed2d0"
+  integrity sha512-4wARGJuZz1DzogmGAKhOviaDeZYfOU29ROt/XrWSFTKhTNSpMvq7WyzEUuxPRC70VH57eUB1uxsWrKYND/FgJQ==
   dependencies:
-    csstype "^2.2.0"
+    csstype "^2.6.4"
 
 "@types/tapable@*":
   version "1.0.4"
@@ -5264,6 +5264,11 @@ csstype@^2.5.2, csstype@^2.5.7:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.3.tgz#b701e5968245bf9b08d54ac83d00b624e622a9fa"
   integrity sha512-rINUZXOkcBmoHWEyu7JdHu5JMzkGRoMX4ov9830WNgxf5UYxcBUO0QTKAqeJ5EZfSdlrcJYkC8WwfVW7JYi4yg==
+
+csstype@^2.6.4:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.5.tgz#1cd1dff742ebf4d7c991470ae71e12bb6751e034"
+  integrity sha512-JsTaiksRsel5n7XwqPAfB0l3TFKdpjW/kgAELf9vrb5adGA7UCPLajKK5s3nFrcFm3Rkyp/Qkgl73ENc1UY3cA==
 
 currently-unhandled@^0.4.1:
   version "0.4.1"

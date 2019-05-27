@@ -81,7 +81,7 @@ const ContentFlex = styled(FlexBase)`
 
 const IndexPage: React.FunctionComponent = props => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <Layout title="Home | Atlas Travel">
       {/* <Card
         p={4}
         py={6}

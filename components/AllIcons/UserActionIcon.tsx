@@ -24,7 +24,7 @@ let myPaths: PathProps = paths;
 const IconBase = ({
   fill = "rgb(255, 255, 255)",
   selected = false,
-  name = "travels",
+  name = "discover",
   className = "icon",
   size = "1em",
   height,

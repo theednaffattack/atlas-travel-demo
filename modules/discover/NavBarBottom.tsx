@@ -208,7 +208,7 @@ export class NavBarBottom extends Component {
                   height="40px"
                   width="40px"
                   fill="active"
-                  name="travels"
+                  name="discover"
                 />
               </Box>
               {/* <Text color={baseFill} fontSize=".9em" fontFamily="montserrat">

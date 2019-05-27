@@ -1,6 +1,8 @@
 import React from "react";
 import { Flex } from "rebass";
-import ExploreMain from "./ExploreMain";
+
+import ExploreTabMain from "./ExploreTabMain";
+import Tabs from "../modules/explore/Tabs/Tabs";
 
 interface CustExploreProps {
   data: any;
@@ -14,6 +16,6 @@ export const ExplorePage = ({ data }: CustExploreProps, props: any) => (
     // justifyContent="center"
     {...props}
   >
-    <ExploreMain data={data} />
+    <ExploreTabMain data={data} />
   </Flex>
 );

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Link from "next/link";
-
+import { Text } from "rebass";
 import Layout from "../components/Layout";
 import Modal from "../modules/discover/Modal/Modal";
 import { hotel } from "../mockData/hotel/hotel";
-import { NewMessageComponent } from "../generated/NewMessageComponent";
+import { NewMessageComponent } from "../generated/apolloComponents";
 import { newMessageSub } from "../graphql/message/subscriptions/NewMessage";
+import Tabs from "../modules/explore/Tabs/Tabs";
 
 const fakeAmenities = [
   "wifi",
@@ -58,6 +59,16 @@ class AboutPage extends Component<React.Component> {
             <div>Some more stuff {Object.keys(newMessageSub)}</div>
           )}
         </NewMessageComponent>
+        <Tabs>
+          <div label="Activities">
+            <Text>Nature's Light</Text>
+            <Text>Cultural</Text>
+            <Text>Popularity</Text>
+            <Text>Modern Life</Text>
+            <Text>Sun & Sand</Text>
+          </div>
+          <div label="Explore">Buncha weird stuff</div>
+        </Tabs>
       </Layout>
     );
   }

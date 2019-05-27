@@ -144,6 +144,7 @@ export type Upload = any;
 
 export type AddNewMessageVariables = {
   message: string;
+  sentBy: string;
 };
 
 export type AddNewMessageMutation = {
@@ -176,6 +177,7 @@ export type GetMyMessagesGetMyMessages = {
 
 export type NewMessageVariables = {
   message: string;
+  sentBy: string;
 };
 
 export type NewMessageSubscription = {
@@ -557,8 +559,8 @@ import gql from "graphql-tag";
 // ====================================================
 
 export const AddNewMessageDocument = gql`
-  mutation AddNewMessage($message: String!) {
-    addNewMessage(message: $message)
+  mutation AddNewMessage($message: String!, $sentBy: String!) {
+    addNewMessage(message: $message, sentBy: $sentBy)
   }
 `;
 export class AddNewMessageComponent extends React.Component<
@@ -644,8 +646,8 @@ export function GetMyMessagesHOC<TProps, TChildProps = any>(
   >(GetMyMessagesDocument, operationOptions);
 }
 export const NewMessageDocument = gql`
-  subscription NewMessage($message: String!) {
-    newMessage(message: $message) {
+  subscription NewMessage($message: String!, $sentBy: String!) {
+    newMessage(message: $message, sentBy: $sentBy) {
       id
       message
       sentBy

@@ -231,7 +231,7 @@ export class NavBarTop extends Component {
                   height="40px"
                   width="40px"
                   fill="active"
-                  name="travels"
+                  name="discover"
                 />
               </div>
               {/* <TravelIcon mb={2} height="40px" /> */}

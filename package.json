@@ -62,7 +62,7 @@
     "@types/rebass": "^3.0.3",
     "@types/storybook__react": "^4.0.1",
     "@types/styled-components": "^4.1.13",
-    "@types/styled-system": "^4.0.0",
+    "@types/styled-system": "^4.2.1",
     "@types/yup": "^0.26.12",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",

@@ -19,50 +19,50 @@ import {
   width
 } from "styled-system";
 
-import WeatherSunnyIconBase from "../../static/images/discover/weather_sunny.svg";
-// import CloudyIconBase from "../../static/images/discover/cloudy.svg";
-import LoveIconBase from "../../static/images/discover/love.svg";
-import CommentIconBase from "../../static/images/discover/comment.svg";
-import MoreIconBase from "../../static/images/discover/more.svg";
+// import WeatherSunnyIconBase from "../../static/images/discover/weather_sunny.svg";
+// // import CloudyIconBase from "../../static/images/discover/cloudy.svg";
+// import LoveIconBase from "../../static/images/discover/love.svg";
+// import CommentIconBase from "../../static/images/discover/comment.svg";
+// import MoreIconBase from "../../static/images/discover/more.svg";
 // import { cardInfo } from "./cardInfo";
 // import {zoomImageProps} from "./Modal/motionConfig"
-import { ZoomCard, ZoomSupreme } from "./Modal/StyledCard";
+// import { ZoomCard, ZoomSupreme } from "./Modal/StyledCard";
 import ZoomImg from "./Modal/ZoomImage/ZoomImage";
-import {} from "./Modal/StyledCard";
+// import {} from "./Modal/StyledCard";
 import posed from "react-pose";
 import { zoomImageProps } from "./Modal/motionConfig";
 
 import Modal from "./Modal/Modal";
 //Icons
-const SunnyIcon = styled(WeatherSunnyIconBase)`
-${height}
-${width}
-${space}
-`;
-
-// const CloudyIcon = styled(CloudyIconBase)`
+// const SunnyIcon = styled(WeatherSunnyIconBase)`
 // ${height}
 // ${width}
 // ${space}
 // `;
 
-const LoveIcon = styled(LoveIconBase)`
-${height}
-${width}
-${space}
-`;
+// // const CloudyIcon = styled(CloudyIconBase)`
+// // ${height}
+// // ${width}
+// // ${space}
+// // `;
 
-const CommentIcon = styled(CommentIconBase)`
-${height}
-${width}
-${space}
-`;
+// const LoveIcon = styled(LoveIconBase)`
+// ${height}
+// ${width}
+// ${space}
+// `;
 
-const MoreIcon = styled(MoreIconBase)`
-${height}
-${width}
-${space}
-`;
+// const CommentIcon = styled(CommentIconBase)`
+// ${height}
+// ${width}
+// ${space}
+// `;
+
+// const MoreIcon = styled(MoreIconBase)`
+// ${height}
+// ${width}
+// ${space}
+// `;
 
 // other stuff
 // const transition = {
@@ -212,15 +212,15 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                     </Text>
                   </Box>
                   <Box ml="auto">
-                    <MoreIcon
+                    {/* <MoreIcon
                       id={index.toString()}
                       onClick={this.toggleModal}
                       height="14px"
-                    />
+                    /> */}
                   </Box>
                 </ContentFlex>
                 <ContentFlex alignItems="center">
-                  <SunnyIcon height="30px" />
+                  {/* <SunnyIcon height="30px" /> */}
                   <Box>
                     <Text width={1} textAlign="center">
                       {info.temperature}
@@ -233,17 +233,13 @@ export class FeaturedCards extends Component<CustomFeatureCardProps> {
                     width={1}
                     borderTop="2px #ccc solid"
                   >
-                    <Box pl={2}>
-                      <LoveIcon height="12px" />
-                    </Box>
+                    <Box pl={2}>{/* <LoveIcon height="12px" /> */}</Box>
                     <Box pl="2px" fontSize=".75em">
                       {info.loveCount > 999
                         ? (info.loveCount / 1000).toString() + "K"
                         : info.loveCount}
                     </Box>
-                    <Box pl={3}>
-                      <CommentIcon height="12px" />
-                    </Box>
+                    <Box pl={3}>{/* <CommentIcon height="12px" /> */}</Box>
                     <Box pl="2px" fontSize=".75em">
                       {info.commentCount}
                     </Box>

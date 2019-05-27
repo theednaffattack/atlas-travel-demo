@@ -62,7 +62,7 @@ const FlexSpecial = styled(FlexSpecialBase)`
   transform: translateZ(0);
 `;
 
-export default class ExploreMain extends React.Component<
+export default class ExploreTabMain extends React.Component<
   ExploreMainProps,
   ExploreMainState
 > {

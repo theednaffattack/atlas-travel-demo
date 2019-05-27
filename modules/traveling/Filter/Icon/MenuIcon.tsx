@@ -27,7 +27,7 @@ const baseFill = "rgb(204, 204, 204)";
 
 const Icon = ({
   fill = "currentColor",
-  name = "travels",
+  name = "discover",
   className = "icon",
   size = "1em",
   height,

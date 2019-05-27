@@ -22,7 +22,7 @@ let myPaths: PathProps = paths;
 export const Icon = ({
   fill = "rgb(255, 255, 255)",
   selected = false,
-  name = "travels",
+  name = "discover",
   className = "icon",
   size = "1em",
   height,

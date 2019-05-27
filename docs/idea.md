@@ -95,3 +95,7 @@ https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1
 ## ScrollToBottom / ScrollIntoView
 
 https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
+
+## https://alligator.io/react/tabs-component/
+
+https://alligator.io/react/tabs-component/
