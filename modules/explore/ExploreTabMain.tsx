@@ -66,7 +66,7 @@ export default class ExploreTabMain extends React.Component<
   ExploreMainProps,
   ExploreMainState
 > {
-  constructor(props) {
+  constructor(props: ExploreMainProps) {
     super(props);
 
     this.openFilters = this.openFilters.bind(this);

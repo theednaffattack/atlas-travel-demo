@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  width: 100vw;
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+.slide {
+  min-width: 100%;
+  margin: 0 16px;
+  cursor: pointer;
+}
+
+.wrapper {
+  box-sizing: content-box;
+  margin: 0 auto;
+  position: relative;
+  border: 8px solid black;
+  background: purple;
+  width: 80%;
+  height: 200px;
+}

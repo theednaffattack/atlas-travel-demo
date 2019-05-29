@@ -27,7 +27,7 @@ interface Options {
   getToken: () => string;
 }
 
-const homeHost = "192.168.1.40";
+const homeHost = "localhost"; // "192.168.1.40";
 
 function create(initialState: any, { getToken }: Options) {
   const httpLink = createHttpLink({

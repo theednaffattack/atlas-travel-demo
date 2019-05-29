@@ -2,16 +2,17 @@ import posed, { PoseGroup } from "react-pose";
 import React, { Component } from "react";
 import Carousel from "./PopSlideCarousel";
 
-import { SaveButtonIcon } from "./SaveButton";
+import { Card, Flex, Heading, AbWrapper } from "../StyledComponents";
+
+// import { SaveButtonIcon } from "./SaveButton";
 
 import { Image as ImageBase, Text } from "rebass";
 
+import { ImageProps } from "./types";
+
 import { MiniCarousel } from "./MiniCarousel";
 
-import { AbWrapper } from "../LocalStyledComponents/Comps";
-
-import { itemMotionProps } from "../motionConfig";
-import { any } from "prop-types";
+import { itemMotionProps } from "./motionConfig";
 
 export const Item = posed.figure(itemMotionProps);
 
@@ -20,28 +21,78 @@ const ItemStyleProps: React.CSSProperties = {
   marginRight: 0, // "10px",
   marginTop: 0,
   width: "auto",
+  // height: "300px",
   cursor: "grab",
-  minWidth: "120%"
-  // minHeight: "750px",
+  minWidth: "100%",
+  minHeight: "550px",
+  overflow: "hidden",
+  position: "relative"
 
   // backgroundImage:
   //   "linear-gradient( 75deg, rgb(17,17,17) 0%, rgb(17,17,17) 100%)",
 };
 
-export const Image = (props: any) => (
-  <Item
-    onClick={props.clickFunc}
+export const Image = ({
+  clickFunc,
+  headingText,
+  index,
+  src,
+  topTag
+}: ImageProps) => (
+  <Card
+    color="white"
+    backgroundImage={`url(${src})`}
+    backgroundSize="cover"
+    // borderRadius="17px"
+    onClick={clickFunc}
+    id={index}
     // width={props.width}
     // height={props.height}
     style={ItemStyleProps}
   >
-    <ImageBase src={props.src.uri} />
+    <Flex
+      minHeight="100%"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom left, rgba(0,0,0,0.1),rgba(0,0,0,0.6))",
+        backgroundSize: "cover"
+      }}
+    >
+      {/* <ImageBase
+      // height="100%"
+      // width={1}
+      src={src}
+    /> */}
 
-    <Text mt={-4} color="white" as="figcaption">
-      {" "}
-      {props.src.uri}
-    </Text>
-  </Item>
+      {/* ${borders}
+${position}
+${top}
+${left}
+${right}
+${bottom}
+${zIndex}
+${backgroundImage} */}
+      <AbWrapper
+        flexDirection="column"
+        justifyContent="start"
+        position="absolute"
+        color="white"
+        pl={4}
+        width={1 / 2}
+        left={0}
+        bottom="50%"
+      >
+        <Text mb={3}>{topTag}</Text>
+        <Heading mb={3} fontSize={[4, 5]}>
+          {headingText}
+        </Heading>
+
+        <Text color="white" as="figcaption">
+          {src}
+        </Text>
+      </AbWrapper>
+    </Flex>
+  </Card>
 );
 const slides = ["blue", "red", "yellow", "green"];
 
@@ -50,47 +101,65 @@ const slides = ["blue", "red", "yellow", "green"];
 //   photos: string[];
 // }
 
-interface CustomProps {
+interface CarouselContainerProps {
   // setSlideIndex: any;
   // slideIndex: number;
-  // component: Component;
-  photos: string[];
+  heading: React.FC;
+  photos: CarouselAsset[];
 }
 
-class CarouselContainer extends Component<CustomProps> {
+interface CarouselContainerState {
+  slideIndex: number;
+}
+
+class CarouselContainer extends Component<
+  CarouselContainerProps,
+  CarouselContainerState
+> {
   state = {
     slideIndex: 0
   };
 
-  setSlideIndex = slideIndex => {
+  setSlideIndex = (
+    event: React.ChangeEvent<HTMLElement>,
+    slideIndexNum: number
+  ) => {
+    const slideIndex =
+      slideIndexNum || slideIndexNum === 0
+        ? slideIndexNum
+        : parseInt(event.target.id);
+
     this.setState({ slideIndex });
   };
 
   render() {
     const { slideIndex } = this.state;
-    const { photos, isZoomed } = this.props;
+    const { photos, heading } = this.props;
     return (
       <div
         className="App"
         style={{
           fontFamily: "sans-serif",
-          textAlign: "center",
+          // textAlign: "center",
           width: "100%",
           position: "relative",
-          overflow: "hidden"
-          // minHeight: "400px"
+          overflow: "hidden",
+          minHeight: "400px",
+          // border: "2px crimson solid",
+          borderRadius: "17px"
+          // maxHeight: "500px",
           // height: "100%"
         }}
       >
         <div
           style={{
-            position: "relative"
+            position: "relative",
             // height: "auto",
-            // width: "auto"
+            width: "auto"
           }}
         >
-          <SaveButtonIcon />
-          <div style={{}}>
+          {/* <SaveButtonIcon /> */}
+          <div>
             <MiniCarousel
               setSlideIndex={this.setSlideIndex}
               onSlideChange={this.setSlideIndex}
@@ -117,14 +186,17 @@ class CarouselContainer extends Component<CustomProps> {
           >
             {photos.map((photo, index) => (
               <Image
-                // height="100%"
+                height="100%"
                 // width="100%"
                 // imageHeight="100%"
                 // imageWidth="100%"
-                index={index}
-                src={photo}
+                index={index.toString()}
+                id={index}
+                headingText={photo.headingText}
+                topTag={photo.topTag}
+                src={photo.uri}
                 key={`unsplash-${index}`}
-                clickFunc={() => this.setSlideIndex(index)}
+                clickFunc={this.setSlideIndex}
                 // onClick={() => setSlideIndex(index)}
               />
             ))}

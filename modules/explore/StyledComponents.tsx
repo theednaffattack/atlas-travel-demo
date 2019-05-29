@@ -4,18 +4,22 @@ import {
   Button as ButtonBase,
   Card as CardBase,
   Flex as FlexBase,
+  Heading,
+  Image,
   Text
 } from "rebass";
 import {
   background,
   backgroundImage,
   borders,
+  boxShadow,
   display,
   height,
   minHeight,
   position,
   space,
   width,
+  zIndex,
   ///
   top,
   right,
@@ -23,12 +27,22 @@ import {
   bottom
 } from "styled-system";
 
-export { Text };
+export { Heading, Image, Text };
+
+import IconBase from "../../components/AllIcons/Icon";
+
+export const Icon = styled(IconBase)`
+${height}
+${width}
+${space}
+`;
 
 export const SVGButton = styled.button`
   ${height}
   ${width}
   background-color: transparent;
+  border-radius: 25px;
+  overflow: hidden;
   padding-top: 0;
   padding-bottom: 0;
   padding-right: 0;
@@ -39,12 +53,42 @@ export const SVGButton = styled.button`
   }
 `;
 
+export const ContentFlex = styled(FlexBase)`
+  ${minHeight}
+  ${borders}
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const AbBox = styled(BoxBase)`
+${borders}
+${position}
+  ${top}
+  ${right}
+  ${bottom}
+  ${left}
+  ${zIndex}
+`;
+
+export const AbWrapper = styled(FlexBase)`
+${borders}
+${position}
+${top}
+${left}
+${right}
+${bottom}
+${zIndex}
+${backgroundImage}
+`;
+
 export const Button = styled(ButtonBase)`
   ${height}
   ${width}
 `;
 
 export const Box = styled(BoxBase)`
+${backgroundImage}
   ${borders}
   ${display}
   ${minHeight}
@@ -128,25 +172,3 @@ export const FinalLi = ({ active, children, ...otherProps }: FinalLiProps) => {
     </LiStyledv2>
   );
 };
-
-{
-  /* <LiStyledv2
-border={active === "active" ? "2px solid #ccc" : ""}
-backgroundColor={active === "active" ? "white" : ""}
-display="inline-block"
->
-{children}
-</LiStyledv2> */
-}
-{
-  /* <LiStyled 
-    py="8px"
-    px="12px"
-    border={active === "active" ? "2px solid #ccc" : ""}
-    backgroundColor={active === "active" ? "white" : ""}
-    display="inline-block"
-  >
-    {children}
-  </LiStyled>
-  */
-}

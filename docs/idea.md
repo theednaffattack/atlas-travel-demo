@@ -99,3 +99,7 @@ https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
 ## https://alligator.io/react/tabs-component/
 
 https://alligator.io/react/tabs-component/
+
+## React with TypeScript
+
+https://www.sohamkamani.com/blog/react/2018-08-22-using-react-with-typescript/
